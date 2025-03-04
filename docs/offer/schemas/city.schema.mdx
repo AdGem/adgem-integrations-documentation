@@ -1,0 +1,33 @@
+---
+id: city
+title: "City"
+description: ""
+sidebar_label: "City"
+hide_title: true
+hide_table_of_contents: true
+schema: true
+sample: {"name":"Los Angeles","slug":"los-angeles","geoname_id":"5368361"}
+custom_edit_url: null
+---
+
+import Schema from "@theme/Schema";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"City"}
+>
+</Heading>
+
+
+
+
+
+<Schema
+  schema={{"x-tags":["offer"],"required":["name","geoname_id"],"properties":{"name":{"type":"string"},"slug":{"type":"string"},"geoname_id":{"type":"string"}},"type":"object","example":{"name":"Los Angeles","slug":"los-angeles","geoname_id":"5368361"},"title":"City"}}
+  schemaType={"response"}
+>
+  
+</Schema>
+            

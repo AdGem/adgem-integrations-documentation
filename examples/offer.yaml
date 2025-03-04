@@ -1,0 +1,530 @@
+openapi: 3.0.0
+servers:
+  - url: https://offer-api.adgem.com/v1
+    description: Default server
+  - url: http://127.0.0.1:8088
+    description: Offer API (local)
+info:
+  description: |
+    ## Introduction
+    The Offer API allows publishers to pull offers and display them natively on their website or app. This integration type can be used in a variety of UIs and works especially well for featured placement sections. The Offer API returns all offers (both single and multi-reward) by default, along with goal-related data and a unique ID for each offer.
+
+    The Offer API returns all available offers and allows publishers to control sorting and targeting of offers for their players.
+
+    The Offer API is not designed to be called in real-time client scenarios.
+
+    We recommend you call our API every 5 minutes to ensure your players have access to the most up-to-date offers. If your app is polling the API more than 60/min this will result in an error. NOTE: Offers may return to the feed after they have been removed due to day capping/temporary pausing.
+
+    ## Authentication
+    The Offer API offers two forms of authentication:
+      - API Key
+
+  version: 1.0.0
+  title: Offer API
+  termsOfService: "https://docs.adgem.com/publisher-support/pub-terms-and-conditions/"
+  contact:
+    name: API Support
+    email: info@adgem.com
+    url: https://adgem.com
+  # x-logo:
+  #   url: "https://adgem.com/wp-content/uploads/adgem_logo_small2.png"
+  #   altText: AdGem logo
+  # x-dark-logo:
+  #   url: "/img/petstore-logo-dark.png"
+  #   altText: "TBD dark logo"
+  license:
+    name: Apache 2.0
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+tags:
+  - name: offer
+    description: Everything about your Offers
+    x-displayName: Offers
+  - name: offer_model
+    x-displayName: The Offer Model
+    description: |
+      <SchemaDefinition schemaRef="#/components/schemas/Offer" />
+x-tagGroups:
+  - name: General
+    tags:
+      - offer
+  - name: Models
+    tags:
+      - offer_model
+paths:
+  /offers:
+    parameters:
+      - name: Authorization
+        in: header
+        description: "Bearer token"
+        required: true
+        schema:
+          type: string
+    get:
+      tags:
+        - offer
+      summary: Retrieve untargeted offers
+      description: Retrieve a list of untargeted offers
+      operationId: getOffers
+      responses:
+        "401":
+          description: Unauthorized
+        "200":
+          description: A list of offers
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Offer"
+      security:
+        - BearerAuth: []
+components:
+  schemas:
+    Offer:
+      type: offer
+      required:
+        - id
+        - name
+        - store_id
+        - tracking_type
+        - total_payout_usd
+        - total_amount
+        - start_datetime
+        - completion_difficulty
+        - is_multi_reward
+        - creatives
+        - goals
+        - links
+        - stats
+        - geo_targeting
+        - device_targeting
+        - os_targeting
+      properties:
+        id:
+          type: string
+          example: '1234567894561234567'
+        campaign_id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: 'Offer Name'
+        store_id:
+          type: string
+          example: com.adgem.app
+        tracking_type:
+          type: string
+          enum:
+            - CPI
+            - CPE
+            - CPA
+            - CPC
+            - 'Market Research'
+        total_payout_usd:
+          type: number
+          format: float
+          example: 1
+        total_amount:
+          type: number
+          format: float
+          example: 5
+        start_datetime:
+          type: string
+          example: '2024-01-01 00:00:00'
+        completion_difficulty:
+          type: integer
+          example: 1
+        is_multi_reward:
+          type: boolean
+          example: false
+        campaign_vertical:
+          type: string
+          example: 'Content Discovery'
+        updated_at:
+          type: string
+          example: '2024-01-01 00:00:00'
+        creatives:
+          required:
+            - name
+            - icon_url
+            - description
+            - short_description
+            - instructions
+            - disclaimer
+            - currency_name
+            - currency_name_plural
+            - categories
+            - sort_order_setting
+            - stickers
+          properties:
+            name:
+              type: string
+              example: 'Offer Name'
+            icon_url:
+              type: string
+              example: 'https://adgem.com/images/offerwall/offerwall_icon.png'
+            description:
+              type: string
+              example: 'Offer Description'
+            short_description:
+              type: string
+              example: 'Offer Short Description'
+            instructions:
+              type: array
+              items:
+                type: string
+              example:
+                - 'Offer Instruction 1'
+                - 'Offer Instruction 2'
+            disclaimer:
+              type: string
+              example: 'Offer Disclaimer'
+            currency_name:
+              type: string
+              example: Coin
+            currency_name_plural:
+              type: string
+              example: Coins
+            categories:
+              type: array
+              items:
+                $ref: '#/components/schemas/Category'
+              example: app
+            sort_order_setting:
+              type: integer
+              example: 1
+            stickers:
+              type: array
+              items:
+                $ref: '#/components/schemas/Sticker'
+          type: object
+        goals:
+          type: array
+          items:
+            $ref: '#/components/schemas/Goal'
+        links:
+          required:
+            - click_url
+            - support_url
+          properties:
+            click_url:
+              type: string
+            support_url:
+              type: string
+          type: object
+          example:
+            click_url: 'https://api.adgem.com/v1/click?all=1&appid=1&cid=100&playerid={playerid}'
+            support_url: 'https://api.adgem.com/support/1/100/{playerid}'
+        stats:
+          required:
+            - network_epc
+          properties:
+            network_epc:
+              type: number
+              format: float
+          type: object
+          example:
+            network_epc: 0.1
+        geo_targeting:
+          properties:
+            countries:
+              type: array
+              items:
+                $ref: '#/components/schemas/Country'
+            states:
+              type: array
+              items:
+                $ref: '#/components/schemas/State'
+            cities:
+              type: array
+              items:
+                $ref: '#/components/schemas/City'
+          type: object
+        device_targeting:
+          type: array
+          items:
+            $ref: '#/components/schemas/Device'
+        os_targeting:
+          type: array
+          items:
+            $ref: '#/components/schemas/Os'
+          example:
+            name: android
+            min: '4.0'
+            max: '10.0'
+        app_store_categories:
+          type: array
+          items:
+            type: string
+            example: Casual
+          example:
+            - Casual
+            - Action
+            - Adventure
+        attribution_window_days:
+          type: integer
+          example: 30
+    Category:
+      x-tags:
+        - offer
+      type: string
+      enum:
+        - app
+        - free
+        - paid
+        - survey
+        - trial
+        - user_info_request
+    City:
+      x-tags:
+        - offer
+      required:
+        - name
+        - geoname_id
+      properties:
+        name:
+          type: string
+        slug:
+          type: string
+        geoname_id:
+          type: string
+      type: object
+      example:
+        name: 'Los Angeles'
+        slug: los-angeles
+        geoname_id: '5368361'
+    Country:
+      x-tags:
+        - offer
+      required:
+        - name
+        - iso_numeric
+        - iso_alpha2
+        - iso_alpha3
+        - geoname_id
+      properties:
+        name:
+          type: string
+        slug:
+          type: string
+        iso_numeric:
+          type: string
+        iso_alpha2:
+          type: string
+        iso_alpha3:
+          type: string
+        geoname_id:
+          type: string
+      type: object
+      example:
+        name: 'United States'
+        slug: united-states
+        iso_numeric: '840'
+        iso_alpha2: US
+        iso_alpha3: USA
+        geoname_id: '6252001'
+    Device:
+      x-tags:
+        - offer
+      type: string
+      enum:
+        - android
+        - ios
+        - ios_app
+        - desktop
+    Goal:
+      x-tags:
+        - offer
+      required:
+        - amount
+        - payout_usd
+        - order
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        amount:
+          type: integer
+        payout_usd:
+          type: number
+          format: float
+        order:
+          type: integer
+        non_linear:
+          type: boolean
+        is_purchase_goal:
+          type: boolean
+      type: object
+      example:
+        name: 'Level 1'
+        description: 'Complete Level 1'
+        amount: 1
+        payout_usd: 1
+        order: 1
+        non_linear: false
+        is_purchase_goal: false
+    Os:
+      x-tags:
+        - offer
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          enum:
+            - android
+            - ios
+            - web
+        min:
+          type: string
+        max:
+          type: string
+      type: object
+    State:
+      x-tags:
+        - offer
+      required:
+        - name
+        - geoname_id
+      properties:
+        name:
+          type: string
+        slug:
+          type: string
+        geoname_id:
+          type: string
+      type: object
+      example:
+        name: California
+        slug: california
+        geoname_id: '5332921'
+    Sticker:
+      x-tags:
+        - offer
+      required:
+        - text
+        - color
+      properties:
+        text:
+          type: string
+        color:
+          type: string
+      type: object
+      example:
+        text: New
+        color: FF0000
+    OfferWebhook:
+      type: object
+      properties:
+        type:
+          type: string
+          enum:
+            - offer.created
+            - offer.updated
+            - offer.removed
+        data:
+          $ref: "#/components/schemas/OfferWebhookData"
+        timestamp:
+          type: string
+          format: date-time
+          example: '2024-01-01 00:00:00'
+    OfferWebhookData:
+      type: object
+      properties:
+        offerId:
+          type: string
+          example: '1234567894561234567'
+        appId:
+          type: integer
+          example: 1
+        campaignId:
+          type: integer
+          example: 1
+  # TODO: Do we need requestBodies?
+  # requestBodies:
+  #   Offer:
+  #     content:
+  #       application/json:
+  #         schema:
+  #           allOf:
+  #             - description: My Pet
+  #               title: Pettie
+  #             - $ref: "#/components/schemas/Pet"
+  #         example:
+  #           category:
+  #             name: Great Dane
+  #             sub:
+  #               prop1: Just a test property
+  #           name: Pepper
+  #           photoUrls:
+  #             - https://assets.orvis.com/is/image/orvisprd/great-dane
+  #           tags:
+  #             - name: Great Danes
+  #           status: pending
+  #           petType:
+  #             huntingSkill: lazy
+  #       application/xml:
+  #         schema:
+  #           type: "object"
+  #           properties:
+  #             name:
+  #               type: string
+  #               description: hooray
+  #     description: Pet object that needs to be added to the store
+  #     required: true
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+x-webhooks:
+  newOffer:
+    post:
+      summary: New offer
+      description: Information about a new offer in the system
+      operationId: newOffer
+      tags:
+        - offer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OfferWebhook"
+        required: true
+      responses:
+        "200":
+          description: Return a 200 status to indicate that the data was received successfully
+  updatedOffer:
+    post:
+      summary: Updated offer
+      description: Information about a updated offer in the system
+      operationId: updatedOffer
+      tags:
+        - offer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OfferWebhook"
+        required: true
+      responses:
+        "200":
+          description: Return a 200 status to indicate that the data was received successfully
+  deletedOffer:
+    post:
+      summary: Deleted offer
+      description: Information about a deleted offer in the system
+      operationId: deletedOffer
+      tags:
+        - offer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OfferWebhook"
+        required: true
+      responses:
+        "200":
+          description: Return a 200 status to indicate that the data was received successfully

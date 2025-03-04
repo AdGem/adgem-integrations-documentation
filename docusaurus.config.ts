@@ -70,9 +70,9 @@ const config: Config = {
           },
           { to: "/blog", label: "Blog", position: "left" },
           {
-            label: "Petstore API",
+            label: "API",
             position: "left",
-            to: "/docs/category/petstore-api",
+            to: "/docs/category/offer-api",
           },
           {
             href: "https://github.com/facebook/docusaurus",
@@ -251,6 +251,18 @@ const config: Config = {
               groupPathsBy: "tag",
               categoryLinkSource: "tag",
             },
+          } satisfies OpenApiPlugin.Options,
+          offer: {
+            specPath: "examples/offer.yaml",
+            outputDir: "docs/offer",
+            // TODO: make spec downloadable?
+            // downloadUrl:
+            //   "https://raw.githubusercontent.com/PaloAltoNetworks/docusaurus-template-openapi-docs/main/examples/petstore.yaml",
+            sidebarOptions: {
+              groupPathsBy: "tag",
+              categoryLinkSource: "tag",
+            },
+            showSchemas: false,
           } satisfies OpenApiPlugin.Options,
         } satisfies Plugin.PluginOptions,
       },

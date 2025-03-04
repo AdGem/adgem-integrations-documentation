@@ -1,0 +1,33 @@
+---
+id: goal
+title: "Goal"
+description: ""
+sidebar_label: "Goal"
+hide_title: true
+hide_table_of_contents: true
+schema: true
+sample: {"name":"Level 1","description":"Complete Level 1","amount":1,"payout_usd":1,"order":1,"non_linear":false,"is_purchase_goal":false}
+custom_edit_url: null
+---
+
+import Schema from "@theme/Schema";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Goal"}
+>
+</Heading>
+
+
+
+
+
+<Schema
+  schema={{"x-tags":["offer"],"required":["amount","payout_usd","order"],"properties":{"id":{"type":"string"},"name":{"type":"string"},"description":{"type":"string"},"amount":{"type":"integer"},"payout_usd":{"type":"number","format":"float"},"order":{"type":"integer"},"non_linear":{"type":"boolean"},"is_purchase_goal":{"type":"boolean"}},"type":"object","example":{"name":"Level 1","description":"Complete Level 1","amount":1,"payout_usd":1,"order":1,"non_linear":false,"is_purchase_goal":false},"title":"Goal"}}
+  schemaType={"response"}
+>
+  
+</Schema>
+            
