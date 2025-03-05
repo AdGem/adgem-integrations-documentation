@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkadgem_integrations_documentation=self.webpackChunkadgem_integrations_documentation||[]).push([[4751],{32914:t=>{t.exports=JSON.parse('{"tags":[{"label":"test","permalink":"/adgem-integrations-documentation/docs/tags/test","count":6}]}')}}]);
