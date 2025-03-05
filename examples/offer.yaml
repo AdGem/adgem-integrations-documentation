@@ -53,12 +53,12 @@ x-tagGroups:
 paths:
   /offers:
     parameters:
-      - name: Authorization
-        in: header
-        description: "Bearer token"
-        required: true
-        schema:
-          type: string
+      # - name: Authorization
+      #   in: header
+      #   description: "Bearer token"
+      #   required: true
+      #   schema:
+      #     type: string
     get:
       tags:
         - offer
@@ -479,6 +479,7 @@ components:
     BearerAuth:
       type: http
       scheme: bearer
+      required: true
 x-webhooks:
   newOffer:
     post:
