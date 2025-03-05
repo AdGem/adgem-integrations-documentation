@@ -242,16 +242,16 @@ const config: Config = {
         id: "openapi",
         docsPluginId: "classic",
         config: {
-          petstore: {
-            specPath: "examples/petstore.yaml",
-            outputDir: "docs/petstore",
-            downloadUrl:
-              "https://raw.githubusercontent.com/PaloAltoNetworks/docusaurus-template-openapi-docs/main/examples/petstore.yaml",
-            sidebarOptions: {
-              groupPathsBy: "tag",
-              categoryLinkSource: "tag",
-            },
-          } satisfies OpenApiPlugin.Options,
+          // petstore: {
+          //   specPath: "examples/petstore.yaml",
+          //   outputDir: "docs/petstore",
+          //   downloadUrl:
+          //     "https://raw.githubusercontent.com/PaloAltoNetworks/docusaurus-template-openapi-docs/main/examples/petstore.yaml",
+          //   sidebarOptions: {
+          //     groupPathsBy: "tag",
+          //     categoryLinkSource: "tag",
+          //   },
+          // } satisfies OpenApiPlugin.Options,
           offer: {
             specPath: "examples/offer.yaml",
             outputDir: "docs/offer",
