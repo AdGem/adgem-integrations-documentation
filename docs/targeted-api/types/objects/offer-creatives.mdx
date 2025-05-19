@@ -1,0 +1,132 @@
+---
+id: offer-creatives
+title: OfferCreatives
+---
+
+
+
+
+export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
+
+export const SpecifiedBy = (props) => <>Specification<a className="link" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
+
+export const Badge = (props) => <><span className={props.class}>{props.text}</span></>
+
+import { useState } from 'react';
+
+export const Details = ({ dataOpen, dataClose, children, startOpen = false }) => {
+  const [open, setOpen] = useState(startOpen);
+  return (
+    <details {...(open ? { open: true } : {})} className="details" style={{ border:'none', boxShadow:'none', background:'var(--ifm-background-color)' }}>
+      <summary
+        onClick={(e) => {
+          e.preventDefault();
+          setOpen((open) => !open);
+        }}
+        style={{ listStyle:'none' }}
+      >
+      {open ? dataOpen : dataClose}
+      </summary>
+      {open && children}
+    </details>
+  );
+};
+
+
+
+
+
+
+
+
+The details used to create AdGem offers in your native UI.
+
+
+```graphql
+type OfferCreatives {
+  name: String!
+  icon_url: String!
+  description: String!
+  instructions: [String]!
+  categories: [String]!
+  stickers: [OfferCreativesSticker]!
+  disclaimer: String
+  currency_name: String
+  currency_name_plural: String
+  hero_image_url: String
+  short_description: String
+}
+```
+
+
+
+
+### Fields
+
+#### [<code style={{ fontWeight: 'normal' }}>OfferCreatives.<b>name</b></code>](#)<Bullet />[<code style={{ fontWeight: 'normal' }}><b>String!</b></code>](/targeted-api/types/scalars/string.mdx) <Badge class="badge badge--secondary badge--non_null" text="non-null"/> <Badge class="badge badge--secondary " text="scalar"/> 
+Offer name.
+
+
+#### [<code style={{ fontWeight: 'normal' }}>OfferCreatives.<b>icon_url</b></code>](#)<Bullet />[<code style={{ fontWeight: 'normal' }}><b>String!</b></code>](/targeted-api/types/scalars/string.mdx) <Badge class="badge badge--secondary badge--non_null" text="non-null"/> <Badge class="badge badge--secondary " text="scalar"/> 
+Offer icon url.
+
+
+#### [<code style={{ fontWeight: 'normal' }}>OfferCreatives.<b>description</b></code>](#)<Bullet />[<code style={{ fontWeight: 'normal' }}><b>String!</b></code>](/targeted-api/types/scalars/string.mdx) <Badge class="badge badge--secondary badge--non_null" text="non-null"/> <Badge class="badge badge--secondary " text="scalar"/> 
+Brief description of the offer.
+
+
+#### [<code style={{ fontWeight: 'normal' }}>OfferCreatives.<b>instructions</b></code>](#)<Bullet />[<code style={{ fontWeight: 'normal' }}><b>[String]!</b></code>](/targeted-api/types/scalars/string.mdx) <Badge class="badge badge--secondary badge--non_null" text="non-null"/> <Badge class="badge badge--secondary " text="scalar"/> 
+A list of the instructions that a player must follow to complete an Offer.
+
+Example: ["Step 1", "Step 2", "Step 3"]
+
+
+#### [<code style={{ fontWeight: 'normal' }}>OfferCreatives.<b>categories</b></code>](#)<Bullet />[<code style={{ fontWeight: 'normal' }}><b>[String]!</b></code>](/targeted-api/types/scalars/string.mdx) <Badge class="badge badge--secondary badge--non_null" text="non-null"/> <Badge class="badge badge--secondary " text="scalar"/> 
+A list of the offer category type.
+
+Example: ["app","free"]
+
+
+#### [<code style={{ fontWeight: 'normal' }}>OfferCreatives.<b>stickers</b></code>](#)<Bullet />[<code style={{ fontWeight: 'normal' }}><b>[OfferCreativesSticker]!</b></code>](/targeted-api/types/objects/offer-creatives-sticker.mdx) <Badge class="badge badge--secondary badge--non_null" text="non-null"/> <Badge class="badge badge--secondary " text="object"/> 
+A list of the offer stickers.
+
+Example: [&#x007B;text: "New", color: "#FF0000"&#x007D;]
+
+
+#### [<code style={{ fontWeight: 'normal' }}>OfferCreatives.<b>disclaimer</b></code>](#)<Bullet />[<code style={{ fontWeight: 'normal' }}><b>String</b></code>](/targeted-api/types/scalars/string.mdx) <Badge class="badge badge--secondary " text="scalar"/> 
+A disclaimer for offer completion requirements.
+
+Example: "New users only"
+
+
+#### [<code style={{ fontWeight: 'normal' }}>OfferCreatives.<b>currency_name</b></code>](#)<Bullet />[<code style={{ fontWeight: 'normal' }}><b>String</b></code>](/targeted-api/types/scalars/string.mdx) <Badge class="badge badge--secondary " text="scalar"/> 
+The name of your offerwall virtual currency as set in the AdGem Dashboard.
+
+Example: "Coin"
+
+
+#### [<code style={{ fontWeight: 'normal' }}>OfferCreatives.<b>currency_name_plural</b></code>](#)<Bullet />[<code style={{ fontWeight: 'normal' }}><b>String</b></code>](/targeted-api/types/scalars/string.mdx) <Badge class="badge badge--secondary " text="scalar"/> 
+The plural name of your offerwall virtual currency as set in the AdGem Dashboard.
+
+Example: "Coins"
+
+
+#### [<code style={{ fontWeight: 'normal' }}>OfferCreatives.<b>hero_image_url</b></code>](#)<Bullet />[<code style={{ fontWeight: 'normal' }}><b>String</b></code>](/targeted-api/types/scalars/string.mdx) <Badge class="badge badge--secondary " text="scalar"/> 
+The url for the hero image.
+
+Example: "https://example.com/hero-image.png"
+
+
+#### [<code style={{ fontWeight: 'normal' }}>OfferCreatives.<b>short_description</b></code>](#)<Bullet />[<code style={{ fontWeight: 'normal' }}><b>String</b></code>](/targeted-api/types/scalars/string.mdx) <Badge class="badge badge--secondary " text="scalar"/> 
+The offer tagline.
+
+Example: "Play to earn"
+
+
+
+
+
+
+### Member Of
+
+[`Offer`](/targeted-api/types/objects/offer.mdx)  <Badge class="badge badge--secondary badge--relation" text="object"/>

@@ -1,0 +1,79 @@
+---
+id: response
+title: Response
+---
+
+
+
+
+export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
+
+export const SpecifiedBy = (props) => <>Specification<a className="link" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
+
+export const Badge = (props) => <><span className={props.class}>{props.text}</span></>
+
+import { useState } from 'react';
+
+export const Details = ({ dataOpen, dataClose, children, startOpen = false }) => {
+  const [open, setOpen] = useState(startOpen);
+  return (
+    <details {...(open ? { open: true } : {})} className="details" style={{ border:'none', boxShadow:'none', background:'var(--ifm-background-color)' }}>
+      <summary
+        onClick={(e) => {
+          e.preventDefault();
+          setOpen((open) => !open);
+        }}
+        style={{ listStyle:'none' }}
+      >
+      {open ? dataOpen : dataClose}
+      </summary>
+      {open && children}
+    </details>
+  );
+};
+
+
+
+
+
+
+
+
+The Targeted API response, which includes status, offer data, and offer links. 
+This response is guarded by an access token.
+
+
+```graphql
+type Response {
+  status: String!
+  data: Data
+  links: Links!
+}
+```
+
+
+
+
+### Fields
+
+#### [<code style={{ fontWeight: 'normal' }}>Response.<b>status</b></code>](#)<Bullet />[<code style={{ fontWeight: 'normal' }}><b>String!</b></code>](/targeted-api/types/scalars/string.mdx) <Badge class="badge badge--secondary badge--non_null" text="non-null"/> <Badge class="badge badge--secondary " text="scalar"/> 
+Refers to the response status.
+
+Example: "success"
+
+
+#### [<code style={{ fontWeight: 'normal' }}>Response.<b>data</b></code>](#)<Bullet />[<code style={{ fontWeight: 'normal' }}><b>Data</b></code>](/targeted-api/types/objects/data.mdx) <Badge class="badge badge--secondary " text="object"/> 
+Response data containing the requested offers.
+
+
+#### [<code style={{ fontWeight: 'normal' }}>Response.<b>links</b></code>](#)<Bullet />[<code style={{ fontWeight: 'normal' }}><b>Links!</b></code>](/targeted-api/types/objects/links.mdx) <Badge class="badge badge--secondary badge--non_null" text="non-null"/> <Badge class="badge badge--secondary " text="object"/> 
+References a list of links like 'support_portal'.
+
+
+
+
+
+
+### Returned By
+
+[`getTargetedOffers`](/targeted-api/operations/queries/get-targeted-offers.mdx)  <Badge class="badge badge--secondary badge--relation" text="query"/>
