@@ -1,6 +1,6 @@
 ---
 id: schema
-slug: /targeted-api
+slug: /category/targeted-api
 title: Schema Documentation
 sidebar_position: 1
 hide_table_of_contents: true
