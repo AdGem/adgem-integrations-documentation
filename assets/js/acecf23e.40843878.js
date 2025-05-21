@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkadgem_integrations_documentation=self.webpackChunkadgem_integrations_documentation||[]).push([[1903],{1912:t=>{t.exports=JSON.parse('{"blogBasePath":"/adgem-integrations-documentation/blog","blogTitle":"Blog","authorsListPath":"/adgem-integrations-documentation/blog/authors"}')}}]);
