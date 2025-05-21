@@ -75,3 +75,12 @@
   content: "patch";
   background-color: var(--openapi-code-orange);
 }
+
+.graphiql-container {
+  height: 100vh !important;
+  width: 64vw !important;
+}
+
+#graphiql-info {
+  width: 64vw !important;
+}

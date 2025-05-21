@@ -1,0 +1,171 @@
+---
+id: offer
+title: Offer
+---
+
+
+
+
+export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
+
+export const SpecifiedBy = (props) => <>Specification<a className="link" rel="noopener noreferrer" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
+
+export const Badge = (props) => <><span className={props.class}>{props.text}</span></>
+
+import { useState } from 'react';
+
+export const Details = ({ dataOpen, dataClose, children, startOpen = false }) => {
+  const [open, setOpen] = useState(startOpen);
+  return (
+    <details {...(open ? { open: true } : {})} className="details" style={{ border:'none', boxShadow:'none', background:'var(--ifm-background-color)' }}>
+      <summary
+        onClick={(e) => {
+          e.preventDefault();
+          setOpen((open) => !open);
+        }}
+        style={{ listStyle:'none' }}
+      >
+      {open ? dataOpen : dataClose}
+      </summary>
+      {open && children}
+    </details>
+  );
+};
+
+
+
+
+
+
+
+
+Formatted offer retrieved from the Targeted API.
+
+
+```graphql
+type Offer {
+  id: String!
+  campaign_id: Int!
+  name: String!
+  tracking_type: String!
+  total_payout_usd: Float!
+  total_amount: Float!
+  start_datetime: String!
+  is_multi_reward: Boolean!
+  completion_difficulty: Int!
+  is_featured_campaign: Boolean!
+  creatives: OfferCreatives!
+  goals: [OfferGoal]!
+  links: OfferLinks!
+  campaign_vertical: String
+  store_id: String
+  updated_at: String
+}
+```
+
+
+
+
+### Fields
+
+#### [<code style={{ fontWeight: 'normal' }}>Offer.<b>id</b></code>](#)<Bullet />[<code style={{ fontWeight: 'normal' }}><b>String!</b></code>](/targeted-api/types/scalars/string.mdx) <Badge class="badge badge--secondary badge--non_null" text="non-null"/> <Badge class="badge badge--secondary " text="scalar"/> 
+Offer version unique identifier.
+
+Example: "123456789012345678"
+
+
+#### [<code style={{ fontWeight: 'normal' }}>Offer.<b>campaign_id</b></code>](#)<Bullet />[<code style={{ fontWeight: 'normal' }}><b>Int!</b></code>](/targeted-api/types/scalars/int.mdx) <Badge class="badge badge--secondary badge--non_null" text="non-null"/> <Badge class="badge badge--secondary " text="scalar"/> 
+Unique identifier of this Offer.
+
+Example: 123456
+
+
+#### [<code style={{ fontWeight: 'normal' }}>Offer.<b>name</b></code>](#)<Bullet />[<code style={{ fontWeight: 'normal' }}><b>String!</b></code>](/targeted-api/types/scalars/string.mdx) <Badge class="badge badge--secondary badge--non_null" text="non-null"/> <Badge class="badge badge--secondary " text="scalar"/> 
+Offer name.
+
+Example: "Great App"
+
+
+#### [<code style={{ fontWeight: 'normal' }}>Offer.<b>tracking_type</b></code>](#)<Bullet />[<code style={{ fontWeight: 'normal' }}><b>String!</b></code>](/targeted-api/types/scalars/string.mdx) <Badge class="badge badge--secondary badge--non_null" text="non-null"/> <Badge class="badge badge--secondary " text="scalar"/> 
+Offer tracking type.
+You'll get one of the following values: 'CPC', 'CPA', 'CPE' or 'CPI'.
+
+Example: "CPC"
+
+
+#### [<code style={{ fontWeight: 'normal' }}>Offer.<b>total_payout_usd</b></code>](#)<Bullet />[<code style={{ fontWeight: 'normal' }}><b>Float!</b></code>](/targeted-api/types/scalars/float.mdx) <Badge class="badge badge--secondary badge--non_null" text="non-null"/> <Badge class="badge badge--secondary " text="scalar"/> 
+The amount of USD earned for completing a single offer or completing all goals for multi-reward.
+
+Example: 0.25
+
+
+#### [<code style={{ fontWeight: 'normal' }}>Offer.<b>total_amount</b></code>](#)<Bullet />[<code style={{ fontWeight: 'normal' }}><b>Float!</b></code>](/targeted-api/types/scalars/float.mdx) <Badge class="badge badge--secondary badge--non_null" text="non-null"/> <Badge class="badge badge--secondary " text="scalar"/> 
+The amount of virtual currency awarded to the user for fully completing an offer.
+This is calculated according to the campaign payout and the exchange rate set in the AdGem Publisher Dashboard for the offerwall.
+
+Example: 25
+
+
+#### [<code style={{ fontWeight: 'normal' }}>Offer.<b>start_datetime</b></code>](#)<Bullet />[<code style={{ fontWeight: 'normal' }}><b>String!</b></code>](/targeted-api/types/scalars/string.mdx) <Badge class="badge badge--secondary badge--non_null" text="non-null"/> <Badge class="badge badge--secondary " text="scalar"/> 
+The datetime this offer is set to be active.
+
+Example: "2018-05-24 16:34:45"
+
+
+#### [<code style={{ fontWeight: 'normal' }}>Offer.<b>is_multi_reward</b></code>](#)<Bullet />[<code style={{ fontWeight: 'normal' }}><b>Boolean!</b></code>](/targeted-api/types/scalars/boolean.mdx) <Badge class="badge badge--secondary badge--non_null" text="non-null"/> <Badge class="badge badge--secondary " text="scalar"/> 
+Indicates if this offer is multi-reward or single reward:
+  - true: multi-reward
+  - false: single reward
+
+Example: true
+
+
+#### [<code style={{ fontWeight: 'normal' }}>Offer.<b>completion_difficulty</b></code>](#)<Bullet />[<code style={{ fontWeight: 'normal' }}><b>Int!</b></code>](/targeted-api/types/scalars/int.mdx) <Badge class="badge badge--secondary badge--non_null" text="non-null"/> <Badge class="badge badge--secondary " text="scalar"/> 
+The difficulty level for completing an offer.
+
+Example: 1
+
+
+#### [<code style={{ fontWeight: 'normal' }}>Offer.<b>is_featured_campaign</b></code>](#)<Bullet />[<code style={{ fontWeight: 'normal' }}><b>Boolean!</b></code>](/targeted-api/types/scalars/boolean.mdx) <Badge class="badge badge--secondary badge--non_null" text="non-null"/> <Badge class="badge badge--secondary " text="scalar"/> 
+Indicates if an offer is featured.
+
+Example: true
+
+
+#### [<code style={{ fontWeight: 'normal' }}>Offer.<b>creatives</b></code>](#)<Bullet />[<code style={{ fontWeight: 'normal' }}><b>OfferCreatives!</b></code>](/targeted-api/types/objects/offer-creatives.mdx) <Badge class="badge badge--secondary badge--non_null" text="non-null"/> <Badge class="badge badge--secondary " text="object"/> 
+Contains the offer creatives.
+
+
+#### [<code style={{ fontWeight: 'normal' }}>Offer.<b>goals</b></code>](#)<Bullet />[<code style={{ fontWeight: 'normal' }}><b>[OfferGoal]!</b></code>](/targeted-api/types/objects/offer-goal.mdx) <Badge class="badge badge--secondary badge--non_null" text="non-null"/> <Badge class="badge badge--secondary " text="object"/> 
+Contains a list of offer goals.
+
+
+#### [<code style={{ fontWeight: 'normal' }}>Offer.<b>links</b></code>](#)<Bullet />[<code style={{ fontWeight: 'normal' }}><b>OfferLinks!</b></code>](/targeted-api/types/objects/offer-links.mdx) <Badge class="badge badge--secondary badge--non_null" text="non-null"/> <Badge class="badge badge--secondary " text="object"/> 
+Contains offer links.
+
+
+#### [<code style={{ fontWeight: 'normal' }}>Offer.<b>campaign_vertical</b></code>](#)<Bullet />[<code style={{ fontWeight: 'normal' }}><b>String</b></code>](/targeted-api/types/scalars/string.mdx) <Badge class="badge badge--secondary " text="scalar"/> 
+The vertical to which this offer belongs.
+
+Example: "Games General"
+
+
+#### [<code style={{ fontWeight: 'normal' }}>Offer.<b>store_id</b></code>](#)<Bullet />[<code style={{ fontWeight: 'normal' }}><b>String</b></code>](/targeted-api/types/scalars/string.mdx) <Badge class="badge badge--secondary " text="scalar"/> 
+The Google Play or App Store unique namespace or package name.
+
+Example: "com.example.app"
+
+
+#### [<code style={{ fontWeight: 'normal' }}>Offer.<b>updated_at</b></code>](#)<Bullet />[<code style={{ fontWeight: 'normal' }}><b>String</b></code>](/targeted-api/types/scalars/string.mdx) <Badge class="badge badge--secondary " text="scalar"/> 
+The datetime this offer was last updated.
+
+Example: "2025-02-12T18:48:02.000000Z"
+
+
+
+
+
+
+### Member Of
+
+[`Data`](/targeted-api/types/objects/data.mdx)  <Badge class="badge badge--secondary badge--relation" text="object"/>

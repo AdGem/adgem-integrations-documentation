@@ -15,7 +15,8 @@
     "gen-api-docs": "docusaurus gen-api-docs",
     "clean-api-docs": "docusaurus clean-api-docs",
     "gen-api-docs:version": "docusaurus gen-api-docs:version",
-    "clean-api-docs:version": "docusaurus clean-api-docs:version"
+    "clean-api-docs:version": "docusaurus clean-api-docs:version",
+    "doc": "docusaurus graphql-to-doc"
   },
   "dependencies": {
     "@docusaurus/core": "3.7.0",
@@ -26,8 +27,17 @@
     "docusaurus-theme-openapi-docs": "4.3.4",
     "gh-pages": "^6.3.0",
     "prism-react-renderer": "^2.3.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@graphiql/plugin-explorer": "^4.0.4",
+    "@graphiql/toolkit": "^0.11.1",
+    "@graphql-markdown/docusaurus": "^1.29.0",
+    "@graphql-tools/url-loader": "^8.0.31",
+    "dotenv": "^16.5.0",
+    "graphiql": "^4.0.5",
+    "graphql": "^16.11.0"
   },
   "browserslist": {
     "production": [

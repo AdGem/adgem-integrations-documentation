@@ -1,0 +1,100 @@
+---
+id: retrieval-filters
+title: RetrievalFilters
+---
+
+
+
+
+export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
+
+export const SpecifiedBy = (props) => <>Specification<a className="link" rel="noopener noreferrer" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
+
+export const Badge = (props) => <><span className={props.class}>{props.text}</span></>
+
+import { useState } from 'react';
+
+export const Details = ({ dataOpen, dataClose, children, startOpen = false }) => {
+  const [open, setOpen] = useState(startOpen);
+  return (
+    <details {...(open ? { open: true } : {})} className="details" style={{ border:'none', boxShadow:'none', background:'var(--ifm-background-color)' }}>
+      <summary
+        onClick={(e) => {
+          e.preventDefault();
+          setOpen((open) => !open);
+        }}
+        style={{ listStyle:'none' }}
+      >
+      {open ? dataOpen : dataClose}
+      </summary>
+      {open && children}
+    </details>
+  );
+};
+
+
+
+
+
+
+
+
+The `RetrievalFilters` input type allows you to filter targeted offers when using the `getTargetedOffers` query. By providing specific filter criteria, you can narrow down the offers returned based on various dimensions such as categories, geographical regions, platform types, reward types, and tracking methods.
+
+This input object is optional when calling `getTargetedOffers`, but using it enables more precise targeting to retrieve only the most relevant offers for your use case.
+
+
+```graphql
+input RetrievalFilters {
+  categories: [String]
+  country_code: String
+  country_codes: String
+  platform: String
+  reward_type: String
+  tracking_types: [String]
+}
+```
+
+
+
+
+### Fields
+
+#### [<code style={{ fontWeight: 'normal' }}>RetrievalFilters.<b>categories</b></code>](#)<Bullet />[<code style={{ fontWeight: 'normal' }}><b>[String]</b></code>](/targeted-api/types/scalars/string.mdx) <Badge class="badge badge--secondary " text="list"/> <Badge class="badge badge--secondary " text="scalar"/> 
+Filter offers by their category types.
+
+Example: ["app", "free", "paid", "survey", "trial", "user_info_request"]
+
+#### [<code style={{ fontWeight: 'normal' }}>RetrievalFilters.<b>country_code</b></code>](#)<Bullet />[<code style={{ fontWeight: 'normal' }}><b>String</b></code>](/targeted-api/types/scalars/string.mdx) <Badge class="badge badge--secondary " text="scalar"/> 
+Filter offers by a single country code in ISO format.
+
+Example: "US"
+
+#### [<code style={{ fontWeight: 'normal' }}>RetrievalFilters.<b>country_codes</b></code>](#)<Bullet />[<code style={{ fontWeight: 'normal' }}><b>String</b></code>](/targeted-api/types/scalars/string.mdx) <Badge class="badge badge--secondary " text="scalar"/> 
+Alias for country_code.
+
+Example: "US"
+
+#### [<code style={{ fontWeight: 'normal' }}>RetrievalFilters.<b>platform</b></code>](#)<Bullet />[<code style={{ fontWeight: 'normal' }}><b>String</b></code>](/targeted-api/types/scalars/string.mdx) <Badge class="badge badge--secondary " text="scalar"/> 
+Filter offers by the platform they're available on.
+
+Example: "ios", "android", "web"
+
+#### [<code style={{ fontWeight: 'normal' }}>RetrievalFilters.<b>reward_type</b></code>](#)<Bullet />[<code style={{ fontWeight: 'normal' }}><b>String</b></code>](/targeted-api/types/scalars/string.mdx) <Badge class="badge badge--secondary " text="scalar"/> 
+Filter offers by the type of reward they provide.
+
+Example: "all", "single", "multi"
+
+#### [<code style={{ fontWeight: 'normal' }}>RetrievalFilters.<b>tracking_types</b></code>](#)<Bullet />[<code style={{ fontWeight: 'normal' }}><b>[String]</b></code>](/targeted-api/types/scalars/string.mdx) <Badge class="badge badge--secondary " text="list"/> <Badge class="badge badge--secondary " text="scalar"/> 
+Filter offers by their tracking mechanism types.
+
+Example: ["CPI", "CPE", "CPA", "CPC", "Market Research"]
+
+
+
+
+
+
+### Member Of
+
+[`getTargetedOffers`](/targeted-api/operations/queries/get-targeted-offers.mdx)  <Badge class="badge badge--secondary badge--relation" text="query"/>

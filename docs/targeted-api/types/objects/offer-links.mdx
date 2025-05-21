@@ -1,0 +1,82 @@
+---
+id: offer-links
+title: OfferLinks
+---
+
+
+
+
+export const Bullet = () => <><span style={{ fontWeight: 'normal', fontSize: '.5em', color: 'var(--ifm-color-secondary-darkest)' }}>&nbsp;●&nbsp;</span></>
+
+export const SpecifiedBy = (props) => <>Specification<a className="link" rel="noopener noreferrer" style={{ fontSize:'1.5em', paddingLeft:'4px' }} target="_blank" href={props.url} title={'Specified by ' + props.url}>⎘</a></>
+
+export const Badge = (props) => <><span className={props.class}>{props.text}</span></>
+
+import { useState } from 'react';
+
+export const Details = ({ dataOpen, dataClose, children, startOpen = false }) => {
+  const [open, setOpen] = useState(startOpen);
+  return (
+    <details {...(open ? { open: true } : {})} className="details" style={{ border:'none', boxShadow:'none', background:'var(--ifm-background-color)' }}>
+      <summary
+        onClick={(e) => {
+          e.preventDefault();
+          setOpen((open) => !open);
+        }}
+        style={{ listStyle:'none' }}
+      >
+      {open ? dataOpen : dataClose}
+      </summary>
+      {open && children}
+    </details>
+  );
+};
+
+
+
+
+
+
+
+
+The associated links to be used for offer completion.
+
+
+```graphql
+type OfferLinks {
+  click_url: String
+  support_url: String
+  interstitial_url: String
+}
+```
+
+
+
+
+### Fields
+
+#### [<code style={{ fontWeight: 'normal' }}>OfferLinks.<b>click_url</b></code>](#)<Bullet />[<code style={{ fontWeight: 'normal' }}><b>String</b></code>](/targeted-api/types/scalars/string.mdx) <Badge class="badge badge--secondary " text="scalar"/> 
+The url that the player will click on to engage with the offer.
+
+Example: "https://api.adgem.com/v1/click?all=1&appid=12345&cid=12345&playerid=testplayer"
+
+
+#### [<code style={{ fontWeight: 'normal' }}>OfferLinks.<b>support_url</b></code>](#)<Bullet />[<code style={{ fontWeight: 'normal' }}><b>String</b></code>](/targeted-api/types/scalars/string.mdx) <Badge class="badge badge--secondary " text="scalar"/> 
+The url that directs players to a support page for a specific campaign available for player support.
+
+Example: "https://api.adgem.com/support/12345/12345/testplayer"
+
+
+#### [<code style={{ fontWeight: 'normal' }}>OfferLinks.<b>interstitial_url</b></code>](#)<Bullet />[<code style={{ fontWeight: 'normal' }}><b>String</b></code>](/targeted-api/types/scalars/string.mdx) <Badge class="badge badge--secondary " text="scalar"/> 
+The url used for an interstitial offer.
+
+Example: "https://api.nextadgem.com/offer-interstitial?all=1&integration=offer-api&appid=12345&cid=12345&playerid=testplayer&offer_id=123456789012345678"
+
+
+
+
+
+
+### Member Of
+
+[`Offer`](/targeted-api/types/objects/offer.mdx)  <Badge class="badge badge--secondary badge--relation" text="object"/>

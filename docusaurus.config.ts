@@ -5,6 +5,7 @@ import type * as Preset from "@docusaurus/preset-classic";
 import type { Config } from "@docusaurus/types";
 import type * as Plugin from "@docusaurus/types/src/plugin";
 import type * as OpenApiPlugin from "docusaurus-plugin-openapi-docs";
+import 'dotenv/config';
 
 const config: Config = {
   title: "AdGem",
@@ -28,20 +29,7 @@ const config: Config = {
       {
         docs: {
           sidebarPath: require.resolve("./sidebars.ts"),
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/",
           docItemComponent: "@theme/ApiItem", // Derived from docusaurus-theme-openapi
-        },
-        blog: {
-          showReadingTime: true,
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/",
-          onInlineAuthors: "ignore",
-          onUntruncatedBlogPosts: "ignore",
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
@@ -58,23 +46,21 @@ const config: Config = {
         },
       },
       navbar: {
-        title: "My Site",
+        title: "AdGem Integrations",
         logo: {
           alt: "My Site Logo",
-          src: "img/logo.svg",
+          src: "img/adgem_logo_small2.png",
         },
         items: [
           {
-            type: "doc",
-            docId: "intro",
-            position: "left",
-            label: "Tutorial",
-          },
-          { to: "/blog", label: "Blog", position: "left" },
-          {
-            label: "API",
+            label: "Untargeted Offers API",
             position: "left",
             to: "/docs/category/offer-api",
+          },
+          {
+            label: "Targeted Offers API",
+            position: "left",
+            to: "/docs/category/targeted-api",
           },
           {
             href: "https://github.com/facebook/docusaurus",
@@ -85,48 +71,7 @@ const config: Config = {
       },
       footer: {
         style: "dark",
-        links: [
-          {
-            title: "Docs",
-            items: [
-              {
-                label: "Tutorial",
-                to: "/docs/intro",
-              },
-            ],
-          },
-          {
-            title: "Community",
-            items: [
-              {
-                label: "Stack Overflow",
-                href: "https://stackoverflow.com/questions/tagged/docusaurus",
-              },
-              {
-                label: "Discord",
-                href: "https://discordapp.com/invite/docusaurus",
-              },
-              {
-                label: "Twitter",
-                href: "https://twitter.com/docusaurus",
-              },
-            ],
-          },
-          {
-            title: "More",
-            items: [
-              {
-                label: "Blog",
-                to: "/blog",
-              },
-              {
-                label: "GitHub",
-                href: "https://github.com/facebook/docusaurus",
-              },
-            ],
-          },
-        ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} <a href="https://adgem.com">AdGem</a>.`,
       },
       prism: {
         additionalLanguages: [
@@ -244,16 +189,6 @@ const config: Config = {
         id: "openapi",
         docsPluginId: "classic",
         config: {
-          // petstore: {
-          //   specPath: "examples/petstore.yaml",
-          //   outputDir: "docs/petstore",
-          //   downloadUrl:
-          //     "https://raw.githubusercontent.com/PaloAltoNetworks/docusaurus-template-openapi-docs/main/examples/petstore.yaml",
-          //   sidebarOptions: {
-          //     groupPathsBy: "tag",
-          //     categoryLinkSource: "tag",
-          //   },
-          // } satisfies OpenApiPlugin.Options,
           offer: {
             specPath: "examples/offer.yaml",
             outputDir: "docs/offer",
@@ -269,9 +204,28 @@ const config: Config = {
         } satisfies Plugin.PluginOptions,
       },
     ],
+    [
+      "@graphql-markdown/docusaurus",
+      /** @type {import('@graphql-markdown/types').ConfigOptions} */
+      {
+        schema: process.env.TARGETED_API_SCHEMA_URL,
+        rootPath: './docs',
+        baseURL: "targeted-api",
+        homePage: "./static/targeted-api.md",
+        // ... other options
+        loaders: {
+          UrlLoader: {
+            module: "@graphql-tools/url-loader",
+          }
+        }
+      },
+    ],
   ],
 
   themes: ["docusaurus-theme-openapi-docs"],
+  customFields: {
+    'TARGETED_API_SCHEMA_URL': process.env.TARGETED_API_SCHEMA_URL,
+  },
 };
 
 export default async function createConfig() {
