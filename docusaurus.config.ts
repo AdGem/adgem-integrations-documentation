@@ -216,11 +216,6 @@ const config: Config = {
         loaders: {
           UrlLoader: {
             module: "@graphql-tools/url-loader",
-            options: {
-              headers: {
-                Authorization: `Bearer ${process.env.TARGETED_API_TOKEN}`,
-               }
-            }
           }
         }
       },
@@ -230,7 +225,6 @@ const config: Config = {
   themes: ["docusaurus-theme-openapi-docs"],
   customFields: {
     'TARGETED_API_SCHEMA_URL': process.env.TARGETED_API_SCHEMA_URL,
-    'TARGETED_API_TOKEN': process.env.TARGETED_API_TOKEN,
   },
 };
 
