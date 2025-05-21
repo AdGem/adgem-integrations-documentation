@@ -34,7 +34,23 @@ export default function GraphQLPlayGround() {
         require('graphiql/style.css');
         require('@graphiql/plugin-explorer/style.css');
         const explorer = explorerPlugin();
-        return <GraphiQL fetcher={fetcher} plugins={[explorer]} shouldPersistHeaders={true} defaultHeaders={'{"Authorization": "Bearer token"}'}/>;
+        return (
+          <div>
+            <div id='graphiql-info' className="alert alert--info margin-bottom--md" role="alert">
+              <h4>Using the GraphQL Playground</h4>
+              <p>
+                To authenticate your requests, add your API token in the "Headers" tab at the bottom:
+                <pre>{'{\n  "Authorization": "Bearer YOUR_TOKEN_HERE" \n}'}</pre>
+              </p>
+            </div>
+            <GraphiQL 
+              fetcher={fetcher} 
+              plugins={[explorer]} 
+              shouldPersistHeaders={true} 
+              defaultHeaders={'{"Authorization": "Bearer YOUR_TOKEN_HERE"}'} 
+            />
+          </div>
+        );
       }}
     </BrowserOnly>
   );
