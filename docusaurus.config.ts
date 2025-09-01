@@ -216,6 +216,11 @@ const config: Config = {
         loaders: {
           UrlLoader: {
             module: "@graphql-tools/url-loader",
+            options: {
+              headers: {
+                Authorization: 'Bearer ' + process.env.TARGETED_API_TOKEN,
+              }
+            }
           }
         }
       },
