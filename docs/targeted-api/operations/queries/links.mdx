@@ -1,6 +1,6 @@
 ---
-id: data
-title: Data
+id: links
+title: links
 ---
 
 
@@ -39,28 +39,25 @@ export const Details = ({ dataOpen, dataClose, children, startOpen = false }) =>
 
 
 
-Contains the data retrieved from the Targeted API.
+Retrieve app-specific links like 'support_portal'.
 
 
 ```graphql
-type Data {
-  offers: [Offer]
-}
+links(
+  player_id: String!
+): Links
 ```
 
 
 
 
-### Fields
+### Arguments
 
-#### [<code style={{ fontWeight: 'normal' }}>Data.<b>offers</b></code>](#)<Bullet />[<code style={{ fontWeight: 'normal' }}><b>[Offer]</b></code>](/targeted-api/types/objects/offer.mdx) <Badge class="badge badge--secondary " text="list"/> <Badge class="badge badge--secondary " text="object"/> 
-References a list of offers.
-
+#### [<code style={{ fontWeight: 'normal' }}>links.<b>player_id</b></code>](#)<Bullet />[<code style={{ fontWeight: 'normal' }}><b>String!</b></code>](/targeted-api/types/scalars/string.mdx) <Badge class="badge badge--secondary badge--non_null" text="non-null"/> <Badge class="badge badge--secondary " text="scalar"/> 
 
 
 
+### Type
 
-
-### Member Of
-
-[`Response`](/targeted-api/types/objects/response.mdx)  <Badge class="badge badge--secondary badge--relation" text="object"/>
+#### [<code style={{ fontWeight: 'normal' }}><b>Links</b></code>](/targeted-api/types/objects/links.mdx) <Badge class="badge badge--secondary " text="object"/> 
+Associated links for the returned offers like 'support_portal'.
