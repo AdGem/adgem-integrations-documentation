@@ -16,7 +16,7 @@
     "clean-api-docs": "docusaurus clean-api-docs",
     "gen-api-docs:version": "docusaurus gen-api-docs:version",
     "clean-api-docs:version": "docusaurus clean-api-docs:version",
-    "doc": "docusaurus graphql-to-doc"
+    "graphql-to-doc": "docusaurus graphql-to-doc"
   },
   "dependencies": {
     "@docusaurus/core": "3.7.0",
