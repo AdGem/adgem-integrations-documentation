@@ -156,6 +156,9 @@ components:
             - categories
             - sort_order_setting
             - stickers
+            - offer_cta
+            - basic_requirements
+            - offer_cta
           properties:
             name:
               type: string
@@ -197,6 +200,16 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/Sticker'
+            offer_cta:
+              type: string
+              example: 'Click to earn now!'
+            basic_requirements:
+              type: array
+              items:
+                $ref: '#/components/schemas/Basic_Requirements'
+            offer_tip:
+              type: string
+              example: 'Make in-app purchases to earn faster!'
           type: object
         goals:
           type: array
@@ -209,12 +222,11 @@ components:
           properties:
             click_url:
               type: string
+              example: 'https://api.adgem.com/v1/click?all=1&appid=1&cid=100&playerid={playerid}'
             support_url:
               type: string
+              example: 'https://api.adgem.com/support/1/100/{playerid}'
           type: object
-          example:
-            click_url: 'https://api.adgem.com/v1/click?all=1&appid=1&cid=100&playerid={playerid}'
-            support_url: 'https://api.adgem.com/support/1/100/{playerid}'
         stats:
           required:
             - network_epc
@@ -222,9 +234,8 @@ components:
             network_epc:
               type: number
               format: float
+              example: 0.1
           type: object
-          example:
-            network_epc: 0.1
         geo_targeting:
           properties:
             countries:
@@ -284,15 +295,14 @@ components:
       properties:
         name:
           type: string
+          example: 'Los Angeles'
         slug:
           type: string
+          example: los-angeles
         geoname_id:
           type: string
+          example: '5368361'
       type: object
-      example:
-        name: 'Los Angeles'
-        slug: los-angeles
-        geoname_id: '5368361'
     Country:
       x-tags:
         - offer
@@ -305,24 +315,23 @@ components:
       properties:
         name:
           type: string
+          example: 'United States'
         slug:
           type: string
+          example: united-states
         iso_numeric:
           type: string
+          example: '840'
         iso_alpha2:
           type: string
+          example: US
         iso_alpha3:
           type: string
+          example: USA
         geoname_id:
           type: string
+          example: '6252001'
       type: object
-      example:
-        name: 'United States'
-        slug: united-states
-        iso_numeric: '840'
-        iso_alpha2: US
-        iso_alpha3: USA
-        geoname_id: '6252001'
     Device:
       x-tags:
         - offer
@@ -342,30 +351,30 @@ components:
       properties:
         id:
           type: string
+          example: '118093008515239936'
         name:
           type: string
+          example: 'Level 1'
         description:
           type: string
+          example: 'Complete Level 1'
         amount:
           type: integer
+          example: 1
         payout_usd:
           type: number
           format: float
+          example: 1
         order:
           type: integer
+          example: 1
         non_linear:
           type: boolean
+          example: false
         is_purchase_goal:
           type: boolean
+          example: false
       type: object
-      example:
-        name: 'Level 1'
-        description: 'Complete Level 1'
-        amount: 1
-        payout_usd: 1
-        order: 1
-        non_linear: false
-        is_purchase_goal: false
     Os:
       x-tags:
         - offer
@@ -380,8 +389,10 @@ components:
             - web
         min:
           type: string
+          example: '4.0'
         max:
           type: string
+          example: '10.0'
       type: object
     State:
       x-tags:
@@ -392,15 +403,14 @@ components:
       properties:
         name:
           type: string
+          example: California
         slug:
           type: string
+          example: california
         geoname_id:
           type: string
+          example: '5332921'
       type: object
-      example:
-        name: California
-        slug: california
-        geoname_id: '5332921'
     Sticker:
       x-tags:
         - offer
@@ -410,12 +420,26 @@ components:
       properties:
         text:
           type: string
+          example: New
         color:
           type: string
+          example: FF0000
       type: object
-      example:
-        text: New
-        color: FF0000
+    Basic_Requirements:
+      x-tags:
+        - offer
+      required:
+        - description
+        - order
+      properties:
+        description:
+          type: string
+          example: 'Must be a new user.'
+        order:
+          type: integer
+          example: 1
+      type: object
+      title: Basic Requirements
     OfferWebhook:
       type: object
       properties:
