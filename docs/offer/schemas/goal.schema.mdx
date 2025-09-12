@@ -6,7 +6,7 @@ sidebar_label: "Goal"
 hide_title: true
 hide_table_of_contents: true
 schema: true
-sample: {"name":"Level 1","description":"Complete Level 1","amount":1,"payout_usd":1,"order":1,"non_linear":false,"is_purchase_goal":false}
+sample: {"id":"118093008515239936","name":"Level 1","description":"Complete Level 1","amount":1,"payout_usd":1,"order":1,"non_linear":false,"is_purchase_goal":false}
 custom_edit_url: null
 ---
 
@@ -25,7 +25,7 @@ import Heading from "@theme/Heading";
 
 
 <Schema
-  schema={{"x-tags":["offer"],"required":["amount","payout_usd","order"],"properties":{"id":{"type":"string"},"name":{"type":"string"},"description":{"type":"string"},"amount":{"type":"integer"},"payout_usd":{"type":"number","format":"float"},"order":{"type":"integer"},"non_linear":{"type":"boolean"},"is_purchase_goal":{"type":"boolean"}},"type":"object","example":{"name":"Level 1","description":"Complete Level 1","amount":1,"payout_usd":1,"order":1,"non_linear":false,"is_purchase_goal":false},"title":"Goal"}}
+  schema={{"x-tags":["offer"],"required":["amount","payout_usd","order"],"properties":{"id":{"type":"string","example":"118093008515239936"},"name":{"type":"string","example":"Level 1"},"description":{"type":"string","example":"Complete Level 1"},"amount":{"type":"integer","example":1},"payout_usd":{"type":"number","format":"float","example":1},"order":{"type":"integer","example":1},"non_linear":{"type":"boolean","example":false},"is_purchase_goal":{"type":"boolean","example":false}},"type":"object","title":"Goal"}}
   schemaType={"response"}
 >
   
