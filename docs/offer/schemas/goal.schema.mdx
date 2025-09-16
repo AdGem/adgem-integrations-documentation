@@ -25,7 +25,7 @@ import Heading from "@theme/Heading";
 
 
 <Schema
-  schema={{"x-tags":["offer"],"required":["amount","payout_usd","order"],"properties":{"id":{"type":"string","example":"118093008515239936"},"name":{"type":"string","example":"Level 1"},"description":{"type":"string","example":"Complete Level 1"},"amount":{"type":"integer","example":1},"payout_usd":{"type":"number","format":"float","example":1},"order":{"type":"integer","example":1},"non_linear":{"type":"boolean","example":false},"is_purchase_goal":{"type":"boolean","example":false}},"type":"object","title":"Goal"}}
+  schema={{"x-tags":["offer"],"required":["amount","payout_usd"],"properties":{"id":{"type":"string","example":"118093008515239936"},"name":{"type":"string","example":"Level 1"},"description":{"type":"string","example":"Complete Level 1"},"amount":{"type":"integer","example":1},"payout_usd":{"type":"number","format":"float","example":1},"order":{"type":"integer","nullable":true,"example":1},"non_linear":{"type":"boolean","example":false},"is_purchase_goal":{"type":"boolean","example":false}},"type":"object","title":"Goal"}}
   schemaType={"response"}
 >
   

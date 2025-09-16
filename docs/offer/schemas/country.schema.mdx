@@ -25,7 +25,7 @@ import Heading from "@theme/Heading";
 
 
 <Schema
-  schema={{"x-tags":["offer"],"required":["name","iso_numeric","iso_alpha2","iso_alpha3","geoname_id"],"properties":{"name":{"type":"string","example":"United States"},"slug":{"type":"string","example":"united-states"},"iso_numeric":{"type":"string","example":"840"},"iso_alpha2":{"type":"string","example":"US"},"iso_alpha3":{"type":"string","example":"USA"},"geoname_id":{"type":"string","example":"6252001"}},"type":"object","title":"Country"}}
+  schema={{"x-tags":["offer"],"required":["name"],"properties":{"name":{"type":"string","example":"United States"},"slug":{"type":"string","nullable":true,"example":"united-states"},"iso_numeric":{"type":"string","nullable":true,"example":"840"},"iso_alpha2":{"type":"string","nullable":true,"example":"US"},"iso_alpha3":{"type":"string","nullable":true,"example":"USA"},"geoname_id":{"type":"string","nullable":true,"example":"6252001"}},"type":"object","title":"Country"}}
   schemaType={"response"}
 >
   

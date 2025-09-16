@@ -85,7 +85,6 @@ components:
       required:
         - id
         - name
-        - store_id
         - tracking_type
         - total_payout_usd
         - total_amount
@@ -111,6 +110,7 @@ components:
           example: 'Offer Name'
         store_id:
           type: string
+          nullable: true
           example: com.adgem.app
         tracking_type:
           type: string
@@ -148,17 +148,10 @@ components:
             - name
             - icon_url
             - description
-            - short_description
             - instructions
-            - disclaimer
-            - currency_name
-            - currency_name_plural
             - categories
-            - sort_order_setting
             - stickers
-            - offer_cta
             - basic_requirements
-            - offer_cta
           properties:
             name:
               type: string
@@ -171,6 +164,7 @@ components:
               example: 'Offer Description'
             short_description:
               type: string
+              nullable: true
               example: 'Offer Short Description'
             instructions:
               type: array
@@ -181,12 +175,15 @@ components:
                 - 'Offer Instruction 2'
             disclaimer:
               type: string
+              nullable: true
               example: 'Offer Disclaimer'
             currency_name:
               type: string
+              nullable: true
               example: Coin
             currency_name_plural:
               type: string
+              nullable: true
               example: Coins
             categories:
               type: array
@@ -195,6 +192,7 @@ components:
               example: app
             sort_order_setting:
               type: integer
+              nullable: true
               example: 1
             stickers:
               type: array
@@ -202,6 +200,7 @@ components:
                 $ref: '#/components/schemas/Sticker'
             offer_cta:
               type: string
+              nullable: true
               example: 'Click to earn now!'
             basic_requirements:
               type: array
@@ -209,6 +208,7 @@ components:
                 $ref: '#/components/schemas/Basic_Requirements'
             offer_tip:
               type: string
+              nullable: true
               example: 'Make in-app purchases to earn faster!'
           type: object
         goals:
@@ -228,11 +228,10 @@ components:
               example: 'https://api.adgem.com/support/1/100/{playerid}'
           type: object
         stats:
-          required:
-            - network_epc
           properties:
             network_epc:
               type: number
+              nullable: true
               format: float
               example: 0.1
           type: object
@@ -291,16 +290,17 @@ components:
         - offer
       required:
         - name
-        - geoname_id
       properties:
         name:
           type: string
           example: 'Los Angeles'
         slug:
           type: string
+          nullable: true
           example: los-angeles
         geoname_id:
           type: string
+          nullable: true
           example: '5368361'
       type: object
     Country:
@@ -308,28 +308,29 @@ components:
         - offer
       required:
         - name
-        - iso_numeric
-        - iso_alpha2
-        - iso_alpha3
-        - geoname_id
       properties:
         name:
           type: string
           example: 'United States'
         slug:
           type: string
+          nullable: true
           example: united-states
         iso_numeric:
           type: string
+          nullable: true
           example: '840'
         iso_alpha2:
           type: string
+          nullable: true
           example: US
         iso_alpha3:
           type: string
+          nullable: true
           example: USA
         geoname_id:
           type: string
+          nullable: true
           example: '6252001'
       type: object
     Device:
@@ -347,7 +348,6 @@ components:
       required:
         - amount
         - payout_usd
-        - order
       properties:
         id:
           type: string
@@ -367,6 +367,7 @@ components:
           example: 1
         order:
           type: integer
+          nullable: true
           example: 1
         non_linear:
           type: boolean
@@ -399,30 +400,30 @@ components:
         - offer
       required:
         - name
-        - geoname_id
       properties:
         name:
           type: string
           example: California
         slug:
           type: string
+          nullable: true
           example: california
         geoname_id:
           type: string
+          nullable: true
           example: '5332921'
       type: object
     Sticker:
       x-tags:
         - offer
-      required:
-        - text
-        - color
       properties:
         text:
           type: string
+          nullable: true
           example: New
         color:
           type: string
+          nullable: true
           example: FF0000
       type: object
     Basic_Requirements:
