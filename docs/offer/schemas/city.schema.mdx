@@ -25,7 +25,7 @@ import Heading from "@theme/Heading";
 
 
 <Schema
-  schema={{"x-tags":["offer"],"required":["name","geoname_id"],"properties":{"name":{"type":"string"},"slug":{"type":"string"},"geoname_id":{"type":"string"}},"type":"object","example":{"name":"Los Angeles","slug":"los-angeles","geoname_id":"5368361"},"title":"City"}}
+  schema={{"x-tags":["offer"],"required":["name"],"properties":{"name":{"type":"string","example":"Los Angeles"},"slug":{"type":"string","nullable":true,"example":"los-angeles"},"geoname_id":{"type":"string","nullable":true,"example":"5368361"}},"type":"object","title":"City"}}
   schemaType={"response"}
 >
   

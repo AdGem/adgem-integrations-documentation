@@ -55,6 +55,9 @@ type OfferCreatives {
   currency_name_plural: String
   hero_image_url: String
   short_description: String
+  offer_cta: String
+  basic_requirements: [BasicRequirements]
+  offer_tip: String
 }
 ```
 
@@ -121,6 +124,33 @@ Example: "https://example.com/hero-image.png"
 The offer tagline.
 
 Example: "Play to earn"
+
+
+#### [<code style={{ fontWeight: 'normal' }}>OfferCreatives.<b>offer_cta</b></code>](#)<Bullet />[<code style={{ fontWeight: 'normal' }}><b>String</b></code>](/targeted-api/types/scalars/string.mdx) <Badge class="badge badge--secondary " text="scalar"/> 
+Stands for Call To Action, it's a phrase tan can be used in your UI that prompts an immediate user response or a specific action.
+
+Example: Earn now!
+
+
+#### [<code style={{ fontWeight: 'normal' }}>OfferCreatives.<b>basic_requirements</b></code>](#)<Bullet />[<code style={{ fontWeight: 'normal' }}><b>[BasicRequirements]</b></code>](/targeted-api/types/objects/basic-requirements.mdx) <Badge class="badge badge--secondary " text="list"/> <Badge class="badge badge--secondary " text="object"/> 
+These are a set of requirements a user must fullfil to complete an offer.
+
+Example: [
+  [
+    'description': 'Must be a new user',
+    'order': 1
+  ],
+  [
+    'description': 'Must be a Android user',
+    'order': 2
+  ]
+]
+
+
+#### [<code style={{ fontWeight: 'normal' }}>OfferCreatives.<b>offer_tip</b></code>](#)<Bullet />[<code style={{ fontWeight: 'normal' }}><b>String</b></code>](/targeted-api/types/scalars/string.mdx) <Badge class="badge badge--secondary " text="scalar"/> 
+A tip to help users complete the offer.
+
+Example: "Make in-app purchases to earn faster"
 
 
 

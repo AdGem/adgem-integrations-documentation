@@ -64,6 +64,12 @@ const sidebar: SidebarsConfig = {
         },
         {
           type: "doc",
+          id: "offer/schemas/basic-requirements",
+          label: "Basic Requirements",
+          className: "schema",
+        },
+        {
+          type: "doc",
           id: "offer/get-offers",
           label: "Retrieve untargeted offers",
           className: "api-method get",

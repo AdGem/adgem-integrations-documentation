@@ -25,7 +25,7 @@ import Heading from "@theme/Heading";
 
 
 <Schema
-  schema={{"x-tags":["offer"],"required":["text","color"],"properties":{"text":{"type":"string"},"color":{"type":"string"}},"type":"object","example":{"text":"New","color":"FF0000"},"title":"Sticker"}}
+  schema={{"x-tags":["offer"],"properties":{"text":{"type":"string","nullable":true,"example":"New"},"color":{"type":"string","nullable":true,"example":"FF0000"}},"type":"object","title":"Sticker"}}
   schemaType={"response"}
 >
   
