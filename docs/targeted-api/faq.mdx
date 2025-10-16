@@ -14,14 +14,14 @@ When the `sort` parameter is not provided in the `offers` query, the system appl
 The default sort prioritizes performance but strategically places new offers to ensure they receive exposure:
 
 1.  **Primary Sort:** The offers are initially ordered by their **`network_epc` in descending order** (highest EPC first).
-2.  **New Offer Insertion:** Offers marked as "New" (which typically have an EPC of $0.00$) are removed from the bottom of the list and **re-inserted starting at Position 5**.
+2.  **New Offer Insertion:** Offers marked as "New" (which typically have an EPC of 0) are removed from the bottom of the list and **re-inserted starting at position 5**.
 3.  **Final Order:** Existing offers that were ranked 5th and below are pushed down to accommodate these new insertions.
 
 This approach guarantees that all offers, whether new or established, get a chance to be seen by users.
 
 ### Visualization of Sorting
 
-Below is an example illustrating how a set of offers transitions from the initial state to the final, displayed order.
+Below is an example illustrating how a set of offers is transitioned from the initial state to the final, displayed order.
 
 #### Before Sorting (Initial Data)
 
@@ -40,7 +40,7 @@ This represents the raw data order before processing.
 
 #### After Initial EPC Sort
 
-Offers are sorted strictly by `network_epc` (Descending). New offers (EPC $0.00$) fall to the bottom.
+Offers are sorted strictly by `network_epc` (descending). New offers (EPC 0) fall to the bottom.
 
 | Position | network\_epc | Is New? |
 | :------: | :----------: | :------: |
@@ -70,7 +70,7 @@ The two "New" offers are strategically placed at positions **5** and **6**, push
 
 ---
 
-## How does the translation fallback works
+## How does the translation fallback works?
 
 The translation fallback mechanism is designed to prevent failures and ensure localized fields are always returned, even if a specific translation doesn't exist. This process follows a simple, three-step hierarchy.
 
