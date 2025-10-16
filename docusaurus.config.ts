@@ -192,9 +192,6 @@ const config: Config = {
           offer: {
             specPath: "examples/offer.yaml",
             outputDir: "docs/offer",
-            // TODO: make spec downloadable?
-            // downloadUrl:
-            //   "https://raw.githubusercontent.com/PaloAltoNetworks/docusaurus-template-openapi-docs/main/examples/petstore.yaml",
             sidebarOptions: {
               groupPathsBy: "tag",
               categoryLinkSource: "tag",

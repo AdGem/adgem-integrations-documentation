@@ -1,0 +1,83 @@
+---
+id: faq
+title: FAQ
+---
+
+# Frequently Asked Questions
+
+## How does the default sorting work in the `offers` query?
+
+When the `sort` parameter is not provided in the `offers` query, the system applies a default sorting mechanism designed to balance offer performance and visibility for new entries.
+
+### How it Works
+
+The default sort prioritizes performance but strategically places new offers to ensure they receive exposure:
+
+1.  **Primary Sort:** The offers are initially ordered by their **`network_epc` in descending order** (highest EPC first).
+2.  **New Offer Insertion:** Offers marked as "New" (which typically have an EPC of 0) are removed from the bottom of the list and **re-inserted starting at position 5**.
+3.  **Final Order:** Existing offers that were ranked 5th and below are pushed down to accommodate these new insertions.
+
+This approach guarantees that all offers, whether new or established, get a chance to be seen by users.
+
+### Visualization of Sorting
+
+Below is an example illustrating how a set of offers is transitioned from the initial state to the final, displayed order.
+
+#### Before Sorting (Initial Data)
+
+This represents the raw data order before processing.
+
+| Position | network\_epc | Is New? |
+| :------: | :----------: | :------: |
+| 1        | 0.15         | No       |
+| 2        | 0.25         | No       |
+| 3        | 0.08         | No       |
+| 4        | 0.00         | Yes      |
+| 5        | 0.19         | No       |
+| 6        | 0.00         | Yes      |
+| 7        | 0.12         | No       |
+| 8        | 0.05         | No       |
+
+#### After Initial EPC Sort
+
+Offers are sorted strictly by `network_epc` (descending). New offers (EPC 0) fall to the bottom.
+
+| Position | network\_epc | Is New? |
+| :------: | :----------: | :------: |
+| 1        | 0.25         | No       |
+| 2        | 0.19         | No       |
+| 3        | 0.15         | No       |
+| 4        | 0.12         | No       |
+| 5        | 0.08         | No       |
+| 6        | 0.05         | No       |
+| 7        | 0.00         | Yes      |
+| 8        | 0.00         | Yes      |
+
+#### Final Order After New Offer Insertion
+
+The two "New" offers are strategically placed at positions **5** and **6**, pushing the previously ranked offers (0.08 and 0.05 EPC) down to positions 7 and 8.
+
+| Position | network\_epc | Is New? |
+| :------: | :----------: | :------: |
+| 1        | 0.25         | No       |
+| 2        | 0.19         | No       |
+| 3        | 0.15         | No       |
+| 4        | 0.12         | No       |
+| **5** | **0.00** | **Yes** |
+| **6** | **0.00** | **Yes** |
+| 7        | 0.08         | No       |
+| 8        | 0.05         | No       |
+
+---
+
+## How does translation fallback work?
+
+The translation fallback mechanism is designed to prevent failures and ensure localized fields are always returned, even if a specific translation doesn't exist. This process follows a simple, three-step hierarchy.
+
+This is best illustrated when a language with a specific dialect, such as **Traditional Chinese for Taiwan (`zh-TW`)**, is requested:
+
+1.  **Specific Language and Dialect:** The system first attempts to translate the field using the full language code, including the dialect (`zh-TW`).
+2.  **Base Language:** If the specific dialect translation is unavailable, the system automatically falls back to the base language code (`zh`).
+3.  **Default Language:** If the base language translation is also unavailable, the system defaults to the global fallback language, which is **English (`en`)**, ensuring a value is always provided.
+
+This multi-step approach ensures a graceful degradation of the translation, prioritizing the most specific language available.

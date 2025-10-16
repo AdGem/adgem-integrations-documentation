@@ -26,12 +26,6 @@ info:
     name: API Support
     email: info@adgem.com
     url: https://adgem.com
-  # x-logo:
-  #   url: "https://adgem.com/wp-content/uploads/adgem_logo_small2.png"
-  #   altText: AdGem logo
-  # x-dark-logo:
-  #   url: "/img/petstore-logo-dark.png"
-  #   altText: "TBD dark logo"
   license:
     name: Apache 2.0
     url: "http://www.apache.org/licenses/LICENSE-2.0.html"
@@ -53,12 +47,6 @@ x-tagGroups:
 paths:
   /offers:
     parameters:
-      # - name: Authorization
-      #   in: header
-      #   description: "Bearer token"
-      #   required: true
-      #   schema:
-      #     type: string
     get:
       tags:
         - offer
@@ -468,38 +456,6 @@ components:
         campaignId:
           type: integer
           example: 1
-  # TODO: Do we need requestBodies?
-  # requestBodies:
-  #   Offer:
-  #     content:
-  #       application/json:
-  #         schema:
-  #           allOf:
-  #             - description: My Pet
-  #               title: Pettie
-  #             - $ref: "#/components/schemas/Pet"
-  #         example:
-  #           category:
-  #             name: Great Dane
-  #             sub:
-  #               prop1: Just a test property
-  #           name: Pepper
-  #           photoUrls:
-  #             - https://assets.orvis.com/is/image/orvisprd/great-dane
-  #           tags:
-  #             - name: Great Danes
-  #           status: pending
-  #           petType:
-  #             huntingSkill: lazy
-  #       application/xml:
-  #         schema:
-  #           type: "object"
-  #           properties:
-  #             name:
-  #               type: string
-  #               description: hooray
-  #     description: Pet object that needs to be added to the store
-  #     required: true
   securitySchemes:
     BearerAuth:
       type: http
