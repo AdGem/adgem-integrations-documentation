@@ -1,0 +1,57 @@
+{/*
+  Partial: Postback Macros Table
+  Usage: import PostbackMacrosTable from '@site/docs/_partials/postback-macros-table.mdx';
+         <PostbackMacrosTable />
+*/}
+
+The following macros are available for use in your postback URL. AdGem's server will replace these with actual values when sending the postback.
+
+:::info URL Encoding
+All field values are URL encoded using **PHP `rawurlencode()` RFC 3986** (which differs from JavaScript encoding). For example:
+
+A `{campaign_name}` of `Example App: Sports & Casino - CPE FTD (iOS, INCENT, Free, UK)` will be returned as `Example%20App%3A%20Sports%20%26%20Casino%20-%20CPE%20FTD%20%28iOS%2C%20INCENT%2C%20Free%2C%20UK%29`
+:::
+
+:::tip Best Practices
+- **Include `{payout}`** - Track the accurate decimal revenue earned for each conversion
+- **Include `{goal_id}`** - Track player progress on multi-reward offers (each goal has a unique ID)
+- **Alphabetize parameters** - Some frameworks sort query strings, so alphabetizing avoids authentication issues
+:::
+
+| Macro | Recommended | Description |
+|-------|:-----------:|-------------|
+| `{transaction_id}` | ✓ | The unique AdGem ID of the offer conversion |
+| `{campaign_id}` | ✓ | The unique ID of the campaign/offer that was completed |
+| `{payout}` | ✓ | The decimal amount of revenue earned from the user completing the offer |
+| `{amount}` | ✓ | The amount of virtual currency to reward the user (can be empty or null) |
+| `{goal_id}` | ✓ | The unique ID of each goal in a campaign/offer that was completed |
+| `{player_id}` | | The unique ID of the player/user on your system |
+| `{app_id}` | | The unique ID for your app on AdGem |
+| `{offer_id}` | | The unique offer version with which the user engaged *(Offer API integrations only)* |
+| `{offer_name}` | | The name of the campaign/offer as shown in the Offerwall/API |
+| `{goal_name}` | | The name of the completed goal |
+| `{store_id}` | | The unique ID assigned by Google Play Store or Apple App Store |
+| `{tracking_type}` | | The type of offer completed (e.g., `CPI`, `CPE`, `CPA`, `CPC`, `Market Research`) |
+| `{ad_type}` | | The type of ad unit where the click originated (e.g., `offerwall`) |
+| `{all_goals_completed}` | | Indicates if all goals have been completed for the campaign |
+| `{allow_multiple_conversions}` | | Boolean indicating if the offer allows multiple conversions |
+| `{click_datetime}` | | The date and time when the user clicked on the offer (EST) |
+| `{conversion_datetime}` | | The date and time when the user completed the offer (EST) |
+| `{c1}` | | Custom parameter value set by the publisher ^ |
+| `{c2}` | | Custom parameter value set by the publisher ^ |
+| `{c3}` | | Custom parameter value set by the publisher ^ |
+| `{c4}` | | Custom parameter value set by the publisher ^ |
+| `{c5}` | | Custom parameter value set by the publisher ^ |
+| `{country}` | | ISO country code for the user ^ |
+| `{state}` | | The user's state or region ^ |
+| `{ip}` | | The IP address of the user ^ |
+| `{platform}` | | The platform the device is using (e.g., `ios`) ^ |
+| `{os_version}` | | The user's Operating System version ^ |
+| `{app_version}` | | The version of your app where the click originated ^ |
+| `{gaid}` | | Google Advertising ID (when using Google Play Services) ^ |
+| `{idfa}` | | Apple Advertising ID (when user has not limited ad tracking) ^ |
+| `{useragent}` | | The User Agent from the user's default browser ^ |
+
+:::note Publisher-Provided Data
+^ These macros contain data provided by the **Publisher** in the `click_url`. AdGem passes these values back in the postback.
+:::
