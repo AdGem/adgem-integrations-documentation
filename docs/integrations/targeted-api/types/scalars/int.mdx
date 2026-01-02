@@ -1,6 +1,6 @@
 ---
-id: skip
-title: skip
+id: int
+title: Int
 ---
 
 
@@ -39,22 +39,20 @@ export const Details = ({ dataOpen, dataClose, children, startOpen = false }) =>
 
 
 
-Directs the executor to skip this field or fragment when the `if` argument is true.
+The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1.
 
 
 ```graphql
-directive @skip(
-  if: Boolean!
-) on 
-  | FIELD
-  | FRAGMENT_SPREAD
-  | INLINE_FRAGMENT
+scalar Int
 ```
 
 
 
 
-### Arguments
 
-#### [<code style={{ fontWeight: 'normal' }}>skip.<b>if</b></code>](#)<Bullet />[<code style={{ fontWeight: 'normal' }}><b>Boolean!</b></code>](/targeted-api/types/scalars/boolean.mdx) <Badge class="badge badge--secondary badge--non_null" text="non-null"/> <Badge class="badge badge--secondary " text="scalar"/> 
-Skipped when true.
+
+
+
+### Member Of
+
+[`Offer`](/integrations/targeted-api/types/objects/offer.mdx)  <Badge class="badge badge--secondary badge--relation" text="object"/><Bullet />[`OfferGoal`](/integrations/targeted-api/types/objects/offer-goal.mdx)  <Badge class="badge badge--secondary badge--relation" text="object"/><Bullet />[`offers`](/integrations/targeted-api/operations/queries/offers.mdx)  <Badge class="badge badge--secondary badge--relation" text="query"/>

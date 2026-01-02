@@ -1,6 +1,6 @@
 ---
 id: links
-title: Links
+title: links
 ---
 
 
@@ -39,30 +39,25 @@ export const Details = ({ dataOpen, dataClose, children, startOpen = false }) =>
 
 
 
-Associated links for the returned offers like 'support_portal'.
+Retrieve app-specific links like 'support_portal'.
 
 
 ```graphql
-type Links {
-  support_portal: String!
-}
+links(
+  player_id: String!
+): Links
 ```
 
 
 
 
-### Fields
+### Arguments
 
-#### [<code style={{ fontWeight: 'normal' }}>Links.<b>support_portal</b></code>](#)<Bullet />[<code style={{ fontWeight: 'normal' }}><b>String!</b></code>](/targeted-api/types/scalars/string.mdx) <Badge class="badge badge--secondary badge--non_null" text="non-null"/> <Badge class="badge badge--secondary " text="scalar"/> 
-Support portal link.
-
-Example: "https://api.adgem.com/support/player?appid=12345&playerid=testplayer"
+#### [<code style={{ fontWeight: 'normal' }}>links.<b>player_id</b></code>](#)<Bullet />[<code style={{ fontWeight: 'normal' }}><b>String!</b></code>](/integrations/targeted-api/types/scalars/string.mdx) <Badge class="badge badge--secondary badge--non_null" text="non-null"/> <Badge class="badge badge--secondary " text="scalar"/> 
 
 
 
+### Type
 
-
-
-### Returned By
-
-[`links`](/targeted-api/operations/queries/links.mdx)  <Badge class="badge badge--secondary badge--relation" text="query"/>
+#### [<code style={{ fontWeight: 'normal' }}><b>Links</b></code>](/integrations/targeted-api/types/objects/links.mdx) <Badge class="badge badge--secondary " text="object"/> 
+Associated links for the returned offers like 'support_portal'.

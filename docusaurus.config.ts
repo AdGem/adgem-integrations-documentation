@@ -64,11 +64,11 @@ const config: Config = {
             items: [
               {
                 label: "Offer API (REST)",
-                to: "/docs/category/offer-api",
+                to: "/docs/integrations/offer-api",
               },
               {
                 label: "Targeted API (GraphQL)",
-                to: "/docs/category/targeted-api",
+                to: "/docs/integrations/targeted-api",
               },
               {
                 label: "iOS SDK",
@@ -253,7 +253,7 @@ const config: Config = {
         config: {
           offer: {
             specPath: "examples/offer.yaml",
-            outputDir: "docs/offer",
+            outputDir: "docs/integrations/offer-api",
             sidebarOptions: {
               groupPathsBy: "tag",
               categoryLinkSource: "tag",
@@ -269,7 +269,7 @@ const config: Config = {
       {
         schema: process.env.TARGETED_API_SCHEMA_URL,
         rootPath: './docs',
-        baseURL: "targeted-api",
+        baseURL: "integrations/targeted-api",
         homePage: "./static/targeted-api.md",
         // ... other options
         loaders: {
