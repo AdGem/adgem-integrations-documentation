@@ -1,6 +1,6 @@
 ---
-id: include
-title: include
+id: boolean
+title: Boolean
 ---
 
 
@@ -39,22 +39,20 @@ export const Details = ({ dataOpen, dataClose, children, startOpen = false }) =>
 
 
 
-Directs the executor to include this field or fragment only when the `if` argument is true.
+The `Boolean` scalar type represents `true` or `false`.
 
 
 ```graphql
-directive @include(
-  if: Boolean!
-) on 
-  | FIELD
-  | FRAGMENT_SPREAD
-  | INLINE_FRAGMENT
+scalar Boolean
 ```
 
 
 
 
-### Arguments
 
-#### [<code style={{ fontWeight: 'normal' }}>include.<b>if</b></code>](#)<Bullet />[<code style={{ fontWeight: 'normal' }}><b>Boolean!</b></code>](/targeted-api/types/scalars/boolean.mdx) <Badge class="badge badge--secondary badge--non_null" text="non-null"/> <Badge class="badge badge--secondary " text="scalar"/> 
-Included when true.
+
+
+
+### Member Of
+
+[`include`](/integrations/targeted-api/operations/directives/include.mdx)  <Badge class="badge badge--secondary badge--relation" text="directive"/><Bullet />[`Offer`](/integrations/targeted-api/types/objects/offer.mdx)  <Badge class="badge badge--secondary badge--relation" text="object"/><Bullet />[`OfferGoal`](/integrations/targeted-api/types/objects/offer-goal.mdx)  <Badge class="badge badge--secondary badge--relation" text="object"/><Bullet />[`skip`](/integrations/targeted-api/operations/directives/skip.mdx)  <Badge class="badge badge--secondary badge--relation" text="directive"/>

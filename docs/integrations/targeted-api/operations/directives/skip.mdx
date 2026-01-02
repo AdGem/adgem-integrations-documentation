@@ -1,6 +1,6 @@
 ---
-id: float
-title: Float
+id: skip
+title: skip
 ---
 
 
@@ -39,20 +39,22 @@ export const Details = ({ dataOpen, dataClose, children, startOpen = false }) =>
 
 
 
-The `Float` scalar type represents signed double-precision fractional values as specified by [IEEE 754](https://en.wikipedia.org/wiki/IEEE_floating_point).
+Directs the executor to skip this field or fragment when the `if` argument is true.
 
 
 ```graphql
-scalar Float
+directive @skip(
+  if: Boolean!
+) on 
+  | FIELD
+  | FRAGMENT_SPREAD
+  | INLINE_FRAGMENT
 ```
 
 
 
 
+### Arguments
 
-
-
-
-### Member Of
-
-[`Offer`](/targeted-api/types/objects/offer.mdx)  <Badge class="badge badge--secondary badge--relation" text="object"/><Bullet />[`OfferGoal`](/targeted-api/types/objects/offer-goal.mdx)  <Badge class="badge badge--secondary badge--relation" text="object"/>
+#### [<code style={{ fontWeight: 'normal' }}>skip.<b>if</b></code>](#)<Bullet />[<code style={{ fontWeight: 'normal' }}><b>Boolean!</b></code>](/integrations/targeted-api/types/scalars/boolean.mdx) <Badge class="badge badge--secondary badge--non_null" text="non-null"/> <Badge class="badge badge--secondary " text="scalar"/> 
+Skipped when true.
