@@ -1,0 +1,284 @@
+{/*
+  Partial: Security Code Samples
+  Usage: import SecurityCodeSamples from '@site/docs/_partials/security-code-samples.mdx';
+         <SecurityCodeSamples />
+
+  Or for specific versions:
+         <SecurityCodeSamples version="v2" />
+         <SecurityCodeSamples version="v3" />
+*/}
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+## Securing Your Postbacks
+
+We provide two security measures for securing postback communication between AdGem and your server:
+
+1. **IP Whitelisting** - Verify the postback comes from AdGem's static IP
+2. **Postback Hashing** - Cryptographic verification of the postback integrity
+
+:::warning Recommendation
+We strongly recommend implementing **both** security measures to ensure postbacks are genuine. Without proper security, malicious actors could send fake postback requests to fraudulently earn virtual currency.
+:::
+
+### IP Whitelisting
+
+Postbacks are sent from a static IP address. Whitelist this IP on your server. Contact [support@adgem.com](mailto:support@adgem.com) or your Publisher Support Advocate to get the production IP address.
+
+### Postback Hashing (v2 - GET Requests)
+
+When you enable postback hashing by generating a **Postback Key**, you'll receive two new query parameters:
+
+- **`request_id`** - A unique UUID for each postback (no duplicates)
+- **`verifier`** - A cryptographic hash for validation
+
+**Verification Process:**
+1. Remove the `verifier` parameter from the postback URL
+2. Hash the remaining URL using **HMAC-SHA256** with your postback secret key
+3. Compare the calculated hash with the `verifier` parameter
+
+<Tabs>
+<TabItem value="php" label="PHP">
+
+```php
+hash_hmac('sha256', $postback_url, $postback_secret_key)
+```
+
+**Full Example (PHP 7.1+):**
+
+```php
+// securely supply credentials using environment variables
+define('ADGEM_WHITELIST_IP', $_ENV['ADGEM_WHITELIST_IP']);
+define('ADGEM_POSTBACK_KEY', $_ENV['ADGEM_POSTBACK_KEY']);
+
+// verify the static IP
+if(ADGEM_WHITELIST_IP !== $_SERVER['REMOTE_ADDR']) {
+    http_response_code(403);
+    exit('Error: '.$_SERVER['REMOTE_ADDR'].' does not match the whitelisted IP address.');
+}
+
+// get the full request url
+$protocol = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http");
+$request_url = "$protocol://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+
+// parse the url and query string
+$parsed_url = parse_url($request_url);
+parse_str($parsed_url['query'], $query_string);
+
+// get the verifier value
+$verifier = $query_string['verifier'] ?? null;
+if (is_null($verifier)) {
+    http_response_code(422);
+    exit("Error: missing verifier");
+}
+
+// rebuild url without the verifier
+unset($query_string['verifier']);
+$hashless_url = $protocol.'://'.$parsed_url['host'].$parsed_url['path'].'?'.http_build_query($query_string, "", "&", PHP_QUERY_RFC3986);
+
+// calculate the hash and verify it matches
+$calculated_hash = hash_hmac('sha256', $hashless_url, ADGEM_POSTBACK_KEY);
+if ($calculated_hash !== $verifier) {
+    http_response_code(422);
+    exit('Error: invalid verifier');
+}
+
+// valid - safe to process the postback
+http_response_code(200);
+exit('OK');
+```
+
+</TabItem>
+<TabItem value="node" label="Node.js">
+
+```javascript
+CryptoJS.HmacSHA256(postbackUrl, postbackSecretKey).toString(CryptoJS.enc.Hex)
+```
+
+**Full Example:**
+
+```javascript
+const http = require('http');
+const { URL } = require('url');
+const CryptoJS = require("crypto-js");
+
+http.createServer(function (req, res) {
+    // verify the static ip
+    let ip = req.socket.remoteAddress;
+    if (ip != process.env.ADGEM_WHITELIST_IP) {
+        res.writeHead(422, { 'Content-Type': 'text/html' });
+        return res.end('Error: ' + ip + ' does not match the whitelisted IP address.');
+    }
+
+    // get the full request url
+    let protocol = (req.connection.encrypted ? 'https': 'http');
+    let requestUrl = new URL(protocol + '://' + req.headers.host + req.url);
+
+    // get the verifier value
+    let verifier = requestUrl.searchParams.get('verifier');
+    if (verifier == undefined) {
+        res.writeHead(422, { 'Content-Type': 'text/html' });
+        return res.end("Error: missing verifier");
+    }
+
+    // remove the verifier
+    requestUrl.searchParams.delete('verifier');
+
+    // calculate the hash and verify it matches
+    let hash = CryptoJS.HmacSHA256(requestUrl.href, process.env.ADGEM_POSTBACK_KEY).toString(CryptoJS.enc.Hex);
+
+    if (hash !== verifier) {
+        res.writeHead(422, { 'Content-Type': 'text/html' });
+        return res.end("Error: invalid verifier");
+    }
+
+    // valid - safe to process the postback
+    res.writeHead(200, { 'Content-Type': 'text/html' });
+    res.end('OK');
+}).listen(process.env.PORT, '0.0.0.0');
+```
+
+</TabItem>
+<TabItem value="ruby" label="Ruby">
+
+```ruby
+OpenSSL::HMAC.hexdigest("SHA256", postback_secret_key, postback_url)
+```
+
+**Full Example (Rails):**
+
+```ruby
+class PostbacksController < ApplicationController
+    before_action :check_ip
+
+    def store
+        if params[:verifier].blank?
+            logger.error "verifier is blank in url: #{request.original_url}"
+            return render status: 403, json: {'success': false}
+        end
+
+        # remove verifier from url and keep order of params
+        hashless_url = request.original_url.split('&verifier=')[0]
+
+        calculated_hash = OpenSSL::HMAC.hexdigest("SHA256", ENV['POSTBACK_SECRET_KEY'], hashless_url)
+
+        if calculated_hash != params[:verifier]
+            return render status: 403, json: {'success': false}
+        end
+
+        # valid - safe to process the postback
+        return render status: 200, json: {'success': true}
+    end
+
+    private
+
+    def check_ip
+        unless request.remote_ip == ENV['ADGEM_WHITELIST_IP']
+            logger.error "#{request.remote_ip} is not whitelisted"
+            return render status: 403, json: {'success': false}
+        end
+    end
+end
+```
+
+</TabItem>
+<TabItem value="python" label="Python">
+
+```python
+hmac.new(postback_secret_key.encode('utf-8'), postback_url.encode('utf-8'), hashlib.sha256).hexdigest()
+```
+
+**Full Example:**
+
+```python
+from http.server import BaseHTTPRequestHandler, HTTPServer
+from urllib.parse import urlparse, parse_qs, urlencode
+import hmac
+import hashlib
+
+class PostbackHandler(BaseHTTPRequestHandler):
+    def do_GET(self):
+        host = self.headers.get('Host')
+        path = urlparse(self.path).path
+        query_params = parse_qs(urlparse(self.path).query)
+
+        # get and remove verifier
+        verifier = query_params.get('verifier', [None])[0]
+        if 'verifier' in query_params:
+            del query_params['verifier']
+
+        # rebuild url without verifier
+        query_string = urlencode(query_params, doseq=True)
+        url_without_verifier = f"http://{host}{path}"
+        if query_string:
+            url_without_verifier += f"?{query_string}"
+
+        # calculate HMAC
+        encoded_key = hmac.new(
+            ADGEM_POSTBACK_KEY.encode('utf-8'),
+            url_without_verifier.encode('utf-8'),
+            hashlib.sha256
+        ).hexdigest()
+
+        if encoded_key == verifier:
+            self.send_response(200)
+            self.end_headers()
+            self.wfile.write(b"OK")
+        else:
+            self.send_response(500)
+            self.end_headers()
+            self.wfile.write(b"Invalid verifier")
+```
+
+</TabItem>
+</Tabs>
+
+### Signature Verification (v3 - POST Requests)
+
+For v3 POST postbacks, verify the request by hashing the request body with your secret key using HMAC-SHA256 and comparing it to the `Signature` header.
+
+<Tabs>
+<TabItem value="node-v3" label="Node.js (Express)">
+
+```javascript
+const express = require('express');
+const crypto = require('crypto');
+
+const app = express();
+app.use(express.json());
+
+app.post('/postbacks/adgem/v3', (req, res) => {
+    const receivedSignature = req.headers['Signature'];
+    const postData = JSON.stringify(req.body);
+    const expectedSignature = crypto
+        .createHmac('sha256', process.env.ADGEM_POSTBACK_KEY)
+        .update(postData, 'utf8')
+        .digest('hex');
+
+    if (expectedSignature === receivedSignature) {
+        res.status(200).send();
+    } else {
+        res.status(401).send();
+    }
+});
+```
+
+</TabItem>
+<TabItem value="php-v3" label="PHP (Laravel)">
+
+```php
+Route::post('/postbacks/adgem/v3', function () {
+    $receivedSignature = request()->headers->get('Signature');
+    $expectedSignature = hash_hmac('sha256', request()->getContent(), env('ADGEM_POSTBACK_KEY'));
+
+    if ($expectedSignature === $receivedSignature) {
+        return response()->noContent(200);
+    } else {
+        return response()->noContent(401);
+    }
+});
+```
+
+</TabItem>
+</Tabs>
