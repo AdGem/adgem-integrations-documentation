@@ -1,0 +1,77 @@
+---
+sidebar_position: 3
+title: Example Project
+description: Sample Unity project demonstrating AdGem SDK integration.
+---
+
+# Unity Example Project
+
+The AdGem Unity SDK package includes example scenes and scripts to help you get started with the integration.
+
+## SDK Package
+
+The Unity SDK package is available on GitHub:
+
+<a href="https://github.com/AdGem/adgem-sdk-unity-package" target="_blank" className="button button--primary">
+  View on GitHub
+</a>
+
+## What's Included
+
+The SDK package includes:
+
+- **AdGem prefab** - Ready-to-use prefab for quick integration
+- **Example scene** - Demonstrates offer wall display and callback handling
+- **Demo controller script** - Shows proper callback registration/unregistration patterns
+- **Settings window** - Editor window for configuring your App ID and debug options
+
+## Getting Started
+
+1. Add the AdGem Unity SDK to your project via the Package Manager using the Git URL
+2. Open the example scene included in the package
+3. Configure your AdGem App ID in **Window > AdGem**
+4. Run the scene to test the offer wall integration
+
+## Demo Controller Example
+
+The included demo controller demonstrates the recommended pattern for integrating AdGem:
+
+```csharp
+public class AdGemDemoController : MonoBehaviour
+{
+    private void Start()
+    {
+        var callbackDelegate = AdGem.OfferwallCallback;
+        callbackDelegate.OnLoadingStarted.AddListener(OnOfferwallLoadingStarted);
+        callbackDelegate.OnLoadingFinished.AddListener(OnOfferwallLoadingFinished);
+        callbackDelegate.OnLoadingFailed.AddListener(OnOfferwallLoadingFailed);
+        callbackDelegate.OnRewardReceived.AddListener(OnOfferwallRewardReceived);
+        callbackDelegate.OnClosed.AddListener(OnOfferwallClosed);
+    }
+
+    private void OnDestroy()
+    {
+        var callbackDelegate = AdGem.OfferwallCallback;
+        callbackDelegate.OnLoadingStarted.RemoveListener(OnOfferwallLoadingStarted);
+        callbackDelegate.OnLoadingFinished.RemoveListener(OnOfferwallLoadingFinished);
+        callbackDelegate.OnLoadingFailed.RemoveListener(OnOfferwallLoadingFailed);
+        callbackDelegate.OnRewardReceived.RemoveListener(OnOfferwallRewardReceived);
+        callbackDelegate.OnClosed.RemoveListener(OnOfferwallClosed);
+    }
+
+    public void ShowOfferwall()
+    {
+        AdGem.ShowOfferwall();
+    }
+
+    private void OnOfferwallLoadingStarted() { /* Handle loading started */ }
+    private void OnOfferwallLoadingFinished() { /* Handle loading finished */ }
+    private void OnOfferwallLoadingFailed(string error) { /* Handle error */ }
+    private void OnOfferwallRewardReceived(int amount) { /* Award user */ }
+    private void OnOfferwallClosed() { /* Handle close */ }
+}
+```
+
+:::tip
+The example project is a great starting point for understanding how to integrate the AdGem SDK into your own Unity game.
+:::
