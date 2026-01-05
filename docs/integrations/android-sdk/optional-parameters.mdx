@@ -1,0 +1,52 @@
+---
+sidebar_position: 2
+title: Optional Parameters
+description: Optimize your revenue by segmenting users with optional parameters in the Android SDK.
+---
+
+# Optional Parameters
+
+AdGem Android SDK offers an API to store several optional user value fields such as age, gender, player ID, etc. These values can then be retrieved again on each conversion postback and/or used to segment your audiences and optimize your mobile ad revenue earnings.
+
+## Example
+
+```java
+PlayerMetadata player = new PlayerMetadata.Builder.createWithPlayerId("myPlayerId")
+  .age(23)
+  .iapTotalUsd(10)
+  .level(4)
+  .placement(2)
+  .isPayer(true)
+  .gender(PlayerMetadata.Gender.FEMALE)
+  .createdAt("2018-11-16 06:23:19.07")
+  .customField1("custom_field_1")
+  .customField2("custom_field_2")
+  .customField3("custom_field_3")
+  .customField4("custom_field_4")
+  .customField5("custom_field_5")
+  .build();
+
+adgem.setPlayerMetaData(player);
+```
+
+## Parameter Reference
+
+:::note
+All parameter names and their values are case-sensitive.
+:::
+
+| Parameter | Type | Property | Description |
+|-----------|------|----------|-------------|
+| player_id | string | `id()` | **Required for fraud protection.** User's unique ID on your system |
+| player_age | integer | `age()` | User's age |
+| player_gender | `PlayerMetadata.Gender` | `gender()` | User's gender |
+| player_payer | boolean | `isPayer()` | Boolean value to set whether that player has made an in-app purchase or not |
+| player_iap_total_usd | integer | `iapTotalUsd()` | If the player has made an in-app purchase, the total is set here |
+| player_created_at | timestamp | `createdAt()` | Timestamp without the time zone |
+| player_level | integer | `level()` | The level that the player has achieved |
+| placement | integer | `placement()` | Integer value that represents player's placement/rank |
+| c1 | varchar | `customField1()` | Custom field 1 |
+| c2 | varchar | `customField2()` | Custom field 2 |
+| c3 | varchar | `customField3()` | Custom field 3 |
+| c4 | varchar | `customField4()` | Custom field 4 |
+| c5 | varchar | `customField5()` | Custom field 5 |

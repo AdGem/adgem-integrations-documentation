@@ -1,0 +1,129 @@
+---
+sidebar_position: 5
+title: Changelog
+description: Version history and release notes for the AdGem iOS SDK.
+---
+
+# iOS SDK Changelog
+
+## Version 2.0.0
+**September 11, 2024**
+
+- Simplified SDK code to provide performance enhancements
+
+---
+
+## Version 1.5.3
+**March 18, 2024**
+
+- Updated property in the Info.plist to alleviate Xcode errors
+
+---
+
+## Version 1.5.2
+**February 15, 2024**
+
+- Resolves missing bundle version info.plist file due to Xcode 15.1 update
+
+---
+
+## Version 1.5.1
+**January 08, 2024**
+
+- Resolves missing bundle version or bundle version short declared in info.plist file
+
+---
+
+## Version 1.5.0
+**January 26, 2021**
+
+- Renamed module AdGemSdk to resolve ambiguous reference between module and class AdGem
+- Switched to the XCFramework distribution packaging format
+- Resolved incompatibility issue with newer versions of Swift (5+)
+
+---
+
+## Version 1.4.0
+**April 6, 2020**
+
+- Resolved incompatibility issue with new versions of Swift (>5)
+
+---
+
+## Version 1.3.9
+**April 24, 2019**
+
+- Resolves issues where some users were not receiving notification callback of a completed offer
+
+---
+
+## Version 1.3.5
+**March 1, 2019**
+
+- Fixed issue where some users would see a green screen flash before the offer wall loaded
+
+---
+
+## Version 1.3.4
+**February 26, 2019**
+
+- Allows user to close the offer wall in case of slow or no internet
+
+---
+
+## Version 1.3.2
+**February 7, 2019**
+
+- Fixes a bug where loading the offer wall multiple times can cause a crash
+
+---
+
+## Version 1.3.1
+**February 6, 2019**
+
+- Bug fixes and enhancements
+- Ability to easily read version number through the app
+
+---
+
+## Version 1.3
+**January 7, 2019**
+
+- Offer wall no longer caches
+- New delegate methods added:
+  - `adGemOfferwallStartedLoading()`
+  - `adGemOfferwallFinishedLoading()`
+  - `adGemOfferwallFailedToLoad(error: Error)`
+  - `adGemOfferwallClosed()`
+
+---
+
+## Version 1.2.5
+**November 20, 2018**
+
+- Added better Objective-C support
+
+---
+
+## Version 1.2.4
+**November 20, 2018**
+
+- Added support for viewing the App Store in landscape
+
+---
+
+## Version 1.2.3
+**November 15, 2018**
+
+- Fixed a bug where a UINavigationController would prevent hiding the Offerwall
+
+---
+
+## Version 1.2.2
+**November 12, 2018**
+
+- Fix, supporting Xcode 10 and Swift 4.2
+
+---
+
+*Updated on September 11, 2024*
