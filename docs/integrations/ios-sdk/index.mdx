@@ -1,18 +1,155 @@
 ---
 sidebar_position: 1
 title: iOS SDK
-description: Native iOS SDK integration guide for AdGem offers.
+description: Integrate the AdGem Offer Wall into your iOS application using the native iOS SDK.
 ---
 
-# iOS SDK Integration
+# iOS SDK Integration Guide
 
-Integrate AdGem offers into your native iOS application.
+import DeprecationNotice from '@site/src/components/DeprecationNotice';
+import BeforeYouBegin from '@site/docs/_partials/before-you-begin.mdx';
+import PlayerIdRequirements from '@site/docs/_partials/player-id-requirements.mdx';
+import CreateAppProperty from '@site/docs/_partials/sdk-step0-create-app.mdx';
 
-:::note Content Coming Soon
-This section is being migrated from our legacy documentation. Check back soon for:
-- Integration guide
-- Optional parameters
-- Example app
-- Revenue optimization
-- Changelog
+<DeprecationNotice
+  deadline="July 1, 2025"
+  currentVersion="v2.0.0"
+  platform="iOS"
+/>
+
+## Requirements
+
+<BeforeYouBegin />
+
+---
+
+## Integration
+
+### Step 0. Create an App Property in the AdGem Publisher Dashboard
+
+<CreateAppProperty />
+
+### Step 1. Install the AdGem iOS SDK
+
+There are two ways to add the AdGem SDK to your iOS app. We recommend that you use the CocoaPods approach, but you can also download it and add it manually if you prefer.
+
+#### CocoaPods Integration Method (Recommended)
+
+1. Install **CocoaPods** (v1.9 or newer). You can find more information on how to install CocoaPods [here](https://guides.cocoapods.org/using/getting-started.html).
+
+2. Edit your **Podfile** and add the following line:
+   ```ruby
+   pod 'AdGem'
+   ```
+
+3. Run `pod install` in your terminal window. CocoaPods will automatically download the framework and install it into your project.
+
+#### Manual Download
+
+1. Download the latest version of the **[AdGem iOS SDK v2.0.0](https://adgem-framework.s3.amazonaws.com/iOS-2.0.0.zip)**
+
+2. Drag the **AdGemSdk.xcframework** folder into the **Frameworks, Libraries, and Embedded Content section** in Xcode
+
+### Step 2. Configure the AdGem SDK
+
+Add a new **AdGemAppID** key to the app's **Info.plist** file replacing **ADGEM_APP_ID** with your AdGem app ID from the AdGem publisher dashboard.
+
+```xml
+<key>AdGemAppID</key>
+<integer>ADGEM_APP_ID</integer>
+```
+
+### Step 3. Use the AdGem Class
+
+All communication with the SDK happens via the AdGem class. In order to access it the following import directive is required:
+
+```swift
+import AdGemSdk
+```
+
+Use the AdGem class to show the Offer Wall in your project:
+
+```swift
+AdGem.showOfferwall()
+```
+
+:::note
+There is no need to store an instance of AdGem globally. The SDK will cache its instance on the first call and will always return the same one for all subsequent calls to AdGem.
 :::
+
+### Step 4. Delegate Methods
+
+The following delegate methods are available:
+
+**Called when the offer wall starts loading on the user's device:**
+```swift
+func offerwallLoadingStarted() {}
+```
+
+**Called when the offer wall has finished loading on the user's device:**
+```swift
+func offerwallLoadingFinished() {}
+```
+
+**Called when the offer wall has closed on the user's device:**
+```swift
+func offerwallClosed() {}
+```
+
+**Called if the offer wall has failed to load due to an error:**
+```swift
+func offerwallLoadingFailed(error: Error) {}
+```
+
+**Called to reward the user with your type of currency:**
+```swift
+func offerwallRewardReceived(amount: Int) {}
+```
+
+### Step 5. Set the Player ID
+
+<PlayerIdRequirements />
+
+```swift
+let metaData = AdGemPlayerMetadata.Builder
+  .initWithPlayerId(playerId: "abc123")
+  .playerAge(age: 20)
+  .playerGender(gender: .male)
+  .playerLevel(level: 5)
+  .playerPlacement(place: 1000)
+  .playerPayer(spentMoney: true)
+  .playerIAPTotal(iapTotal: 10.0)
+  .playerCreatedAt(creationDate: someDateTime!)
+  .customField1(field: "custom_field_1")
+  .customField2(field: "custom_field_2")
+  .customField3(field: "custom_field_3")
+  .customField4(field: "custom_field_4")
+  .customField5(field: "custom_field_5")
+  .build()
+
+AdGem.setPlayerMetaData(metaData: metaData)
+```
+
+---
+
+## Additional Information
+
+### Sample Apps
+
+Sample iOS applications with implementations in both **Swift** and **Objective-C** can be found on [GitHub](https://github.com/AdGem/iOS-Sample-App).
+
+### Optional Parameters
+
+:::note
+All parameter names and their values are case-sensitive.
+:::
+
+You can optimize your revenue potential by segmenting your users using the optional parameters available in the iOS SDK. Please visit [Optional Parameters](/docs/integrations/ios-sdk/optional-parameters) to learn more.
+
+### Postback Setup
+
+If you have opted for a "Server Postback", on each successful offer completion by a user AdGem will send a GET request to your server. Please visit our guide on [Server Postback Setup](/docs/webhooks) to learn more.
+
+---
+
+*Updated on September 11, 2024*
