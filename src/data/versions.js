@@ -18,7 +18,7 @@ module.exports = {
   ios: {
     version: '2.0.0',
     minOS: '15.8',
-    downloadUrl: 'https://github.com/nicklockwood/SwiftFormat/releases',
+    downloadUrl: 'https://adgem-framework.s3.amazonaws.com/iOS-2.0.0.zip',
     cocoapodsName: 'AdGem',
   },
 
