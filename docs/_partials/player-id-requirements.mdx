@@ -1,0 +1,39 @@
+{/*
+  Partial: Player ID Requirements
+  Usage: import PlayerIdRequirements from '@site/docs/_partials/player-id-requirements.mdx';
+         <PlayerIdRequirements />
+*/}
+
+:::warning Setting the Player ID
+
+**IMPORTANT: The Player ID is Required**
+
+The `player_id` parameter must be set with a unique identifier for each user in your application. This identifies the player so that virtual currency can be attributed to their account via the postback request. The player ID must remain constant for each unique player to:
+
+- Prevent players from completing an offer more than once
+- Ensure players receive their rewards correctly
+
+**Missing Player ID**
+
+Tracking URL clicks that do not contain a `player_id` value will be redirected to a 404 error page.
+
+:::
+
+### Player ID Structure Requirements
+
+| Requirement | Details |
+|-------------|---------|
+| **Case** | Use **lowercase** alphanumeric values only |
+| **Characters** | Alphanumeric characters, hyphens, and underscores only |
+| **Max Length** | 256 characters |
+| **Forbidden** | Emojis, special characters, uppercase letters |
+
+**Good Examples:**
+- `abc-123-efg-456`
+- `user_12345`
+- `player-a1b2c3d4`
+
+**Bad Examples:**
+- `aBc-123-Efg-456` (contains uppercase)
+- `player@123!` (contains special characters)
+- `user-` (contains emoji)

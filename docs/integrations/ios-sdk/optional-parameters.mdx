@@ -1,0 +1,53 @@
+---
+sidebar_position: 2
+title: Optional Parameters
+description: Optimize your revenue by segmenting users with optional parameters in the iOS SDK.
+---
+
+# Optional Parameters
+
+AdGem iOS SDK offers an API to store several optional user value fields such as age, gender, player ID, etc. These values can then be retrieved again on each conversion postback and/or used to segment your audiences and optimize your mobile ad revenue earnings.
+
+## Example
+
+```swift
+let metaData = AdGemPlayerMetadata.Builder
+  .initWithPlayerId(playerId: "abc123")
+  .playerAge(age: 20)
+  .playerGender(gender: .male)
+  .playerLevel(level: 5)
+  .playerPlacement(place: 1000)
+  .playerPayer(spentMoney: true)
+  .playerIAPTotal(iapTotal: 10.0)
+  .playerCreatedAt(creationDate: someDateTime!)
+  .customField1(field: "custom_field_1")
+  .customField2(field: "custom_field_2")
+  .customField3(field: "custom_field_3")
+  .customField4(field: "custom_field_4")
+  .customField5(field: "custom_field_5")
+  .build()
+
+AdGem.setPlayerMetaData(metaData: metaData)
+```
+
+## Parameter Reference
+
+:::note
+All parameter names and their values are case-sensitive.
+:::
+
+| Parameter | Type | Property | Description |
+|-----------|------|----------|-------------|
+| playerID | string | `id()` | **Required for fraud protection.** User's unique ID on your system |
+| age | integer | `playerAge()` | User's age |
+| gender | `AdGemGender` | `playerGender()` | User's gender |
+| spentMoney | boolean | `playerPayer()` | Boolean value to set whether that player has made an in-app purchase or not |
+| iapTotal | integer | `playerIAPTotal()` | If the player has made an in-app purchase, the total is set here |
+| createdDate | timestamp | `playerCreatedAt()` | Timestamp without the time zone |
+| level | integer | `playerLevel()` | The level that the player has achieved |
+| place | integer | `playerPlacement()` | Integer value that represents player's placement/rank |
+| variable | varchar | `customField1()` | Custom field 1 |
+| variable | varchar | `customField2()` | Custom field 2 |
+| variable | varchar | `customField3()` | Custom field 3 |
+| variable | varchar | `customField4()` | Custom field 4 |
+| variable | varchar | `customField5()` | Custom field 5 |

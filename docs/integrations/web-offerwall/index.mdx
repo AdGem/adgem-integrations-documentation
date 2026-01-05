@@ -1,15 +1,136 @@
 ---
-sidebar_position: 4
+sidebar_position: 1
 title: Web Offerwall
-description: JavaScript-based web integration guide for AdGem offers.
+description: Integrate the AdGem Offer Wall into your website or web application using Direct Link or iFrame.
 ---
 
-# Web Offerwall Integration
+# Web Offerwall Integration Guide
 
-Integrate AdGem offers into your web application using JavaScript.
+import BeforeYouBegin from '@site/docs/_partials/before-you-begin.mdx';
+import PlayerIdRequirements from '@site/docs/_partials/player-id-requirements.mdx';
 
-:::note Content Coming Soon
-This section is being migrated from our legacy documentation. Check back soon for:
-- Integration guide
-- Changelog
+There are two available methods to integrate the AdGem Offer Wall into your website or app:
+
+1. **Direct Link** - Opens the offer wall in a new tab/window
+2. **iFrame / WebView** - Embeds the offer wall within your page
+
+## Requirements
+
+<BeforeYouBegin />
+
+:::info Platform Support
+- **Android**: 9.0 and higher
+- **iOS**: 15.8 and higher
 :::
+
+---
+
+## Step 1 - Create a New Property
+
+1. Click on **Properties & Apps** in the left navigation
+2. Click on the **New Property** button
+3. Select **Desktop/Web** from the Platform dropdown
+4. Complete the form and create the property
+
+:::note
+You must have a unique Property/App ID for each website you want to integrate the Offer Wall on. For example, if you have multiple website URLs, they each must be set up separately from the AdGem Dashboard.
+:::
+
+## Step 2 - Get Your Integration Links
+
+1. Click **Options** > **Edit** on your property
+2. Navigate to the **Offerwall** tab
+
+### Integration Links
+
+Once on the Offerwall settings page, you can find the integration links to add to your website:
+
+- **Direct Link** - Labeled "Web Offerwall Direct Link"
+- **iFrame** - Labeled "Full Screen iFrame Code"
+
+---
+
+## Required Parameters
+
+### Player ID
+
+<PlayerIdRequirements />
+
+### Mobile Advertising IDs (for in-app traffic)
+
+When possible, please append the following parameters:
+
+| Parameter | Description |
+|-----------|-------------|
+| `gaid` | Google Advertising ID, available when using Google Play Services |
+| `idfa` | Apple Advertising ID, available when the user has not limited ad tracking |
+
+---
+
+## Optional Parameters
+
+:::note
+All parameter names and their values are case-sensitive.
+:::
+
+| Parameter | Description |
+|-----------|-------------|
+| `limit` | Limit the amount of offers returned to a set number |
+| `app_version` | The version of your app where the click originated |
+| `device` | The user's device type (e.g., "Moto E Plus") |
+| `device_name` | The user's device name |
+| `ip` | The IP Address for the user |
+| `useragent` | The User Agent from the user's default browser app |
+| `os_version` | The user's Operating System version number |
+| `platform` | The platform the user's device is using (e.g., "ios") |
+| `player_age` | The user's age as set by the publisher |
+| `player_gender` | The user's gender as set by the publisher |
+| `player_payer` | A boolean value indicating if user has made purchases |
+| `player_iap_total_usd` | Total in-app purchase amount in USD |
+| `player_created_at` | A datetime stamp without the time zone |
+| `player_level` | The level achieved by the player |
+| `placement` | Integer value representing the ad unit placement |
+| `c1` - `c5` | Custom parameter values as set by the publisher |
+
+---
+
+## Example Integration
+
+### Direct Link
+
+```html
+<a href="https://api.adgem.com/v1/wall?appid=YOUR_APP_ID&playerid=USER_ID" target="_blank">
+  Open Offers
+</a>
+```
+
+### iFrame
+
+```html
+<iframe
+  src="https://api.adgem.com/v1/wall?appid=YOUR_APP_ID&playerid=USER_ID"
+  width="100%"
+  height="600"
+  frameborder="0">
+</iframe>
+```
+
+:::tip Best Practice
+Ensure the iFrame or WebView is scalable according to device resolution. Include a header image or divider to clearly indicate where your site ends and the offerwall begins.
+:::
+
+---
+
+## Additional Information
+
+### Customization
+
+You can customize the offer wall appearance including virtual currency name, icon, and multiplier. See the [Customization Guide](/docs/integrations/web-offerwall/customization) for details.
+
+### Postback Setup
+
+If you have opted for a "Server Postback", on each successful offer completion AdGem will send a request to your server. Please visit our guide on [Server Postback Setup](/docs/webhooks) to learn more.
+
+---
+
+*Updated on August 26, 2024*

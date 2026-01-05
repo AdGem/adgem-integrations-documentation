@@ -1,0 +1,62 @@
+{/*
+  Partial: Before You Begin Checklist
+  Usage: import BeforeYouBegin from '@site/docs/_partials/before-you-begin.mdx';
+         <BeforeYouBegin platform="ios" />
+
+  Props:
+    platform: 'ios' | 'android' | 'unity' | 'web' (optional, adds platform-specific requirements)
+*/}
+
+:::info Before You Begin
+
+**Account Requirements:**
+- [ ] You have an active [AdGem Account](https://dashboard.adgem.com/register)
+- [ ] You have added your App to your [Account](https://dashboard.adgem.com/publisher/apps)
+
+**App Approval:**
+- [ ] Your app has been approved in the AdGem system
+
+:::warning Important
+By default, your app will **not** have access to AdGem's offers until you complete the initial integration steps and your app is approved. Contact your dedicated Publisher Support Advocate with any questions about the approval process.
+:::
+
+:::
+
+### Platform Requirements
+
+<details>
+<summary><strong>iOS SDK Requirements</strong></summary>
+
+- iOS **15.8** or higher
+- **Swift 5** or **Objective-C**
+- **Xcode 11** or higher
+
+</details>
+
+<details>
+<summary><strong>Android SDK Requirements</strong></summary>
+
+- Android API level **28** (Android 9.0) or higher
+- Target SDK **34** or higher
+- **Android Studio** with Gradle support
+
+</details>
+
+<details>
+<summary><strong>Unity SDK Requirements</strong></summary>
+
+- Unity **2020.3** or higher
+- iOS or Android build target configured
+- For iOS: Xcode 11+
+- For Android: Android Studio with Gradle
+
+</details>
+
+<details>
+<summary><strong>Web Offerwall Requirements</strong></summary>
+
+- Modern web browser with JavaScript enabled
+- HTTPS-enabled website (recommended for production)
+- Server-side postback endpoint
+
+</details>

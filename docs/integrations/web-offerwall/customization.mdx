@@ -1,0 +1,85 @@
+---
+sidebar_position: 2
+title: Customization
+description: Customize the AdGem Offer Wall appearance to match your brand.
+---
+
+# Offer Wall Customization
+
+AdGem offers the ability for Publishers to customize the Offerwall to match your brand's look and feel.
+
+## Available Customization Options
+
+- **Virtual Currency Name** - Display your in-game currency name
+- **Virtual Currency Icon** - Custom icon image (supports animated GIFs)
+- **Virtual Currency Multiplier** - Adjust reward display values
+
+## How to Customize
+
+1. Log into the [AdGem Publisher Dashboard](https://dashboard.adgem.com)
+2. Navigate to **Properties & Apps**
+3. Click on the **Options** dropdown for your app
+4. Select **Offerwall**
+5. Adjust the customization settings
+
+---
+
+## Image Requirements
+
+### Currency Icon
+
+| Specification | Requirement |
+|---------------|-------------|
+| **Recommended Size** | 200×200 pixels |
+| **Minimum Size** | 25×25 pixels |
+| **Aspect Ratio** | Square (1:1) |
+
+### Supported File Types
+
+The Offer Wall currency icon supports:
+
+- JPG
+- PNG
+- GIF (including animated)
+
+---
+
+## Best Practices
+
+### Web Offerwall Integration
+
+:::tip iFrame/WebView Best Practices
+For Publishers integrating the AdGem Web Offerwall via an iFrame or WebView:
+
+- **Ensure the iFrame or WebView is scalable** according to device resolution
+- **Include a header image or divider** to clearly indicate where your site ends and the offerwall begins
+- This helps your users understand what actions to take and improves navigation
+- Makes the AdGem offerwall better match with your native UI
+:::
+
+### API Integration
+
+AdGem allows Publishers to pull offers and display them natively on their website or app. This integration type works especially well for featured placement sections.
+
+:::tip Native UI Best Practices
+
+**Confirm user is eligible for the offer shown**
+
+We recommend that you receive [Install Postbacks](/docs/webhooks). Once you receive the install postback, check off the install to confirm that the user is eligible to continue the offer to receive rewards.
+
+Common reasons a user may not be eligible:
+- The user has previously completed or downloaded the offer
+- The user is ineligible due to incorrect geo or device targeting
+
+**Track goal progression based on postbacks**
+
+The user should be able to see in your UI when a goal has been completed.
+
+**Show remaining days to complete an offer**
+
+Each offer in the API response includes an `attribution_window_days` value. Use this to dynamically show users how many days they have to complete the offer.
+
+**Follow up with users regarding their progression**
+
+Engage with users through in-app messaging or external channels (email, SMS, push notifications) to encourage them to complete in-progress offers. This provides achievement recognition and motivates users to engage with additional offers.
+:::
