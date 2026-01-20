@@ -53,17 +53,79 @@ const config: Config = {
         },
         items: [
           {
-            label: "Untargeted Offers API",
+            label: "Getting Started",
             position: "left",
-            to: "/docs/category/offer-api",
+            to: "/docs/getting-started",
           },
           {
-            label: "Targeted Offers API",
+            label: "Integrations",
             position: "left",
-            to: "/docs/category/targeted-api",
+            type: "dropdown",
+            items: [
+              {
+                label: "Offer API (REST)",
+                to: "/docs/integrations/offer-api",
+              },
+              {
+                label: "Targeted API (GraphQL)",
+                to: "/docs/integrations/targeted-api",
+              },
+              {
+                label: "iOS SDK",
+                to: "/docs/integrations/ios-sdk",
+              },
+              {
+                label: "Android SDK",
+                to: "/docs/integrations/android-sdk",
+              },
+              {
+                label: "Unity SDK",
+                to: "/docs/integrations/unity-sdk",
+              },
+              {
+                label: "Web Offerwall",
+                to: "/docs/integrations/web-offerwall",
+              },
+            ],
           },
           {
-            href: "https://github.com/facebook/docusaurus",
+            label: "Webhooks",
+            position: "left",
+            to: "/docs/webhooks",
+          },
+          {
+            label: "Resources",
+            position: "left",
+            type: "dropdown",
+            items: [
+              {
+                label: "Configuration",
+                to: "/docs/configuration",
+              },
+              {
+                label: "Offers",
+                to: "/docs/offers",
+              },
+              {
+                label: "Monetization",
+                to: "/docs/monetization",
+              },
+              {
+                label: "API Reference",
+                to: "/docs/api-reference",
+              },
+              {
+                label: "Branding & Support",
+                to: "/docs/resources",
+              },
+              {
+                label: "Legal",
+                to: "/docs/legal",
+              },
+            ],
+          },
+          {
+            href: "https://github.com/AdGem/adgem-integrations-documentation",
             label: "GitHub",
             position: "right",
           },
@@ -191,7 +253,7 @@ const config: Config = {
         config: {
           offer: {
             specPath: "examples/offer.yaml",
-            outputDir: "docs/offer",
+            outputDir: "docs/integrations/offer-api",
             sidebarOptions: {
               groupPathsBy: "tag",
               categoryLinkSource: "tag",
@@ -207,7 +269,7 @@ const config: Config = {
       {
         schema: process.env.TARGETED_API_SCHEMA_URL,
         rootPath: './docs',
-        baseURL: "targeted-api",
+        baseURL: "integrations/targeted-api",
         homePage: "./static/targeted-api.md",
         // ... other options
         loaders: {

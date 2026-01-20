@@ -1,0 +1,69 @@
+---
+sidebar_position: 3
+title: App Property Setup
+description: Learn how to create and configure an App Property in the AdGem Dashboard.
+---
+
+# Create an App Property in AdGem
+
+Before AdGem can populate offers for your users, you need to create an App Property in the AdGem Dashboard. This page walks you through the setup process.
+
+## Prerequisites
+
+- An active [AdGem Publisher Account](https://dashboard.adgem.com/register)
+- Basic information about your app (name, platform, category)
+
+## Interactive Setup Guide
+
+Follow along with our interactive demo to set up your App Property:
+
+import CreateAppProperty from '@site/docs/_partials/sdk-step0-create-app.mdx';
+
+<CreateAppProperty />
+
+## Manual Setup Steps
+
+If you prefer step-by-step written instructions:
+
+### 1. Access the Dashboard
+
+1. Log in to the [AdGem Publisher Dashboard](https://dashboard.adgem.com/publisher/dashboard)
+2. Navigate to **Properties & Apps** in the sidebar
+
+### 2. Create a New Property
+
+1. Click **Add New Property**
+2. Enter your app details:
+   - **App Name** - The name of your application
+   - **Platform** - iOS, Android, or Web
+   - **Category** - The category that best describes your app
+   - **Store URL** - Link to your app on the App Store or Google Play (if applicable)
+
+### 3. Configure Settings
+
+After creating your property, you'll receive:
+- **App ID** - Your unique AdGem application identifier
+- **API Key** - Used for API authentication (keep this secure!)
+
+### 4. Set Up Postbacks (Optional)
+
+Configure server postbacks to receive conversion notifications:
+1. Navigate to your App Property settings
+2. Scroll to **Postback Options**
+3. Select **Server Postback**
+4. Enter your postback URL
+
+See our [Postback Setup Guide](/docs/webhooks) for detailed instructions.
+
+## What's Next?
+
+After setting up your App Property:
+
+1. **Wait for Approval** - Your app will be reviewed by our team
+2. **Integrate the SDK** - Choose your [integration method](/docs/integrations/offer-api)
+3. **Test in Sandbox** - Verify your integration before going live
+4. **Go Live** - Start monetizing your users!
+
+:::tip Need Help?
+Contact your dedicated Publisher Support Advocate if you have any questions about setting up your App Property or getting your app approved.
+:::
