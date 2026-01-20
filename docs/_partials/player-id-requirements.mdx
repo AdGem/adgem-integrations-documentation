@@ -23,7 +23,7 @@ Tracking URL clicks that do not contain a `player_id` value will be redirected t
 
 | Requirement | Details |
 |-------------|---------|
-| **Case** | Use **lowercase** alphanumeric values only |
+| **Case** | Letters must be **lowercase** |
 | **Characters** | Alphanumeric characters, hyphens, and underscores only |
 | **Max Length** | 256 characters |
 | **Forbidden** | Emojis, special characters, uppercase letters |
@@ -36,4 +36,4 @@ Tracking URL clicks that do not contain a `player_id` value will be redirected t
 **Bad Examples:**
 - `aBc-123-Efg-456` (contains uppercase)
 - `player@123!` (contains special characters)
-- `user-` (contains emoji)
+- `user-😀` (contains emoji)
