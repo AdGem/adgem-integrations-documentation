@@ -10,8 +10,8 @@ import 'dotenv/config';
 const config: Config = {
   title: "AdGem",
   tagline: "AdGem Integrations Documentation",
-  url: 'https://adgem.github.io',
-  baseUrl: '/adgem-integrations-documentation',
+  url: process.env.DOCUSAURUS_URL || 'https://adgem.github.io',
+  baseUrl: process.env.DOCUSAURUS_BASE_URL || '/adgem-integrations-documentation/',
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
   favicon: "img/favicon.ico",
