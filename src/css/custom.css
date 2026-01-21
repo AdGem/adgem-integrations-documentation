@@ -55,6 +55,11 @@
 
   /* Buttons */
   --ifm-button-border-radius: 50px;
+
+  /* Dropdown menus - match navbar styling */
+  --ifm-dropdown-background-color: var(--adgem-primary);
+  --ifm-dropdown-link-color: var(--adgem-white);
+  --ifm-dropdown-hover-background-color: var(--adgem-secondary-purple);
 }
 
 /* Dark mode - AdGem style (dark purple background) */
@@ -79,6 +84,11 @@
   --ifm-link-hover-color: var(--adgem-accent-blue);
 
   --docusaurus-highlighted-code-line-bg: rgba(130, 231, 246, 0.15);
+
+  /* Dropdown menus - match navbar styling */
+  --ifm-dropdown-background-color: var(--adgem-primary);
+  --ifm-dropdown-link-color: var(--adgem-white);
+  --ifm-dropdown-hover-background-color: var(--adgem-secondary-purple);
 }
 
 /* ============================================
@@ -190,19 +200,10 @@ button,
   color: white;
 }
 
-/* Dropdown menus */
+/* Dropdown menus - additional styling not covered by Infima variables */
 .dropdown__menu {
-  background-color: var(--adgem-primary);
   border: 1px solid var(--adgem-secondary-purple);
-}
-
-.dropdown__link {
-  color: white;
-}
-
-.dropdown__link:hover {
-  background-color: var(--adgem-secondary-purple);
-  color: white;
+  box-shadow: 0 4px 12px rgba(21, 1, 88, 0.3);
 }
 
 /* ============================================
