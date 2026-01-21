@@ -48,8 +48,8 @@ const config: Config = {
       navbar: {
         title: "AdGem Integrations",
         logo: {
-          alt: "My Site Logo",
-          src: "img/adgem_logo_small2.png",
+          alt: "AdGem Logo",
+          src: "img/adgem-logo-white.svg",
         },
         items: [
           {
