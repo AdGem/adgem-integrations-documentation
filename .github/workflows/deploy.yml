@@ -47,10 +47,14 @@ jobs:
           # Remove all files except pr-preview directory
           find . -maxdepth 1 ! -name '.' ! -name '.git' ! -name 'pr-preview' -exec rm -rf {} +
 
-          # Copy new build files
-          cp -r /tmp/build/* .
+          # Copy new build files (use cp -a to include dotfiles like .nojekyll)
+          cp -a /tmp/build/. .
 
-          # Commit and push
+          # Commit and push with retry logic for concurrent updates
           git add -A
           git commit -m "Deploy website - based on ${{ github.sha }}" || echo "No changes to commit"
-          git push origin gh-pages
+          for i in 1 2 3; do
+            git push origin gh-pages && break
+            echo "Push failed, retrying with rebase..."
+            git pull --rebase origin gh-pages
+          done
