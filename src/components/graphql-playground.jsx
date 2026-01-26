@@ -19,7 +19,6 @@ export default function GraphQLPlayGround() {
           headers: {
             'Content-Type': 'application/json',
             Accept: 'application/json',
-            Authorization: `Bearer ${siteConfig.customFields.TARGETED_API_TOKEN}`,
           },
         });
 
@@ -30,8 +29,9 @@ export default function GraphQLPlayGround() {
             <div id='graphiql-info' className="alert alert--info margin-bottom--md" role="alert">
               <h4>Using the GraphQL Playground</h4>
               <p>
-                To use your own API token, add your API token in the "Headers" tab at the bottom:
+                You need an API token to use this tool, add it in the "Headers" tab at the bottom:
                 <pre>{'{\n  "Authorization": "Bearer YOUR_TOKEN_HERE" \n}'}</pre>
+                Refer to the <a href="/adgem-integrations-documentation/docs/integrations/targeted-api/authentication">authentication guide</a> to learn how to get an API token.
               </p>
             </div>
             <GraphiQL
