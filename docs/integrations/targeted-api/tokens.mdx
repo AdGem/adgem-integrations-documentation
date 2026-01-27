@@ -37,10 +37,10 @@ POST https://targeted-api.adgem.com/v1/apps/tokens
 curl -X POST https://targeted-api.adgem.com/v1/apps/tokens \
   -H "Content-Type: application/json" \
   -d '{
-    "adgem_pub_id": <your-publisher-id>,
-    "adgem_app_id": <your-app-id>,
-    "client_id": "<your-client-id>",
-    "client_secret": "<your-client-secret>"
+    "adgem_pub_id": 0,
+    "adgem_app_id": 0,
+    "client_id": "your-client-id",
+    "client_secret": "your-client-secret"
   }'
 ```
 
@@ -52,7 +52,7 @@ When the credentials are valid, the API returns a JWT access token:
 
 ```json
 {
-  "access_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImlhdCI6MTUxNjIzOTAyMn0...",
+  "access_token": "<your-jwt-token>",
   "token_type": "Bearer",
   "expires_in": 3600
 }
@@ -103,10 +103,10 @@ curl -X POST https://targeted-api.adgem.com/v1/offers \
 
 ## Token Lifecycle
 
-1. **Request**: Call `/v1/apps/tokens` with your credentials
-2. **Receive**: Store the `access_token` from the response
-3. **Use**: Include the token in the `Authorization` header
-4. **Refresh**: When you receive a `401` response, request a new token
+1. **Request** - Call `/v1/apps/tokens` with your credentials
+2. **Receive** - Store the `access_token` from the response
+3. **Use** - Include the token in the `Authorization` header
+4. **Refresh** - When you receive a `401` response, request a new token
 
 ## See Also
 

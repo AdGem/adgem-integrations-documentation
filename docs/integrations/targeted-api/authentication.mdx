@@ -32,7 +32,7 @@ All four values are required to obtain a JWT token.
 
 ### Step 1: Obtain Your Credentials
 
-Before you can authenticate, you need to obtain your `clientId` and `clientSecret` from the AdGem dashboard. These credentials are unique to your application.
+Before you can authenticate, you need to obtain your `client_id` and `client_secret` from the AdGem team. These credentials are unique to your application.
 
 ### Step 2: Request a JWT Token
 
@@ -42,10 +42,10 @@ Make a POST request to the `/v1/apps/tokens` endpoint with your credentials:
 curl -X POST https://targeted-api.adgem.com/v1/apps/tokens \
   -H "Content-Type: application/json" \
   -d '{
-    "adgem_pub_id": <your-publisher-id>,
-    "adgem_app_id": <your-app-id>,
-    "client_id": "<your-client-id>",
-    "client_secret": "<your-client-secret>"
+    "adgem_pub_id": 0,
+    "adgem_app_id": 0,
+    "client_id": "your-client-id",
+    "client_secret": "your-client-secret"
   }'
 ```
 
@@ -57,7 +57,7 @@ Include the JWT token in the `Authorization` header of all subsequent requests:
 
 ```bash
 curl -X POST https://targeted-api.adgem.com/v1/offers \
-  -H "Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9..." \
+  -H "Authorization: Bearer <your-jwt-token>" \
   -H "Content-Type: application/json" \
   -d '{
     "query": "{ offers(player_id: \"user123\") { id name } }"
@@ -67,6 +67,8 @@ curl -X POST https://targeted-api.adgem.com/v1/offers \
 ## Token Expiration
 
 JWT tokens have a limited lifespan. When your token expires, you will receive a `401 Unauthorized` response. Simply request a new token using the same process described above.
+
+Also consider you can predict token expiration using the JWT payload's `exp` claim. This field indicates the expiration time as a Unix timestamp allowing you to refresh the token proactively before it expires.
 
 ## Error Handling
 
