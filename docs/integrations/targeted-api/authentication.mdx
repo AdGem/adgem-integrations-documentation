@@ -1,0 +1,84 @@
+---
+id: authentication
+title: Authentication
+sidebar_position: 2
+---
+
+# Authentication
+
+The Targeted API uses a JWT-based authentication system powered by Amazon Cognito. This guide explains how to obtain and use access tokens to authenticate your requests.
+
+## Overview
+
+To access the Targeted API, you need to:
+
+1. Obtain a JWT token using your credentials
+2. Include the token in the `Authorization` header of subsequent requests
+
+### Required Credentials
+
+You will need the following four values to authenticate:
+
+| Credential | Description |
+|------------|-------------|
+| `adgem_pub_id` | Your AdGem publisher identifier |
+| `adgem_app_id` | Your AdGem application identifier |
+| `client_id` | Your application's client identifier |
+| `client_secret` | Your application's client secret |
+
+All four values are required to obtain a JWT token.
+
+## Step-by-Step Guide
+
+### Step 1: Obtain Your Credentials
+
+Before you can authenticate, you need to obtain your `client_id` and `client_secret` from the AdGem team. These credentials are unique to your application.
+
+### Step 2: Request a JWT Token
+
+Make a POST request to the `/v1/apps/tokens` endpoint with your credentials:
+
+```bash
+curl -X POST https://targeted-api.adgem.com/v1/apps/tokens \
+  -H "Content-Type: application/json" \
+  -d '{
+    "adgem_pub_id": 0,
+    "adgem_app_id": 0,
+    "client_id": "your-client-id",
+    "client_secret": "your-client-secret"
+  }'
+```
+
+See the [Tokens endpoint documentation](./tokens) for more details.
+
+### Step 3: Use the JWT Token
+
+Include the JWT token in the `Authorization` header of all subsequent requests:
+
+```bash
+curl -X POST https://targeted-api.adgem.com/v1/offers \
+  -H "Authorization: Bearer <your-jwt-token>" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "query": "{ offers(player_id: \"user123\") { id name } }"
+  }'
+```
+
+## Token Expiration
+
+JWT tokens have a limited lifespan. When your token expires, you will receive a `401 Unauthorized` response. Simply request a new token using the same process described above.
+
+Also consider you can predict token expiration using the JWT payload's `exp` claim. This field indicates the expiration time as a Unix timestamp allowing you to refresh the token proactively before it expires.
+
+## Error Handling
+
+| HTTP Status | Description |
+|-------------|-------------|
+| `401 Unauthorized` | Invalid or expired token. Request a new token. |
+| `403 Forbidden` | Token is valid but lacks required permissions. |
+
+## Best Practices
+
+- **Store tokens securely**: Never expose your `clientSecret` in client-side code.
+- **Implement token refresh**: Monitor for `401` responses and automatically request new tokens.
+- **Use HTTPS**: Always make requests over HTTPS to protect your credentials and tokens.

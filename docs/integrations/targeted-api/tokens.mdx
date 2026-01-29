@@ -1,0 +1,114 @@
+---
+id: tokens
+title: Tokens
+sidebar_position: 3
+---
+
+# Tokens
+
+The `/v1/apps/tokens` endpoint allows you to obtain a JWT access token using your application credentials.
+
+## Endpoint
+
+```
+POST https://targeted-api.adgem.com/v1/apps/tokens
+```
+
+## Request
+
+### Headers
+
+| Header | Value | Required |
+|--------|-------|----------|
+| `Content-Type` | `application/json` | Yes |
+
+### Body Parameters
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `adgem_pub_id` | `integer` | Yes | Your AdGem publisher identifier |
+| `adgem_app_id` | `integer` | Yes | Your AdGem application identifier |
+| `client_id` | `string` | Yes | Your application's client identifier |
+| `client_secret` | `string` | Yes | Your application's client secret |
+
+### Example Request
+
+```bash
+curl -X POST https://targeted-api.adgem.com/v1/apps/tokens \
+  -H "Content-Type: application/json" \
+  -d '{
+    "adgem_pub_id": 0,
+    "adgem_app_id": 0,
+    "client_id": "your-client-id",
+    "client_secret": "your-client-secret"
+  }'
+```
+
+## Response
+
+### Success Response (200 OK)
+
+When the credentials are valid, the API returns a JWT access token:
+
+```json
+{
+  "access_token": "<your-jwt-token>",
+  "token_type": "Bearer",
+  "expires_in": 3600
+}
+```
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `access_token` | `string` | The JWT token to use in subsequent requests |
+| `token_type` | `string` | The type of token (always `Bearer`) |
+| `expires_in` | `integer` | Token validity duration in seconds |
+
+### Error Responses
+
+#### 401 Unauthorized
+
+Returned when the provided credentials are invalid.
+
+```json
+{
+  "error": "invalid_client",
+  "error_description": "Invalid client credentials"
+}
+```
+
+#### 500 Internal Server Error
+
+Returned when an unexpected error occurs during token generation.
+
+```json
+{
+  "error": "server_error",
+  "error_description": "An unexpected error occurred"
+}
+```
+
+## Usage
+
+Once you have obtained the access token, include it in the `Authorization` header of all requests to the Targeted API:
+
+```bash
+curl -X POST https://targeted-api.adgem.com/v1/offers \
+  -H "Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9..." \
+  -H "Content-Type: application/json" \
+  -d '{
+    "query": "{ offers(player_id: \"user123\") { id name total_payout_usd } }"
+  }'
+```
+
+## Token Lifecycle
+
+1. **Request** - Call `/v1/apps/tokens` with your credentials
+2. **Receive** - Store the `access_token` from the response
+3. **Use** - Include the token in the `Authorization` header
+4. **Refresh** - When you receive a `401` response, request a new token
+
+## See Also
+
+- [Authentication Guide](./authentication) - Complete overview of the authentication flow
+- [Offers Query](./operations/queries/offers) - Query targeted offers using your token
