@@ -4,30 +4,305 @@
  * work well for content-centric websites.
  */
 
-/* You can override the default Infima variables here. */
+/* Google Fonts - Red Hat Display for headings, Inter for body */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Red+Hat+Display:wght@400;500;700&display=swap');
+
+/* AdGem Brand Colors */
 :root {
-  --ifm-color-primary: #2e8555;
-  --ifm-color-primary-dark: #29784c;
-  --ifm-color-primary-darker: #277148;
-  --ifm-color-primary-darkest: #205d3b;
-  --ifm-color-primary-light: #33925d;
-  --ifm-color-primary-lighter: #359962;
-  --ifm-color-primary-lightest: #3cad6e;
+  /* Primary Colors */
+  --adgem-primary: #150158;
+  --adgem-secondary-blue: #0300E6;
+  --adgem-secondary-purple: #573EF2;
+  --adgem-white: #FFFFFF;
+
+  /* Accent Colors */
+  --adgem-accent-magenta: #A124DB;
+  --adgem-accent-blue: #3BB3FD;
+  --adgem-accent-cyan: #82E7F6;
+
+  /* Infima overrides with AdGem brand */
+  --ifm-color-primary: #573EF2;
+  --ifm-color-primary-dark: #3d24e8;
+  --ifm-color-primary-darker: #2f14dc;
+  --ifm-color-primary-darkest: #150158;
+  --ifm-color-primary-light: #7158f5;
+  --ifm-color-primary-lighter: #8570f7;
+  --ifm-color-primary-lightest: #a99efa;
+
+  /* Typography */
+  --ifm-font-family-base: 'Inter', system-ui, -apple-system, sans-serif;
+  --ifm-heading-font-family: 'Red Hat Display', system-ui, -apple-system, sans-serif;
+  --ifm-font-size-base: 18px;
+
+  /* Code */
   --ifm-code-font-size: 95%;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --docusaurus-highlighted-code-line-bg: rgba(87, 62, 242, 0.1);
+
+  /* Navbar */
+  --ifm-navbar-background-color: var(--adgem-primary);
+  --ifm-navbar-link-color: var(--adgem-white);
+  --ifm-navbar-link-hover-color: var(--adgem-accent-cyan);
+
+  /* Footer */
+  --ifm-footer-background-color: var(--adgem-primary);
+  --ifm-footer-color: var(--adgem-white);
+  --ifm-footer-link-color: var(--adgem-accent-cyan);
+  --ifm-footer-link-hover-color: var(--adgem-white);
+
+  /* Links */
+  --ifm-link-color: var(--adgem-secondary-purple);
+  --ifm-link-hover-color: var(--adgem-accent-magenta);
+
+  /* Buttons */
+  --ifm-button-border-radius: 50px;
+
+  /* Dropdown menus - match navbar styling */
+  --ifm-dropdown-background-color: var(--adgem-primary);
+  --ifm-dropdown-link-color: var(--adgem-white);
+  --ifm-dropdown-hover-background-color: var(--adgem-secondary-purple);
 }
 
-/* For readability concerns, you should choose a lighter palette in dark mode. */
+/* Dark mode - AdGem style (dark purple background) */
 [data-theme='dark'] {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: #21af90;
-  --ifm-color-primary-darker: #1fa588;
-  --ifm-color-primary-darkest: #1a8870;
-  --ifm-color-primary-light: #29d5b0;
-  --ifm-color-primary-lighter: #32d8b4;
-  --ifm-color-primary-lightest: #4fddbf;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+  --ifm-color-primary: #82E7F6;
+  --ifm-color-primary-dark: #5fdff2;
+  --ifm-color-primary-darker: #4ddaf0;
+  --ifm-color-primary-darkest: #14ccea;
+  --ifm-color-primary-light: #a5effa;
+  --ifm-color-primary-lighter: #b7f3fb;
+  --ifm-color-primary-lightest: #dcf9fd;
+
+  --ifm-background-color: var(--adgem-primary);
+  --ifm-background-surface-color: #1e0a6e;
+  --ifm-navbar-background-color: var(--adgem-primary);
+  --ifm-footer-background-color: #0d0035;
+
+  --ifm-font-color-base: var(--adgem-white);
+  --ifm-heading-color: var(--adgem-white);
+
+  --ifm-link-color: var(--adgem-accent-cyan);
+  --ifm-link-hover-color: var(--adgem-accent-blue);
+
+  --docusaurus-highlighted-code-line-bg: rgba(130, 231, 246, 0.15);
+
+  /* Dropdown menus - match navbar styling */
+  --ifm-dropdown-background-color: var(--adgem-primary);
+  --ifm-dropdown-link-color: var(--adgem-white);
+  --ifm-dropdown-hover-background-color: var(--adgem-secondary-purple);
 }
+
+/* ============================================
+   Typography
+   ============================================ */
+
+/* Headings - Red Hat Display Bold */
+h1, h2, h3, h4, h5, h6,
+.markdown h1, .markdown h2, .markdown h3, .markdown h4, .markdown h5, .markdown h6 {
+  font-family: var(--ifm-heading-font-family);
+  font-weight: 700;
+}
+
+h1, .markdown h1 {
+  font-size: 2.75rem;
+}
+
+h2, .markdown h2 {
+  font-size: 2.25rem;
+}
+
+h3, .markdown h3 {
+  font-size: 1.75rem;
+}
+
+/* Body text - Inter */
+body, p, li, td, th {
+  font-family: var(--ifm-font-family-base);
+}
+
+/* ============================================
+   Buttons - AdGem Style
+   ============================================ */
+
+.button,
+button,
+.navbar__item.navbar__link {
+  font-family: 'Red Hat Display', sans-serif;
+  font-weight: 700;
+}
+
+.button--primary,
+.button--secondary {
+  padding: 12px 24px;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 700;
+  transition: all 0.2s ease;
+}
+
+.button--primary {
+  background: linear-gradient(135deg, var(--adgem-secondary-purple) 0%, var(--adgem-accent-magenta) 100%);
+  border: none;
+  color: white;
+}
+
+.button--primary:hover {
+  background: linear-gradient(135deg, var(--adgem-accent-magenta) 0%, var(--adgem-secondary-purple) 100%);
+  color: white;
+}
+
+.button--secondary {
+  background: transparent;
+  border: 3px solid var(--adgem-secondary-purple);
+  color: var(--adgem-secondary-purple);
+}
+
+.button--secondary:hover {
+  background: var(--adgem-secondary-purple);
+  color: white;
+}
+
+[data-theme='dark'] .button--secondary {
+  border-color: var(--adgem-accent-cyan);
+  color: var(--adgem-accent-cyan);
+}
+
+[data-theme='dark'] .button--secondary:hover {
+  background: var(--adgem-accent-cyan);
+  color: var(--adgem-primary);
+}
+
+/* ============================================
+   Navbar
+   ============================================ */
+
+.navbar {
+  background-color: var(--adgem-primary);
+  box-shadow: 0 2px 10px rgba(21, 1, 88, 0.3);
+}
+
+.navbar__title {
+  color: white;
+  font-family: 'Red Hat Display', sans-serif;
+  font-weight: 700;
+}
+
+.navbar__link {
+  color: white;
+  font-weight: 500;
+}
+
+.navbar__link:hover,
+.navbar__link--active {
+  color: var(--adgem-accent-cyan);
+}
+
+.navbar__toggle {
+  color: white;
+}
+
+/* Dropdown menus - additional styling not covered by Infima variables */
+.dropdown__menu {
+  border: 1px solid var(--adgem-secondary-purple);
+  box-shadow: 0 4px 12px rgba(21, 1, 88, 0.3);
+}
+
+/* ============================================
+   Footer
+   ============================================ */
+
+.footer {
+  background-color: var(--adgem-primary);
+  color: white;
+}
+
+.footer--dark {
+  --ifm-footer-background-color: var(--adgem-primary);
+}
+
+.footer__link-item {
+  color: var(--adgem-accent-cyan);
+}
+
+.footer__link-item:hover {
+  color: white;
+}
+
+.footer__copyright {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.footer__copyright a {
+  color: var(--adgem-accent-cyan);
+}
+
+/* ============================================
+   Sidebar
+   ============================================ */
+
+.menu__link {
+  font-family: var(--ifm-font-family-base);
+}
+
+.menu__link--active:not(.menu__link--sublist) {
+  background-color: rgba(87, 62, 242, 0.1);
+  border-left: 3px solid var(--adgem-secondary-purple);
+}
+
+[data-theme='dark'] .menu__link--active:not(.menu__link--sublist) {
+  background-color: rgba(130, 231, 246, 0.1);
+  border-left: 3px solid var(--adgem-accent-cyan);
+}
+
+/* ============================================
+   Table of Contents
+   ============================================ */
+
+.table-of-contents__link--active {
+  color: var(--adgem-secondary-purple);
+  font-weight: 600;
+}
+
+[data-theme='dark'] .table-of-contents__link--active {
+  color: var(--adgem-accent-cyan);
+}
+
+/* ============================================
+   Code Blocks
+   ============================================ */
+
+.prism-code {
+  border-radius: 8px;
+}
+
+[data-theme='dark'] .prism-code {
+  background-color: #0d0035 !important;
+}
+
+/* ============================================
+   Cards & Admonitions
+   ============================================ */
+
+.alert--info {
+  --ifm-alert-background-color: rgba(59, 179, 253, 0.1);
+  --ifm-alert-border-color: var(--adgem-accent-blue);
+}
+
+.alert--warning {
+  --ifm-alert-background-color: rgba(161, 36, 219, 0.1);
+  --ifm-alert-border-color: var(--adgem-accent-magenta);
+}
+
+/* ============================================
+   Search
+   ============================================ */
+
+.DocSearch-Button {
+  border-radius: 50px;
+}
+
+/* ============================================
+   Sidebar Method labels (API docs)
+   ============================================ */
 
 /* Sidebar Method labels */
 .api-method>.menu__link {

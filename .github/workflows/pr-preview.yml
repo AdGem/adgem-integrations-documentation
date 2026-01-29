@@ -1,0 +1,137 @@
+name: PR Preview
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+
+# Allow only one concurrent deployment per PR
+concurrency:
+  group: pr-preview-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  build-preview:
+    name: Build PR Preview
+    if: github.event.action != 'closed'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build website with PR preview path
+        run: npm run build
+        env:
+          # Override baseUrl to include PR preview path
+          DOCUSAURUS_URL: https://adgem.github.io
+          DOCUSAURUS_BASE_URL: /adgem-integrations-documentation/pr-preview/pr-${{ github.event.pull_request.number }}/
+
+      - name: Upload preview artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: pr-preview-${{ github.event.pull_request.number }}
+          path: build
+          retention-days: 7
+
+  deploy-preview:
+    name: Deploy PR Preview
+    needs: build-preview
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          fetch-depth: 0
+
+      - name: Download preview artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: pr-preview-${{ github.event.pull_request.number }}
+          path: pr-preview/pr-${{ github.event.pull_request.number }}
+
+      - name: Deploy preview to gh-pages
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add pr-preview/
+          git commit -m "Deploy PR #${{ github.event.pull_request.number }} preview" || echo "No changes to commit"
+          # Retry with rebase in case of concurrent updates
+          for i in 1 2 3; do
+            git push origin gh-pages && break
+            echo "Push failed, retrying with rebase..."
+            git pull --rebase origin gh-pages
+          done
+
+      - name: Comment preview URL on PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const previewUrl = `https://adgem.github.io/adgem-integrations-documentation/pr-preview/pr-${{ github.event.pull_request.number }}/`;
+            const body = `## 🚀 Preview Deployment Ready!\n\nYour changes have been deployed to a preview environment:\n\n**Preview URL:** ${previewUrl}\n\n_This preview will be automatically removed when the PR is closed._`;
+
+            // Check if we already commented
+            const comments = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: ${{ github.event.pull_request.number }}
+            });
+
+            const botComment = comments.data.find(comment =>
+              comment.user.type === 'Bot' && comment.body.includes('Preview Deployment Ready')
+            );
+
+            if (botComment) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: botComment.id,
+                body: body
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: ${{ github.event.pull_request.number }},
+                body: body
+              });
+            }
+
+  cleanup-preview:
+    name: Cleanup PR Preview
+    if: github.event.action == 'closed'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          fetch-depth: 0
+
+      - name: Remove preview directory
+        run: |
+          if [ -d "pr-preview/pr-${{ github.event.pull_request.number }}" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git rm -rf pr-preview/pr-${{ github.event.pull_request.number }}
+            git commit -m "Remove PR #${{ github.event.pull_request.number }} preview"
+            # Retry with rebase in case of concurrent updates
+            for i in 1 2 3; do
+              git push origin gh-pages && break
+              echo "Push failed, retrying with rebase..."
+              git pull --rebase origin gh-pages
+            done
+          else
+            echo "Preview directory does not exist, skipping cleanup"
+          fi
