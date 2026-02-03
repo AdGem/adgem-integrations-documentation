@@ -10,8 +10,8 @@ import 'dotenv/config';
 const config: Config = {
   title: "AdGem",
   tagline: "AdGem Integrations Documentation",
-  url: 'https://adgem.github.io',
-  baseUrl: '/adgem-integrations-documentation',
+  url: process.env.DOCUSAURUS_URL || 'https://adgem.github.io',
+  baseUrl: process.env.DOCUSAURUS_BASE_URL || '/adgem-integrations-documentation/',
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
   favicon: "img/favicon.ico",
@@ -48,8 +48,8 @@ const config: Config = {
       navbar: {
         title: "AdGem Integrations",
         logo: {
-          alt: "My Site Logo",
-          src: "img/adgem_logo_small2.png",
+          alt: "AdGem Logo",
+          src: "img/adgem-logo-white.svg",
         },
         items: [
           {
