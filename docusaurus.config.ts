@@ -289,7 +289,6 @@ const config: Config = {
   themes: ["docusaurus-theme-openapi-docs"],
   customFields: {
     'TARGETED_API_SCHEMA_URL': process.env.TARGETED_API_SCHEMA_URL ?? 'https://targeted-api.adgem.com/v1/offers',
-    'TARGETED_API_TOKEN': process.env.TARGETED_API_TOKEN ?? '2|EIsVDEhAFMJUKvIWsmj9BBFUzjaJlwpd3sRlRvLd3c057761',
   },
 };
 
