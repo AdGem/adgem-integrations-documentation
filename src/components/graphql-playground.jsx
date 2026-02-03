@@ -2,6 +2,7 @@ import React from 'react';
 import { GraphiQL } from 'graphiql';
 import BrowserOnly from '@docusaurus/BrowserOnly';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
+import Link from '@docusaurus/Link';
 
 export default function GraphQLPlayGround() {
   const { siteConfig } = useDocusaurusContext();
@@ -19,7 +20,6 @@ export default function GraphQLPlayGround() {
           headers: {
             'Content-Type': 'application/json',
             Accept: 'application/json',
-            Authorization: `Bearer ${siteConfig.customFields.TARGETED_API_TOKEN}`,
           },
         });
 
@@ -30,8 +30,11 @@ export default function GraphQLPlayGround() {
             <div id='graphiql-info' className="alert alert--info margin-bottom--md" role="alert">
               <h4>Using the GraphQL Playground</h4>
               <p>
-                To use your own API token, add your API token in the "Headers" tab at the bottom:
-                <pre>{'{\n  "Authorization": "Bearer YOUR_TOKEN_HERE" \n}'}</pre>
+                You need an API token to use this tool, add it in the "Headers" tab at the bottom:
+              </p>
+              <pre>{'{\n  "Authorization": "Bearer YOUR_TOKEN_HERE" \n}'}</pre>
+              <p>
+                Refer to the <Link href="/adgem-integrations-documentation/docs/integrations/targeted-api/authentication">authentication guide</Link> to learn how to get an API token.
               </p>
             </div>
             <GraphiQL
