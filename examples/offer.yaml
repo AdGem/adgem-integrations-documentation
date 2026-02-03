@@ -218,10 +218,13 @@ components:
         stats:
           properties:
             network_epc:
-              type: number
+              type: string
               nullable: true
-              format: float
-              example: 0.1
+              example: "0.1"
+            network_epi:
+              type: string
+              nullable: true
+              example: "0.1"
           type: object
         geo_targeting:
           properties:
