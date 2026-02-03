@@ -359,3 +359,10 @@ button,
 #graphiql-info {
   width: 64vw !important;
 }
+
+.dropdown__link:hover, .dropdown__link--active {
+  background-color: var(--ifm-dropdown-hover-background-color);
+  color: white;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
