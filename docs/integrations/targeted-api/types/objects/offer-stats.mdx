@@ -1,6 +1,6 @@
 ---
-id: int
-title: Int
+id: offer-stats
+title: OfferStats
 ---
 
 
@@ -39,14 +39,24 @@ export const Details = ({ dataOpen, dataClose, children, startOpen = false }) =>
 
 
 
-The `Int` scalar type represents non-fractional signed whole numeric values. Int can represent values between -(2^31) and 2^31 - 1.
+No description
 
 
 ```graphql
-scalar Int
+type OfferStats {
+  network_epi: String
+}
 ```
 
 
+
+
+### Fields
+
+#### [<code style={{ fontWeight: 'normal' }}>OfferStats.<b>network_epi</b></code>](#)<Bullet />[<code style={{ fontWeight: 'normal' }}><b>String</b></code>](/integrations/targeted-api/types/scalars/string.mdx) <Badge class="badge badge--secondary " text="scalar"/> 
+Stands for true revenue per install of the offer
+
+Example: "0.50"
 
 
 
@@ -55,4 +65,4 @@ scalar Int
 
 ### Member Of
 
-[`BasicRequirements`](/integrations/targeted-api/types/objects/basic-requirements.mdx)  <Badge class="badge badge--secondary badge--relation" text="object"/><Bullet />[`Offer`](/integrations/targeted-api/types/objects/offer.mdx)  <Badge class="badge badge--secondary badge--relation" text="object"/><Bullet />[`OfferGoal`](/integrations/targeted-api/types/objects/offer-goal.mdx)  <Badge class="badge badge--secondary badge--relation" text="object"/><Bullet />[`offers`](/integrations/targeted-api/operations/queries/offers.mdx)  <Badge class="badge badge--secondary badge--relation" text="query"/>
+[`Offer`](/integrations/targeted-api/types/objects/offer.mdx)  <Badge class="badge badge--secondary badge--relation" text="object"/>
