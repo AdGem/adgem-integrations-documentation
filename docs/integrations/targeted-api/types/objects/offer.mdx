@@ -60,6 +60,7 @@ type Offer {
   campaign_vertical: String
   store_id: String
   updated_at: String
+  stats: OfferStats!
 }
 ```
 
@@ -160,6 +161,12 @@ Example: "com.example.app"
 The datetime this offer was last updated.
 
 Example: "2025-02-12T18:48:02.000000Z"
+
+
+#### [<code style={{ fontWeight: 'normal' }}>Offer.<b>stats</b></code>](#)<Bullet />[<code style={{ fontWeight: 'normal' }}><b>OfferStats!</b></code>](/integrations/targeted-api/types/objects/offer-stats.mdx) <Badge class="badge badge--secondary badge--non_null" text="non-null"/> <Badge class="badge badge--secondary " text="object"/> 
+Offer performance metrics and statistics.
+
+Example: &#x007B;network_epi: "0.50"&#x007D;
 
 
 
