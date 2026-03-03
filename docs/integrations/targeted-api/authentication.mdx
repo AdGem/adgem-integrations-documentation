@@ -6,52 +6,66 @@ sidebar_position: 2
 
 # Authentication
 
-The Targeted API uses a JWT-based authentication system powered by Amazon Cognito. This guide explains how to obtain and use access tokens to authenticate your requests.
+The Targeted API uses a JWT-based authentication system powered by Amazon Cognito. This guide explains the complete authentication flow, including the prerequisites handled by the AdGem Team and the steps you need to perform to obtain and use access tokens.
 
 ## Overview
 
-To access the Targeted API, you need to:
+The authentication process involves two phases:
 
-1. Obtain a JWT token using your credentials
-2. Include the token in the `Authorization` header of subsequent requests
+1. **Account Setup (performed by AdGem Team):** The AdGem Team registers and confirms your user account, then provides you with an `auth_token` (a long-lived refresh token).
+2. **Token Acquisition (performed by you):** You exchange the `auth_token` for a short-lived JWT `access_token`, which you include in the `Authorization` header of all API requests.
+
+### Prerequisites
+
+Before you can authenticate, the AdGem Team must complete the following internal steps for your account:
+
+1. **User Registration** -- Your user account is registered in the authentication system.
+2. **User Confirmation** -- Your account is confirmed and activated.
+3. **Auth Token Generation** -- A long-lived `auth_token` is generated and shared with you securely.
+
+You do not need to perform these steps yourself. Contact the AdGem Team if you have not received your credentials.
 
 ### Required Credentials
 
-You will need the following four values to authenticate:
-
-| Credential | Description |
-|------------|-------------|
-| `adgem_pub_id` | Your AdGem publisher identifier |
-| `adgem_app_id` | Your AdGem application identifier |
-| `client_id` | Your application's client identifier |
-| `client_secret` | Your application's client secret |
-
-All four values are required to obtain a JWT token.
+| Credential | Description | Provided By |
+|------------|-------------|-------------|
+| `auth_token` | Your long-lived authentication token (refresh token) | AdGem Team |
 
 ## Step-by-Step Guide
 
 ### Step 1: Obtain Your Credentials
 
-Before you can authenticate, you need to obtain your `client_id` and `client_secret` from the AdGem team. These credentials are unique to your application.
+Contact the AdGem Team to receive your `auth_token`. This credential is unique to your application and acts as a long-lived refresh token that you will use to obtain short-lived access tokens.
 
-### Step 2: Request a JWT Token
+:::caution Credential Security
+Keep your `auth_token` secure. Do not expose it in client-side code or share it publicly. If you believe your token has been compromised, contact the AdGem Team immediately.
+:::
 
-Make a POST request to the `/v1/apps/tokens` endpoint with your credentials:
+### Step 2: Request a JWT Access Token
+
+Make a POST request to the `/v1/users/token` endpoint with your `auth_token`:
 
 ```bash
-curl -X POST https://targeted-api.adgem.com/v1/apps/tokens \
+curl -X POST https://targeted-api.adgem.com/v1/users/token \
   -H "Content-Type: application/json" \
   -d '{
-    "adgem_pub_id": 0,
-    "adgem_app_id": 0,
-    "client_id": "your-client-id",
-    "client_secret": "your-client-secret"
+    "auth_token": "<your-auth-token>"
   }'
 ```
 
-See the [Tokens endpoint documentation](./tokens) for more details.
+A successful response returns a `201 Created` status with your access token:
 
-### Step 3: Use the JWT Token
+```json
+{
+  "message": "Authorized",
+  "access_token": "<your-jwt-token>",
+  "expires_in": 3600
+}
+```
+
+See the [Tokens endpoint documentation](./tokens) for full request and response details.
+
+### Step 3: Use the JWT Access Token
 
 Include the JWT token in the `Authorization` header of all subsequent requests:
 
@@ -76,9 +90,11 @@ Also consider you can predict token expiration using the JWT payload's `exp` cla
 |-------------|-------------|
 | `401 Unauthorized` | Invalid or expired token. Request a new token. |
 | `403 Forbidden` | Token is valid but lacks required permissions. |
+| `422 Unprocessable Entity` | Missing required fields in the request body. |
 
 ## Best Practices
 
-- **Store tokens securely**: Never expose your `clientSecret` in client-side code.
-- **Implement token refresh**: Monitor for `401` responses and automatically request new tokens.
+- **Store credentials securely**: Never expose your `auth_token` in client-side code or public repositories.
+- **Implement token refresh**: Monitor for `401` responses and automatically request new access tokens using your `auth_token`.
+- **Proactive refresh**: Use the `expires_in` value or the JWT `exp` claim to refresh tokens before they expire, avoiding interrupted requests.
 - **Use HTTPS**: Always make requests over HTTPS to protect your credentials and tokens.
