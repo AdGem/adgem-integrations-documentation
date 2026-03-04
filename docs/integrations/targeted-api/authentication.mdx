@@ -82,7 +82,7 @@ curl -X POST https://targeted-api.adgem.com/v1/offers \
 
 JWT tokens have a limited lifespan. When your token expires, you will receive a `401 Unauthorized` response. Simply request a new token using the same process described above.
 
-Also consider you can predict token expiration using the JWT payload's `exp` claim. This field indicates the expiration time as a Unix timestamp allowing you to refresh the token proactively before it expires.
+You can also predict token expiration using the JWT payload's `exp` claim. This field indicates the expiration time as a Unix timestamp, allowing you to refresh the token proactively before it expires.
 
 ## Error Handling
 

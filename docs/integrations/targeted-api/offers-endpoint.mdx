@@ -39,7 +39,7 @@ curl -X POST https://targeted-api.adgem.com/v1/offers \
   -H "Authorization: Bearer <your-jwt-token>" \
   -H "Content-Type: application/json" \
   -d '{
-    "query": "query GetOffers($playerId: String!) { offers(player_id: $playerId) { id name total_payout_usd creatives { description } } }",
+    "query": "query GetOffers($playerId: String!) { offers(player_id: $playerId) { id name total_payout_usd creatives { name description } } }",
     "variables": {
       "playerId": "user-123"
     }
@@ -57,6 +57,7 @@ curl -X POST https://targeted-api.adgem.com/v1/offers \
         "name": "Example Offer",
         "total_payout_usd": 1.50,
         "creatives": {
+          "name": "Example Offer Creative",
           "description": "Complete this offer to earn rewards."
         }
       }
@@ -80,6 +81,12 @@ Returned when the JWT token is missing or invalid.
 #### 403 Forbidden
 
 Returned when the token is valid but lacks the required scopes.
+
+```json
+{
+  "message": "Forbidden operation."
+}
+```
 
 ## Available Queries
 
