@@ -35,10 +35,11 @@ You do not need to perform these steps yourself. Contact the AdGem Team if you h
 
 ### Step 1: Obtain Your Credentials
 
-Contact the AdGem Team to receive your `auth_token`. This credential is unique to your application and acts as a long-lived refresh token that you will use to obtain short-lived access tokens.
+Contact the AdGem Team to receive your `auth_token`. This credential is unique to your application and should be stored only in secure server-side systems to obtain short-lived access tokens.
 
 :::caution Credential Security
-Keep your `auth_token` secure. Do not expose it in client-side code or share it publicly. If you believe your token has been compromised, contact the AdGem Team immediately.
+Treat your `auth_token` as a secret. Do not expose it in browser/mobile client code or share it publicly. 
+Call `/v1/users/token` from your backend, and pass only short-lived `access_token` values to clients when needed. If you believe your token has been compromised, contact the AdGem Team immediately.
 :::
 
 ### Step 2: Request a JWT Access Token
