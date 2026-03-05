@@ -61,6 +61,7 @@ type Offer {
   store_id: String
   updated_at: String
   stats: OfferStats!
+  platform_availability: [PlatformAvailability]!
 }
 ```
 
@@ -167,6 +168,12 @@ Example: "2025-02-12T18:48:02.000000Z"
 Offer performance metrics and statistics.
 
 Example: &#x007B;network_epi: "0.50"&#x007D;
+
+
+#### [<code style={{ fontWeight: 'normal' }}>Offer.<b>platform_availability</b></code>](#)<Bullet />[<code style={{ fontWeight: 'normal' }}><b>[PlatformAvailability]!</b></code>](/integrations/targeted-api/types/objects/platform-availability.mdx) <Badge class="badge badge--secondary badge--non_null" text="non-null"/> <Badge class="badge badge--secondary " text="object"/> 
+Platform availability details for the offer.
+
+Example: [&#x007B;name: "iOS", max: "14.0", min: "10.0"&#x007D;]
 
 
 
