@@ -6,12 +6,12 @@ sidebar_position: 3
 
 # Tokens
 
-The `/v1/apps/tokens` endpoint allows you to obtain a JWT access token using your application credentials.
+The `/v1/users/token` endpoint allows you to obtain a JWT access token by exchanging your `auth_token` for a short-lived access token.
 
 ## Endpoint
 
 ```
-POST https://targeted-api.adgem.com/v1/apps/tokens
+POST https://targeted-api.adgem.com/v1/users/token
 ```
 
 ## Request
@@ -26,65 +26,70 @@ POST https://targeted-api.adgem.com/v1/apps/tokens
 
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
-| `adgem_pub_id` | `integer` | Yes | Your AdGem publisher identifier |
-| `adgem_app_id` | `integer` | Yes | Your AdGem application identifier |
-| `client_id` | `string` | Yes | Your application's client identifier |
-| `client_secret` | `string` | Yes | Your application's client secret |
+| `auth_token` | `string` | Yes | Your long-lived authentication token provided by the AdGem Team |
 
 ### Example Request
 
 ```bash
-curl -X POST https://targeted-api.adgem.com/v1/apps/tokens \
+curl -X POST https://targeted-api.adgem.com/v1/users/token \
   -H "Content-Type: application/json" \
   -d '{
-    "adgem_pub_id": 0,
-    "adgem_app_id": 0,
-    "client_id": "your-client-id",
-    "client_secret": "your-client-secret"
+    "auth_token": "<your-auth-token>"
   }'
 ```
 
 ## Response
 
-### Success Response (200 OK)
+### Success Response (201 Created)
 
 When the credentials are valid, the API returns a JWT access token:
 
 ```json
 {
+  "message": "Authorized",
   "access_token": "<your-jwt-token>",
-  "token_type": "Bearer",
   "expires_in": 3600
 }
 ```
 
 | Field | Type | Description |
 |-------|------|-------------|
+| `message` | `string` | Authorization status message |
 | `access_token` | `string` | The JWT token to use in subsequent requests |
-| `token_type` | `string` | The type of token (always `Bearer`) |
 | `expires_in` | `integer` | Token validity duration in seconds |
 
 ### Error Responses
 
 #### 401 Unauthorized
 
-Returned when the provided credentials are invalid.
+Returned when the provided `auth_token` is invalid or expired.
 
 ```json
 {
-  "error": "invalid_client",
-  "error_description": "Invalid client credentials"
+  "message": "Authentication failed. Please check your credentials and try again."
 }
 ```
 
-#### 500 Internal Server Error
+#### 403 Forbidden
 
-Returned when an unexpected error occurs during token generation.
+Returned when the authenticated user lacks the required permissions.
 
 ```json
 {
-  "error": "server_error",
-  "error_description": "An unexpected error occurred"
+  "message": "Forbidden."
+}
+```
+
+#### 422 Unprocessable Entity
+
+Returned when required fields are missing from the request body.
+
+```json
+{
+  "message": "The auth_token field is required.",
+  "errors": {
+    "auth_token": ["The auth_token field is required."]
+  }
 }
 ```
 
@@ -94,7 +99,7 @@ Once you have obtained the access token, include it in the `Authorization` heade
 
 ```bash
 curl -X POST https://targeted-api.adgem.com/v1/offers \
-  -H "Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9..." \
+  -H "Authorization: Bearer <your-jwt-token>" \
   -H "Content-Type: application/json" \
   -d '{
     "query": "{ offers(player_id: \"user123\") { id name total_payout_usd } }"
@@ -103,10 +108,10 @@ curl -X POST https://targeted-api.adgem.com/v1/offers \
 
 ## Token Lifecycle
 
-1. **Request** - Call `/v1/apps/tokens` with your credentials
-2. **Receive** - Store the `access_token` from the response
-3. **Use** - Include the token in the `Authorization` header
-4. **Refresh** - When you receive a `401` response, request a new token
+1. **Request** -- Call `/v1/users/token` with your `auth_token`
+2. **Receive** -- Store the `access_token` from the response
+3. **Use** -- Include the token in the `Authorization` header of all API requests
+4. **Refresh** -- When the token expires or you receive a `401` response, request a new token using the same `auth_token`
 
 ## See Also
 
