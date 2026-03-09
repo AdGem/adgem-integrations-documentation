@@ -366,3 +366,20 @@ button,
   -webkit-text-decoration: none;
   text-decoration: none;
 }
+
+/* Navbar dropdown group headers (non-clickable section labels) */
+.navbar .dropdown-header {
+  padding: 4px 10px;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--adgem-accent-cyan);
+  pointer-events: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 4px;
+}
+
+.navbar .dropdown-header:first-child {
+  border-top: none;
+  margin-top: 0;
+}
