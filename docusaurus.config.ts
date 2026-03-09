@@ -30,6 +30,7 @@ const config: Config = {
         docs: {
           sidebarPath: require.resolve("./sidebars.ts"),
           docItemComponent: "@theme/ApiItem", // Derived from docusaurus-theme-openapi
+          exclude: ["plans/**"],
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
