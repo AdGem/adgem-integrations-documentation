@@ -54,6 +54,9 @@ jobs:
           ref: gh-pages
           fetch-depth: 0
 
+      - name: Clean previous preview
+        run: rm -rf pr-preview/pr-${{ github.event.pull_request.number }}
+
       - name: Download preview artifact
         uses: actions/download-artifact@v4
         with:
@@ -64,7 +67,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add pr-preview/
+          git add -A pr-preview/
           git commit -m "Deploy PR #${{ github.event.pull_request.number }} preview" || echo "No changes to commit"
           # Retry with rebase in case of concurrent updates
           for i in 1 2 3; do

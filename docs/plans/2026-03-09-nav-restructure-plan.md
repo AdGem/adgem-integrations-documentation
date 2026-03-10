@@ -1,3 +1,49 @@
+# Nav Restructure Implementation Plan
+
+> **For Claude:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
+
+**Goal:** Rewrite sidebar and navbar to use Pre-built / Partner-built framing per the master plan (AGPI-1586).
+
+**Architecture:** Config-only changes to two files (`sidebars.ts`, `docusaurus.config.ts`) plus a small CSS addition for navbar dropdown group headers. No file moves, no content changes.
+
+**Tech Stack:** Docusaurus 3, TypeScript config files, Infima CSS
+
+---
+
+### Task 1: Create feature branch
+
+**Files:** None
+
+**Step 1: Create branch from origin/main**
+
+```bash
+git fetch origin
+git checkout -b ronco/agpi-1683-nav-restructure origin/main
+```
+
+**Step 2: Cherry-pick the design docs from the master-plan branch**
+
+```bash
+git cherry-pick bf55cc6
+```
+
+This brings the design doc onto the new branch.
+
+**Step 3: Verify clean state**
+
+Run: `git status`
+Expected: clean working tree on `ronco/agpi-1683-nav-restructure`
+
+---
+
+### Task 2: Rewrite sidebars.ts
+
+**Files:**
+- Modify: `sidebars.ts`
+
+**Step 1: Replace the full contents of `sidebars.ts`**
+
+```typescript
 /**
  * Sidebar Configuration — Pre-built / Partner-built framing
  *
@@ -270,3 +316,203 @@ const sidebars: SidebarsConfig = {
 };
 
 export default sidebars;
+```
+
+**Step 2: Commit**
+
+```bash
+git add sidebars.ts
+git commit -m "feat(nav): rewrite sidebar with Pre-built/Partner-built grouping
+
+AGPI-1683"
+```
+
+---
+
+### Task 3: Update navbar in docusaurus.config.ts
+
+**Files:**
+- Modify: `docusaurus.config.ts` (lines 54-132, the `navbar.items` array)
+
+**Step 1: Replace the `items` array inside `navbar`**
+
+Replace the existing `items` array (lines 54-132) with:
+
+```typescript
+        items: [
+          {
+            label: "Getting Started",
+            position: "left",
+            to: "/docs/getting-started",
+          },
+          {
+            label: "Integrations",
+            position: "left",
+            type: "dropdown",
+            items: [
+              {
+                type: "html",
+                value: "<b>Pre-built (Fastest)</b>",
+                className: "dropdown-header",
+              },
+              {
+                label: "Web Offerwall (Recommended)",
+                to: "/docs/integrations/web-offerwall",
+              },
+              {
+                label: "iOS SDK",
+                to: "/docs/integrations/ios-sdk",
+              },
+              {
+                label: "Android SDK",
+                to: "/docs/integrations/android-sdk",
+              },
+              {
+                label: "Unity SDK",
+                to: "/docs/integrations/unity-sdk",
+              },
+              {
+                type: "html",
+                value: "<b>Partner-built (Custom Experience)</b>",
+                className: "dropdown-header",
+              },
+              {
+                label: "Offer API (REST)",
+                to: "/docs/integrations/offer-api",
+              },
+              {
+                label: "Targeted API (GraphQL)",
+                to: "/docs/integrations/targeted-api",
+              },
+            ],
+          },
+          {
+            label: "Webhooks & Postbacks",
+            position: "left",
+            to: "/docs/webhooks",
+          },
+          {
+            label: "Resources",
+            position: "left",
+            type: "dropdown",
+            items: [
+              {
+                label: "Offer Wall",
+                to: "/docs/offer-wall",
+              },
+              {
+                label: "Monetization",
+                to: "/docs/monetization",
+              },
+              {
+                label: "Reporting API",
+                to: "/docs/api-reference",
+              },
+              {
+                label: "Resources & Support",
+                to: "/docs/resources",
+              },
+              {
+                label: "Legal",
+                to: "/docs/legal",
+              },
+              // TODO: AGPI-1602 - Add Player Support external link once WordPress URL is finalized
+            ],
+          },
+          {
+            href: "https://github.com/AdGem/adgem-integrations-documentation",
+            label: "GitHub",
+            position: "right",
+          },
+        ],
+```
+
+**Step 2: Commit**
+
+```bash
+git add docusaurus.config.ts
+git commit -m "feat(nav): update navbar with grouped Integrations and condensed Resources
+
+AGPI-1683"
+```
+
+---
+
+### Task 4: Add CSS for dropdown group headers
+
+**Files:**
+- Modify: `src/css/custom.css`
+
+**Step 1: Add dropdown header styles**
+
+Append after the existing `.dropdown__link:hover` rule (end of file):
+
+```css
+/* Navbar dropdown group headers (non-clickable section labels) */
+.navbar .dropdown-header {
+  padding: 4px 10px;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--adgem-accent-cyan);
+  pointer-events: none;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-top: 4px;
+}
+
+.navbar .dropdown-header:first-child {
+  border-top: none;
+  margin-top: 0;
+}
+```
+
+**Step 2: Commit**
+
+```bash
+git add src/css/custom.css
+git commit -m "style(nav): add dropdown group header styling
+
+AGPI-1683"
+```
+
+---
+
+### Task 5: Build and verify
+
+**Step 1: Run the build**
+
+Run: `npm run build`
+Expected: Build succeeds with no errors. Broken link errors would indicate a routing problem.
+
+**Step 2: Serve locally and spot-check**
+
+Run: `npm run serve`
+
+Verify:
+- Sidebar shows Pre-built (Fastest) / Partner-built (Custom Experience) sub-groups
+- Web Offerwall labeled "(Recommended)"
+- Webhooks renamed to "Webhooks & Postbacks"
+- Configuration and Offers nested under "Offer Wall"
+- API Reference renamed to "Reporting API"
+- Player Support gone from sidebar
+- Navbar Integrations dropdown shows grouped items with styled headers
+- Navbar Resources dropdown has Offer Wall, Monetization, Reporting API, Resources & Support, Legal
+- All links navigate to correct pages
+
+**Step 3: Fix any issues and commit fixes**
+
+If the build fails or links are broken, fix the config and commit.
+
+---
+
+### Task 6: Final commit and PR prep
+
+**Step 1: Verify all commits are clean**
+
+Run: `git log --oneline origin/main..HEAD`
+
+Expected: 4-5 commits (design doc cherry-pick + sidebar + navbar + CSS + any fixes)
+
+**Step 2: Push and create PR**
+
+Use `/pr` skill to create the PR targeting `main`.

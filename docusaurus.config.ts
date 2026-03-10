@@ -30,6 +30,7 @@ const config: Config = {
         docs: {
           sidebarPath: require.resolve("./sidebars.ts"),
           docItemComponent: "@theme/ApiItem", // Derived from docusaurus-theme-openapi
+          exclude: ["plans/**"],
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
@@ -63,12 +64,13 @@ const config: Config = {
             type: "dropdown",
             items: [
               {
-                label: "Offer API (REST)",
-                to: "/docs/integrations/offer-api",
+                type: "html",
+                value: "<b>Pre-built (Fastest)</b>",
+                className: "dropdown-header",
               },
               {
-                label: "Targeted API (GraphQL)",
-                to: "/docs/integrations/targeted-api",
+                label: "Web Offerwall (Recommended)",
+                to: "/docs/integrations/web-offerwall",
               },
               {
                 label: "iOS SDK",
@@ -83,13 +85,22 @@ const config: Config = {
                 to: "/docs/integrations/unity-sdk",
               },
               {
-                label: "Web Offerwall",
-                to: "/docs/integrations/web-offerwall",
+                type: "html",
+                value: "<b>Partner-built (Custom Experience)</b>",
+                className: "dropdown-header",
+              },
+              {
+                label: "Offer API (REST)",
+                to: "/docs/integrations/offer-api",
+              },
+              {
+                label: "Targeted API (GraphQL)",
+                to: "/docs/integrations/targeted-api",
               },
             ],
           },
           {
-            label: "Webhooks",
+            label: "Webhooks & Postbacks",
             position: "left",
             to: "/docs/webhooks",
           },
@@ -99,29 +110,26 @@ const config: Config = {
             type: "dropdown",
             items: [
               {
-                label: "Configuration",
-                to: "/docs/configuration",
-              },
-              {
-                label: "Offers",
-                to: "/docs/offers",
+                label: "Offer Wall",
+                to: "/docs/offer-wall",
               },
               {
                 label: "Monetization",
                 to: "/docs/monetization",
               },
               {
-                label: "API Reference",
+                label: "Reporting API",
                 to: "/docs/api-reference",
               },
               {
-                label: "Branding & Support",
+                label: "Resources & Support",
                 to: "/docs/resources",
               },
               {
                 label: "Legal",
                 to: "/docs/legal",
               },
+              // TODO: AGPI-1602 - Add Player Support external link once WordPress URL is finalized
             ],
           },
           {
