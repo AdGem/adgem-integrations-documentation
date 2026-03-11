@@ -12,8 +12,8 @@ The Targeted API uses a JWT-based authentication system powered by Amazon Cognit
 
 The authentication process involves two phases:
 
-1. **Account Setup (performed by AdGem Team):** The AdGem Team registers and confirms your user account, then provides you with an `auth_token` (a long-lived refresh token).
-2. **Token Acquisition (performed by you):** You exchange the `auth_token` for a short-lived JWT `access_token`, which you include in the `Authorization` header of all API requests.
+1. **Account Setup (performed by AdGem Team):** The AdGem Team registers and confirms your user account, then provides you with a `refresh_token` (a long-lived token).
+2. **Token Acquisition (performed by you):** You exchange the `refresh_token` for a short-lived JWT `access_token`, which you include in the `Authorization` header of all API requests.
 
 ### Prerequisites
 
@@ -21,7 +21,7 @@ Before you can authenticate, the AdGem Team must complete the following internal
 
 1. **User Registration** -- Your user account is registered in the authentication system.
 2. **User Confirmation** -- Your account is confirmed and activated.
-3. **Auth Token Generation** -- A long-lived `auth_token` is generated and shared with you securely.
+3. **Refresh Token Generation** -- A long-lived `refresh_token` is generated and shared with you securely.
 
 You do not need to perform these steps yourself. Contact the AdGem Team if you have not received your credentials.
 
@@ -29,29 +29,27 @@ You do not need to perform these steps yourself. Contact the AdGem Team if you h
 
 | Credential | Description | Provided By |
 |------------|-------------|-------------|
-| `auth_token` | Your long-lived authentication token (refresh token) | AdGem Team |
+| `refresh_token` | Your long-lived authentication token (refresh token) | AdGem Team |
 
 ## Step-by-Step Guide
 
 ### Step 1: Obtain Your Credentials
 
-Contact the AdGem Team to receive your `auth_token`. This credential is unique to your application and should be stored only in secure server-side systems to obtain short-lived access tokens.
+Contact the AdGem Team to receive your `refresh_token`. This credential is unique to your application and should be stored only in secure server-side systems to obtain short-lived access tokens.
 
 :::caution Credential Security
-Treat your `auth_token` as a secret. Do not expose it in browser/mobile client code or share it publicly. 
+Treat your `refresh_token` as a secret. Do not expose it in browser/mobile client code or share it publicly.
 Call `/v1/users/token` from your backend, and pass only short-lived `access_token` values to clients when needed. If you believe your token has been compromised, contact the AdGem Team immediately.
 :::
 
 ### Step 2: Request a JWT Access Token
 
-Make a POST request to the `/v1/users/token` endpoint with your `auth_token`:
+Make a POST request to the `/v1/users/token` endpoint with your `refresh_token`. The endpoint follows the [OAuth 2.0 specification (RFC 6749)](https://datatracker.ietf.org/doc/html/rfc6749) and requires a form-encoded body:
 
 ```bash
 curl -X POST https://targeted-api.adgem.com/v1/users/token \
-  -H "Content-Type: application/json" \
-  -d '{
-    "auth_token": "<your-auth-token>"
-  }'
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  -d "grant_type=refresh_token&refresh_token=<your-refresh-token>"
 ```
 
 A successful response returns a `201 Created` status with your access token:
@@ -91,11 +89,12 @@ You can also predict token expiration using the JWT payload's `exp` claim. This 
 |-------------|-------------|
 | `401 Unauthorized` | Invalid or expired token. Request a new token. |
 | `403 Forbidden` | Token is valid but lacks required permissions. |
+| `415 Unsupported Media Type` | Request Content-Type is not `application/x-www-form-urlencoded`. |
 | `422 Unprocessable Entity` | Missing required fields in the request body. |
 
 ## Best Practices
 
-- **Store credentials securely**: Never expose your `auth_token` in client-side code or public repositories.
-- **Implement token refresh**: Monitor for `401` responses and automatically request new access tokens using your `auth_token`.
+- **Store credentials securely**: Never expose your `refresh_token` in client-side code or public repositories.
+- **Implement token refresh**: Monitor for `401` responses and automatically request new access tokens using your `refresh_token`.
 - **Proactive refresh**: Use the `expires_in` value or the JWT `exp` claim to refresh tokens before they expire, avoiding interrupted requests.
 - **Use HTTPS**: Always make requests over HTTPS to protect your credentials and tokens.
