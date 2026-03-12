@@ -6,7 +6,7 @@ sidebar_position: 3
 
 # Tokens
 
-The `/v1/users/token` endpoint allows you to obtain a JWT access token by exchanging your `auth_token` for a short-lived access token.
+The `/v1/users/token` endpoint allows you to obtain a JWT access token by exchanging your `refresh_token` for a short-lived access token. This endpoint follows the [OAuth 2.0 specification (RFC 6749)](https://datatracker.ietf.org/doc/html/rfc6749) and requires a form-encoded request body.
 
 ## Endpoint
 
@@ -20,22 +20,21 @@ POST https://targeted-api.adgem.com/v1/users/token
 
 | Header | Value | Required |
 |--------|-------|----------|
-| `Content-Type` | `application/json` | Yes |
+| `Content-Type` | `application/x-www-form-urlencoded` | Yes |
 
 ### Body Parameters
 
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
-| `auth_token` | `string` | Yes | Your long-lived authentication token provided by the AdGem Team |
+| `grant_type` | `string` | Yes | Must be `refresh_token` |
+| `refresh_token` | `string` | Yes | Your long-lived authentication token provided by the AdGem Team |
 
 ### Example Request
 
 ```bash
 curl -X POST https://targeted-api.adgem.com/v1/users/token \
-  -H "Content-Type: application/json" \
-  -d '{
-    "auth_token": "<your-auth-token>"
-  }'
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  -d "grant_type=refresh_token&refresh_token=<your-refresh-token>"
 ```
 
 ## Response
@@ -62,7 +61,7 @@ When the credentials are valid, the API returns a JWT access token:
 
 #### 401 Unauthorized
 
-Returned when the provided `auth_token` is invalid or expired.
+Returned when the provided `refresh_token` is invalid or expired.
 
 ```json
 {
@@ -80,15 +79,25 @@ Returned when the authenticated user lacks the required permissions.
 }
 ```
 
+#### 415 Unsupported Media Type
+
+Returned when the `Content-Type` header is not `application/x-www-form-urlencoded`.
+
+```json
+{
+  "error": "Content-Type must be application/x-www-form-urlencoded"
+}
+```
+
 #### 422 Unprocessable Entity
 
 Returned when required fields are missing from the request body.
 
 ```json
 {
-  "message": "The auth_token field is required.",
+  "message": "The refresh_token field is required.",
   "errors": {
-    "auth_token": ["The auth_token field is required."]
+    "refresh_token": ["The refresh_token field is required."]
   }
 }
 ```
@@ -108,10 +117,10 @@ curl -X POST https://targeted-api.adgem.com/v1/offers \
 
 ## Token Lifecycle
 
-1. **Request** -- Call `/v1/users/token` with your `auth_token`
+1. **Request** -- Call `/v1/users/token` with your `refresh_token` using form-encoded body
 2. **Receive** -- Store the `access_token` from the response
 3. **Use** -- Include the token in the `Authorization` header of all API requests
-4. **Refresh** -- When the token expires or you receive a `401` response, request a new token using the same `auth_token`
+4. **Refresh** -- When the token expires or you receive a `401` response, request a new token using the same `refresh_token`
 
 ## See Also
 
