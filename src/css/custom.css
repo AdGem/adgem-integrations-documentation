@@ -147,13 +147,13 @@ button,
 }
 
 .button--primary {
-  background: linear-gradient(135deg, var(--adgem-secondary-purple) 0%, var(--adgem-accent-magenta) 100%);
+  background: #5F4FFB;
   border: none;
   color: white;
 }
 
 .button--primary:hover {
-  background: linear-gradient(135deg, var(--adgem-accent-magenta) 0%, var(--adgem-secondary-purple) 100%);
+  background: #4e3de6;
   color: white;
 }
 
@@ -190,6 +190,21 @@ button,
 .navbar__inner {
   max-width: 1200px;
   margin: 0 auto;
+}
+
+/* Center nav links between logo and right items using CSS grid */
+@media (min-width: 997px) {
+  .navbar__inner {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+  }
+
+  .navbar__items:not(.navbar__items--right) {
+    justify-self: center;
+    display: flex;
+    gap: 0;
+  }
 }
 
 .navbar__title {
