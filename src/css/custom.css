@@ -250,6 +250,16 @@ button,
   color: var(--adgem-accent-cyan);
 }
 
+/* Mobile navbar sidebar - white text on dark purple bg */
+.navbar-sidebar .menu__link {
+  color: white;
+}
+
+.navbar-sidebar .menu__link:hover,
+.navbar-sidebar .menu__link--active {
+  color: var(--adgem-accent-cyan);
+}
+
 /* ============================================
    Sidebar
    ============================================ */
