@@ -1,6 +1,6 @@
 /* src/components/IntegrationCards/styles.module.css */
 .section {
-  padding: 3rem 0;
+  padding: 3rem 1rem;
   max-width: 960px;
   margin: 0 auto;
 }

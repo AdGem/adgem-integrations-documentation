@@ -188,23 +188,8 @@ button,
 }
 
 .navbar__inner {
-  padding: 0 0.5rem;
-  justify-content: center;
-}
-
-@media (min-width: 997px) {
-  .navbar__brand {
-    margin-right: 0;
-  }
-
-  .navbar__items {
-    flex: 1;
-    justify-content: center;
-  }
-
-  .navbar__items--right {
-    flex: 0 0 auto;
-  }
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .navbar__title {
