@@ -189,6 +189,22 @@ button,
 
 .navbar__inner {
   padding: 0 0.5rem;
+  justify-content: center;
+}
+
+@media (min-width: 997px) {
+  .navbar__brand {
+    margin-right: 0;
+  }
+
+  .navbar__items {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .navbar__items--right {
+    flex: 0;
+  }
 }
 
 .navbar__title {
@@ -200,6 +216,7 @@ button,
 .navbar__link {
   color: white;
   font-weight: 500;
+  font-size: 1rem; /* 16px */
 }
 
 .navbar__link:hover,
