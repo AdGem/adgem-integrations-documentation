@@ -271,6 +271,15 @@ button,
 
 .menu__link {
   font-family: var(--ifm-font-family-base);
+  font-size: 1rem; /* 16px */
+}
+
+/* Reduce sidebar chevron/arrow size */
+.menu__link--sublist-caret::after,
+.menu__caret::before {
+  background-size: 1.2rem 1.2rem; /* smaller than default 2rem */
+  width: 1.2rem;
+  height: 1.2rem;
 }
 
 .menu__link--active:not(.menu__link--sublist) {
