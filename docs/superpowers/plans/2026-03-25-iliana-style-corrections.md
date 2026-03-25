@@ -130,7 +130,7 @@ Note: Docusaurus navbar uses flexbox. The logo has `margin-right: auto` by defau
 }
 ```
 
-This centers the nav links in the space between logo and right-side items. On mobile (<997px), Docusaurus collapses to a hamburger menu and the default layout is preserved.
+This centers the nav links in the space between logo and right-side items. On mobile (&lt;997px), Docusaurus collapses to a hamburger menu and the default layout is preserved.
 
 - [ ] **Step 2: Set navbar link font size to 16px**
 
