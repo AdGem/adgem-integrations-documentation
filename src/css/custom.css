@@ -56,9 +56,9 @@
   /* Buttons */
   --ifm-button-border-radius: 50px;
 
-  /* Dropdown menus - match navbar styling */
-  --ifm-dropdown-background-color: var(--adgem-primary);
-  --ifm-dropdown-link-color: var(--adgem-white);
+  /* Dropdown menus - white bg, matching adgem.com */
+  --ifm-dropdown-background-color: #ffffff;
+  --ifm-dropdown-link-color: #000000;
   --ifm-dropdown-hover-background-color: var(--adgem-secondary-purple);
 }
 
@@ -85,9 +85,9 @@
 
   --docusaurus-highlighted-code-line-bg: rgba(130, 231, 246, 0.15);
 
-  /* Dropdown menus - match navbar styling */
-  --ifm-dropdown-background-color: var(--adgem-primary);
-  --ifm-dropdown-link-color: var(--adgem-white);
+  /* Dropdown menus - white bg even in dark mode (matches adgem.com) */
+  --ifm-dropdown-background-color: #ffffff;
+  --ifm-dropdown-link-color: #000000;
   --ifm-dropdown-hover-background-color: var(--adgem-secondary-purple);
 }
 
@@ -230,8 +230,10 @@ button,
 
 /* Dropdown menus - additional styling not covered by Infima variables */
 .dropdown__menu {
-  border: 1px solid var(--adgem-secondary-purple);
-  box-shadow: 0 4px 12px rgba(21, 1, 88, 0.3);
+  border: none;
+  border-radius: 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  min-width: 280px;
 }
 
 /* ============================================
@@ -388,22 +390,22 @@ button,
   width: 64vw !important;
 }
 
-.dropdown__link:hover, .dropdown__link--active {
+.dropdown__link:hover,
+.dropdown__link--active {
   background-color: var(--ifm-dropdown-hover-background-color);
-  color: white;
-  -webkit-text-decoration: none;
+  color: var(--adgem-accent-blue);
   text-decoration: none;
 }
 
 /* Navbar dropdown group headers (non-clickable section labels) */
 .navbar .dropdown-header {
   padding: 4px 10px;
-  font-size: 0.7rem;
+  font-size: 0.625rem; /* 10px */
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: var(--adgem-accent-cyan);
+  color: var(--adgem-secondary-purple);
   pointer-events: none;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
   margin-top: 4px;
 }
 
