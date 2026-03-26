@@ -200,10 +200,18 @@ button,
     align-items: center;
   }
 
+  .navbar__brand {
+    grid-column: 1;
+  }
+
   .navbar__items:not(.navbar__items--right) {
+    grid-column: 2;
     justify-self: center;
     display: flex;
-    gap: 0;
+  }
+
+  .navbar__items--right {
+    grid-column: 3;
   }
 }
 
