@@ -12,49 +12,21 @@
 }
 
 .card {
-  padding: 1.5rem;
-  border-radius: 8px;
-  border: 1px solid var(--ifm-color-emphasis-200);
-  background: var(--ifm-card-background-color, var(--ifm-background-surface-color));
-  text-decoration: none;
-  color: inherit;
-  transition: box-shadow 0.2s ease, border-color 0.2s ease;
-  display: flex;
-  flex-direction: column;
+  composes: card from '../../css/cards.module.css';
   height: 100%;
 }
 
-.card:hover {
-  text-decoration: none;
-  color: inherit;
-  border-color: var(--adgem-secondary-purple);
-  box-shadow: 0 4px 12px rgba(87, 62, 242, 0.15);
-}
-
-[data-theme='dark'] .card:hover {
-  border-color: var(--adgem-accent-cyan);
-  box-shadow: 0 4px 12px rgba(130, 231, 246, 0.15);
-}
-
 .cardTitle {
-  font-size: 1.15rem;
-  margin-bottom: 0.5rem;
+  composes: cardTitle from '../../css/cards.module.css';
 }
 
 .cardDescription {
-  font-size: 0.9rem;
-  opacity: 0.85;
+  composes: cardDescription from '../../css/cards.module.css';
   margin-bottom: 0.75rem;
 }
 
 .cardLink {
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--adgem-secondary-purple);
-}
-
-[data-theme='dark'] .cardLink {
-  color: var(--adgem-accent-cyan);
+  composes: cardLink from '../../css/cards.module.css';
 }
 
 @media screen and (max-width: 996px) {
