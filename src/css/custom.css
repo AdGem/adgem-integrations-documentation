@@ -412,7 +412,7 @@ button,
 .dropdown__link:hover,
 .dropdown__link--active {
   background-color: var(--ifm-dropdown-hover-background-color);
-  color: var(--adgem-accent-blue);
+  color: var(--adgem-white);
   text-decoration: none;
 }
 
