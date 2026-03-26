@@ -1,0 +1,135 @@
+/* src/components/IntegrationCards/styles.module.css */
+.section {
+  padding: 3rem 1rem;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.sectionTitle {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.groupHeader {
+  margin-bottom: 1.5rem;
+  margin-top: 2.5rem;
+  border-bottom: 2px solid var(--adgem-secondary-purple);
+  padding-bottom: 0.75rem;
+}
+
+.sectionTitle + .groupHeader {
+  margin-top: 0;
+}
+
+.groupTitle {
+  margin-bottom: 0.25rem;
+  color: var(--adgem-secondary-purple);
+}
+
+[data-theme='dark'] .groupTitle {
+  color: var(--adgem-accent-cyan);
+}
+
+[data-theme='dark'] .groupHeader {
+  border-bottom-color: var(--adgem-accent-cyan);
+}
+
+.groupDescription {
+  font-size: 1rem;
+  opacity: 0.8;
+  margin-bottom: 0;
+}
+
+.featuredRow {
+  margin-bottom: 1rem;
+}
+
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.card {
+  composes: card from '../../css/cards.module.css';
+}
+
+.cardTitle {
+  composes: cardTitle from '../../css/cards.module.css';
+  margin-bottom: 0;
+}
+
+.cardDescription {
+  composes: cardDescription from '../../css/cards.module.css';
+  flex: 1;
+}
+
+.cardLink {
+  composes: cardLink from '../../css/cards.module.css';
+}
+
+.featured {
+  border-color: var(--adgem-secondary-purple);
+  border-width: 2px;
+}
+
+[data-theme='dark'] .featured {
+  border-color: var(--adgem-accent-cyan);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  background: var(--ifm-color-emphasis-100);
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-left: 0.5rem;
+  vertical-align: middle;
+}
+
+.badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: #5F4FFB;
+  color: white;
+  padding: 2px 10px;
+  border-radius: 50px;
+  white-space: nowrap;
+}
+
+.callout {
+  margin-top: 2rem;
+  padding: 1.25rem 1.5rem;
+  border-radius: 8px;
+  background: rgba(87, 62, 242, 0.06);
+  border-left: 4px solid var(--adgem-secondary-purple);
+}
+
+[data-theme='dark'] .callout {
+  background: rgba(130, 231, 246, 0.06);
+  border-left-color: var(--adgem-accent-cyan);
+}
+
+.callout p {
+  margin-bottom: 0.5rem;
+}
+
+.calloutLink {
+  font-weight: 600;
+}
+
+@media screen and (max-width: 996px) {
+  .cardGrid {
+    grid-template-columns: 1fr;
+  }
+}
