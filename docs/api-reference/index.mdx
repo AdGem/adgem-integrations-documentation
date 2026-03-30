@@ -1,27 +1,139 @@
 ---
 sidebar_position: 1
-title: API Reference
-description: Additional API documentation including the Reporting API.
+title: Reporting API
+description: Retrieve performance metrics for your AdGem applications using the Reporting API.
 ---
 
-# API Reference
+# Reporting API
 
-The Reporting API gives you programmatic access to performance metrics for your AdGem applications. Use it to pull reporting data into your own dashboards, analytics pipelines, or internal tools.
+The Reporting API allows publishers to retrieve performance metrics for their AdGem applications. Customize your query using fields, groupings, and filters in the request URL. All metrics are reported in EST (GMT-5), and currency is reported in USD.
 
-## What You Can Do
+:::caution[Token Expiration]
+The Reporting API access token expires one year after creation. Generate a new token if API calls fail after extended use.
+:::
 
-- **Retrieve performance metrics** such as clicks, conversions, payouts, DAU, CTR, and eCPM
-- **Group data** by app, date, platform, country, or offer
-- **Filter results** by app ID, platform, or country
-- **Customize response fields** to return only the data you need
+## Prerequisites
 
-## Available Documentation
+:::caution[Requirements]
+Before you begin:
 
-| Page | Description |
-|---|---|
-| [Reporting API](./reporting-api.mdx) | Full API reference including authentication, request parameters, response fields, and example requests |
+- You must have an active [AdGem account](https://dashboard.adgem.com/register)
+- You must have a property added to your [account](https://dashboard.adgem.com/publisher/apps)
+- [Contact](https://adgem.com/contact/) your account manager to get access to the Reporting API
+:::
 
-## Quick Links
+## Getting Started
 
-- [AdGem Dashboard](https://dashboard.adgem.com) - Manage your apps and generate API keys
-- [Contact AdGem](https://adgem.com/contact/) - Request Reporting API access from your account manager
+:::info[Steps]
+1. Generate and retrieve API key
+2. Authenticate your requests
+3. Prepare request URL
+:::
+
+---
+
+### Step 1: Generate and Retrieve API Key
+
+1. Log in to your [AdGem Dashboard](https://dashboard.adgem.com). Navigate to the Reporting API page.
+2. Generate your API key by clicking the green "+" button at the top of the page.
+3. Copy the API key generated in the input field to be used in all future requests.
+
+:::warning[Important]
+You will not get another opportunity to view or copy the API key without generating a new token. If the Reporting API navigation option is not present in your dashboard, contact your account manager to request access.
+:::
+
+---
+
+### Step 2: Authentication
+
+All requests must include the API key and application type in the header. Send a GET request to the following endpoint:
+
+```
+https://dashboard.adgem.com/v1/report
+```
+
+**Required headers:**
+
+```http
+Accept: application/json
+Authorization: Bearer <YOUR_ACCESS_TOKEN>
+```
+
+---
+
+### Step 3: Prepare Request URL
+
+All requests should use the `GET` method to the endpoint listed below with the proper authorization headers.
+
+```
+GET https://dashboard.adgem.com/v1/report
+```
+
+Use the request parameters below to customize the data returned in the response.
+
+#### Request Parameters
+
+| Field Name | Field Type | Notes |
+|---|---|---|
+| `group_by` | Array of Strings | **Required.** Options: `app_id`, `date`, `platform`, `country`, `offer` |
+| `date_range` | Object | **Required.** Needs `start_date` and `end_date` properties in `Y-m-d H:i:s` format. Example: `2019-11-30 11:54:06` |
+| `fields` | Array of Strings | Fields to return in the response. Options: `app_id`, `app_name`, `country_name`, `platform_name`, `date`, `offer_name`, `dau` (Daily Active Users), `payout`, `offerwall_loads`, `gross_clicks`, `distinct_clicks`, `conversions`, `ctr` (Click Through Rate), `cr` (Conversion Rate), `ecpm` (Effective Cost Per Mille) |
+| `filter_by` | Array of Strings | Options: `app_id`, `platform`, `country`. Note: country values must use the ISO 3166 Alpha-2 code. |
+| `apps` | Array of Integers | App IDs to retrieve data for. Requires `app_id` in the `filter_by` field. |
+| `platforms` | Array of Strings | Platforms to retrieve data for. Requires `platform` in the `filter_by` field. |
+| `countries` | Array of Strings | Country short codes to retrieve data for. Requires `country` in the `filter_by` field. |
+
+---
+
+#### Response Body
+
+:::note
+These are the default fields returned in the response. To return specific fields, customize the query URL using the `fields` parameter.
+:::
+
+| Field Name | Field Type | Notes |
+|---|---|---|
+| `app_id` | integer | The ID of your app on AdGem |
+| `date` | string | |
+| `app_name` | string | The name of your app on AdGem |
+| `offer_wall_loads` | integer | |
+| `clicks` | integer | Gross clicks |
+| `distinct_clicks` | integer | Unique clicks |
+| `conversions` | integer | |
+| `impressions` | integer | |
+| `instruction_views` | integer | Number of offer instruction views |
+| `payout` | double | The publisher payout amount |
+| `count` | integer | Daily active users count |
+| `ctr` | double | Click-through rate |
+| `cver` | double/string | Conversion rate |
+| `ecpm` | double | Effective cost per mille |
+
+:::info[Miscellaneous Details]
+- **Timezone:** All measures are reported in Eastern Standard Time (EST)
+- **Currency:** All currency measures are reported in USD
+- **Rate Limits:** The data source is updated on a 30-minute interval. We recommend querying accordingly. Maximum usage rate is 10 requests per minute.
+:::
+
+---
+
+## Example Requests
+
+### Default Report Request
+
+```http
+GET https://dashboard.adgem.com/v1/report?group_by[]=app_id&group_by[]=date&date_range[start_date]=2019-12-29%2000%3A00%3A00&date_range[end_date]=2019-12-30%2000%3A00%3A00
+
+Accept: application/json
+Authorization: Bearer <YOUR_ACCESS_TOKEN>
+```
+
+### Customized Report Request
+
+This request includes groups, filters, and specific fields to return in the response.
+
+```http
+GET https://dashboard.adgem.com/v1/report?fields[]=app_id&fields[]=date&fields[]=app_name&fields[]=count&group_by[]=app_id&group_by[]=date&filter_by[]=app_id&apps[]=13&date_range[start_date]=2019-12-29%2000%3A00%3A00&date_range[end_date]=2019-12-30%2000%3A00%3A00
+
+Accept: application/json
+Authorization: Bearer <YOUR_ACCESS_TOKEN>
+```
