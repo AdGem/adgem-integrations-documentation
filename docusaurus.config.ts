@@ -14,7 +14,7 @@ const config: Config = {
   baseUrl: process.env.DOCUSAURUS_BASE_URL || '/adgem-integrations-documentation/',
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
-  favicon: "img/favicon.ico",
+  favicon: "img/favicon.svg",
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
