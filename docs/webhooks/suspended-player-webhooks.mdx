@@ -112,12 +112,13 @@ app.post('/webhook-receiver', (req, res) => {
         .update(req.rawBody)
         .digest('hex');
 
+    // Compare hex strings as UTF-8 buffers to avoid silent
+    // truncation from Buffer.from(str, 'hex') on malformed input
+    const expected = Buffer.from(expectedSignature, 'utf8');
+    const received = Buffer.from(receivedSignature, 'utf8');
     const isValid =
-        receivedSignature.length === expectedSignature.length &&
-        crypto.timingSafeEqual(
-            Buffer.from(expectedSignature, 'hex'),
-            Buffer.from(receivedSignature, 'hex')
-        );
+        expected.length === received.length &&
+        crypto.timingSafeEqual(expected, received);
 
     if (isValid) {
         res.status(200).send();

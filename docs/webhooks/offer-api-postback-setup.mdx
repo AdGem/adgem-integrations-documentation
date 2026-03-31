@@ -118,7 +118,6 @@ Here is an example of the request body:
         "allow_multiple_conversions": false,
         "store_id": "com.whatever.example",
         "offer_id": "12345678900123456",
-        "request_id": "6bfc84d8-5d9a-4964-bba4-0fd2c2ed1563",
         "conversion_type": "reward"
     }
 }
@@ -189,12 +188,13 @@ app.post('/postbacks/adgem/v3', (req, res) => {
         .update(req.rawBody)
         .digest('hex');
 
+    // Compare hex strings as UTF-8 buffers to avoid silent
+    // truncation from Buffer.from(str, 'hex') on malformed input
+    const expected = Buffer.from(expectedSignature, 'utf8');
+    const received = Buffer.from(receivedSignature, 'utf8');
     const isValid =
-        receivedSignature.length === expectedSignature.length &&
-        crypto.timingSafeEqual(
-            Buffer.from(expectedSignature, 'hex'),
-            Buffer.from(receivedSignature, 'hex')
-        );
+        expected.length === received.length &&
+        crypto.timingSafeEqual(expected, received);
 
     if (isValid) {
         res.status(200).send();
