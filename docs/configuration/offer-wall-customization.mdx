@@ -1,0 +1,87 @@
+---
+sidebar_position: 2
+title: "Offer Wall Customization"
+description: "Customize your offer wall with virtual currency names, icons, and multipliers."
+---
+
+# Offer Wall Customization
+
+AdGem offers customization options and best practices tailored to your preferred integration type!
+
+---
+
+## Web Offerwall Integration
+
+AdGem offers the ability for Publishers to customize the Offerwall to match the icon and naming convention for your currency. Here is a list of all of the available customization options:
+
+- Virtual Currency name
+- Virtual Currency icon image (supports animated gifs)
+- Virtual Currency multiplier
+
+To customize any of the above items for your Offerwall, log into the AdGem Publisher Dashboard and then go to 'Properties & Apps'. Towards the right hand side of the screen, click on the 'Options' drop down menu for the app you want to apply the changes to. Then click on 'Offerwall'.
+
+<center>
+<img alt="Offer Wall Customization Options" src={require("./img/OW_Customization.png").default} width="600px" />
+</center>
+
+---
+
+## Image Sizes
+
+#### Offer Wall Currency Icon
+- The **recommended** image size is 200x200 pixels
+- The image should be square and the **minimum** size is 25x25 pixels
+
+---
+
+## Image File Type
+
+The Offer Wall Header and virtual currency icon support:
+
+- JPG
+- PNG
+- GIF
+
+---
+
+## Customization Best Practices
+
+### Web Offerwall Integration
+
+:::tip[For Publishers integrating the AdGem Web Offerwall via an iFrame or WebView, we recommend the following:]
+
+- **Ensure the iFrame or WebView is scalable according to device resolution.**
+- **Include a header image or divider to clearly indicate where the main site ends and the offerwall begins.** This helps your users understand what actions to take and improves navigation, making the AdGem offerwall better match with your native UI.
+
+<center>
+<img alt="iFrame Design Example" src={require("./img/iframe_design.png").default} width="400px" />
+</center>
+
+:::
+
+### API Integration
+
+AdGem allows Publishers to pull offers and display them natively on their website or app. This integration type can be used in a variety of UIs and works especially well for featured placement sections.
+
+:::tip[For the best user experience in your native UI, we recommend the following:]
+
+#### Confirm user is eligible for the offer shown
+
+We recommend that you receive [Install Postbacks](/docs/webhooks). Once you receive the install postback, check off the install to confirm that the user is eligible to continue the offer to receive rewards. More details can be found in the <!-- TODO: Update to WordPress player support URL -->Player Support FAQ. There are many reasons that a user may not be eligible to complete an offer for a reward. Two of the most common reasons:
+
+- The user has previously completed, or downloaded, the offer and is not a new user.
+- The user is ineligible due to incorrect geo or device targeting.
+
+#### Track goal progression based on postbacks you receive so that the user is aware of offer progress
+
+The user should be able to see in your UI when a goal has been completed.
+
+#### Show the user how many days they have remaining to complete an offer
+
+Each offer in the API call response includes an `attribution_window_days` value. We recommend that you use this value dynamically to show the user how many days they have to complete the offer from offer start.
+
+#### Follow up with your users regarding their progression
+
+We recommend that you engage with your users either through in-app messaging or external channels (e.g., email, SMS, push notifications) to encourage them to continue in-progress offers. This provides achievement recognition and positive reinforcement, motivating users to complete their current offers and engage with additional offers.
+
+:::
