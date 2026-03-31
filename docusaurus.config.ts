@@ -129,7 +129,6 @@ const config: Config = {
                 label: "Legal",
                 to: "/docs/legal",
               },
-              // TODO: AGPI-1602 - Add Player Support external link once WordPress URL is finalized
             ],
           },
           {
