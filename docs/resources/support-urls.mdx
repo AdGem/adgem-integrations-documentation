@@ -1,0 +1,140 @@
+---
+sidebar_position: 4
+title: Support URLs
+description: API-accessible player support links for publisher app integrations.
+---
+
+# API Accessible Player Support Links
+
+## What is Player Support?
+
+AdGem provides Player Support on a per-campaign basis for players and users who encounter issues receiving rewards. At AdGem, our business begins and ends with the experience of our Users. We strive to make sure that using the AdGem Offerwall is a positive experience that keeps your Users engaged and rewarded for their time spent. We understand that there are going to be times when offers don't track correctly. We also know that Users are going to be frustrated when this happens. No one wants to spend time or money completing an offer only to find themselves without a reward due to some sort of error.
+
+Player Support is a priority for us. We do everything in our power to make sure that we can jump in and solve any problems that arise when offers don't track correctly. Players only reach out to Support when they have an issue, so we know it is imperative to make the process as smooth and hassle-free as possible. We know how important a first impression is and how this impression affects not only our reputation at AdGem, but also reflects on you as the Publisher as well as our Advertisers. We want to keep Users happy and rewarded for their completed offers. Of course, not all requests are legitimate. We also want to make sure that those who would try to submit fraudulent requests are caught and suspended from using AdGem.
+
+AdGem will provide all facets of Player Support. Publishers, however, are required to provide the reward upon support request resolution. In cases where the support request was found to be ineligible for reward, AdGem will not provide payout to Publishers.
+
+The API returns two types of Support URLs:
+
+- `support_portal` directs players to a support page that lists **all campaigns** available for player support
+- `support_url` directs players to a support page for a **specific campaign** available for player support
+
+If a user has not interacted with a particular campaign (i.e., the user has not clicked on it), attempting to access its associated `support_url` will redirect to a "Support Unavailable" page.
+
+<center>
+    <img alt="Support unavailable error page" src={require("./img/support_not_available_error_page.png").default} width="350px" />
+</center>
+
+---
+
+### All Campaigns Support - support_portal
+
+The `support_portal` is located at the root level of the API response within the `links` object. This type of support link is best embedded where the user will have direct access to all AdGem offers since the link is specific per player, but not per campaign.
+
+Here is an example URL for the `support_portal`. Replace \{**playerid**\} with the actual user's playerid.
+
+```
+https://api.adgem.com/support/player?appid=123&playerid={playerid}
+```
+
+:::success[Example of a Successful API Response]
+```json
+{
+    "status": "success",
+    "data": {...},
+    "links": {
+      "support_portal": "https://api.adgem.com/support/player?appid=123&playerid={playerid}"
+    }
+}
+```
+:::
+
+In this Support Portal page, a player can click "View" on an individual campaign to submit a support request.
+
+<center>
+    <div style={{display: "inline-block", marginLeft: "10px", marginRight: "10px"}}>
+        <img alt="Support portal" src={require("./img/support_portal.png").default} width="350px" />
+    </div>
+    <div style={{display: "inline-block", marginLeft: "10px", marginRight: "10px"}}>
+        <img alt="Support portal campaign view" src={require("./img/support_portal_view.png").default} width="350px" />
+    </div>
+</center>
+
+---
+
+### Per-Campaign Support - support_url
+
+The `support_url` is included within each `data` object in the API response. Each `support_url` redirects to the support page corresponding to a specific `campaign_id`. This type of support link is best embedded where the user will have direct access to the offer since this link is unique per player and per campaign.
+
+Here is an example URL for the `support_url`. Replace \{**playerid**\} with the actual user's playerid.
+
+```
+https://api.adgem.com/support/123/107/{playerid}
+```
+
+:::success[Example of a Successful API Response]
+```json
+{
+    "status": "success",
+    "links":{
+      "support_portal": "https://api.adgem.com/support/player?appid=123&playerid={playerid}"
+    },
+    "data": {
+        "107": {
+            "Offer": {
+                "campaign_id": 107,
+                "store_id": "1439500962",
+                "tracking_type": "CPI",
+                "currency_name_singular": "Coin",
+                "currency_name_plural": "Coins",
+                "network_epc": "new",
+                "icon": "https://adgem-dashboard-production.s3.us-east-2.amazonaws.com/campaigns/107/campaign-offerwall-creatives/icons/9vBzpAGqNG50g4cyrdIdvcW2WY23DfC6Hej8bxln.jpeg",
+                "name": "Idle Jackpot",
+                "tracking_url": "https://api.adgem.com/v1/click?all=1&appid=123&cid=107&playerid={playerid}",
+                "instructions": "Download and Open the App,Redeem your points! *New Users Only",
+                "description": "Grow your jackpot! Earn money while you sleep! Wake up and collect! Compete against your friends",
+                "category_1": "app",
+                "category_2": null,
+                "amount": 300,
+                "payout_usd": "3.00000",
+                "start_datetime": "2018-05-03 00:00:00",
+                "end_datetime": "2022-12-22 04:59:59",
+                "is_multi_reward": "false",
+                "completion_difficulty": 1,
+                "support_url": "https://api.adgem.com/support/123/107/{playerid}"
+            }
+        }
+    }
+}
+```
+:::
+
+This is the Support URL page where a player can submit a support request for a specific campaign.
+
+<center>
+    <img alt="Campaign support URL page" src={require("./img/support_url.png").default} width="350px" />
+</center>
+
+### Our Player Support Process for Users via API Integrated Apps
+
+1. A Player accesses Player Support via either the `support_portal` or the `support_url`.
+
+2. Users are brought to a support form. The support form asks for their contact email, a description of the problem, and their mobile advertising ID. We also utilize reCAPTCHA as an anti-fraud tool.
+
+3. An automated email is sent to the email address from the ticket. This brings in their information and explains the next steps of the process. Different evidence is required depending on the type of offer. This email also provides information regarding common mistakes Users make when submitting a support ticket. The email ends with information on the correct way to respond so that the ticket is accurately routed to our system. We add a disclaimer to reiterate that our offers are eligible for new Users only and must be completed within a certain timeframe.
+
+4. Once we receive the evidence, we are able to have our Support Team look into the request and verify its legitimacy. Our Support Team looks at a variety of factors to determine if the request is legitimate and utilizes various anti-fraud measures to eliminate illegitimate requests and ban Users as necessary.
+
+5. If we need more evidence, we will reach back out to the User to inform them that we need further proof of offer completion.
+
+6. For our higher payout offers, we run the offers by more members of the team so we can get further feedback and double check our work.
+
+7. Once the evidence is deemed legitimate, the user is granted their reward in the AdGem system. This will trigger a new [postback](/docs/webhooks) to the Publisher so that they may issue the earned reward to the Player.
+
+8. At the end of the month, we gather all legitimate support requests and send them to the Advertiser to double check all approved conversions accompanied with an invoice for the cost of the conversions.
+
+### Refining the Process
+
+Currently, our process works as outlined above. We are constantly taking in feedback from Users, Publishers, and Advertisers to make the process even more streamlined. We are also excited to be working on a brand-new, in-house support platform that should launch in the next couple of months. This new platform will ask for all evidence upfront, which should reduce fraudulent tickets and reduce the back-and-forth correspondence between our Support Team and Users. Ideally this will result in a reduction in turnaround time too.
+
+If you have any feedback, or further questions about how AdGem handles support, please let us know and we would be happy to discuss!
