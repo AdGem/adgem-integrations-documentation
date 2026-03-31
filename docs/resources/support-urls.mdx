@@ -22,7 +22,7 @@ The API returns two types of Support URLs:
 If a user has not interacted with a particular campaign (i.e., the user has not clicked on it), attempting to access its associated `support_url` will redirect to a "Support Unavailable" page.
 
 <center>
-    <img alt="Support unavailable error page" src="./img/support_not_available_error_page.png" width="350px" />
+    <img alt="Support unavailable error page" src={require("./img/support_not_available_error_page.png").default} width="350px" />
 </center>
 
 ---
@@ -53,10 +53,10 @@ In this Support Portal page, a player can click "View" on an individual campaign
 
 <center>
     <div style={{display: "inline-block", marginLeft: "10px", marginRight: "10px"}}>
-        <img alt="Support portal" src="./img/support_portal.png" width="350px" />
+        <img alt="Support portal" src={require("./img/support_portal.png").default} width="350px" />
     </div>
     <div style={{display: "inline-block", marginLeft: "10px", marginRight: "10px"}}>
-        <img alt="Support portal campaign view" src="./img/support_portal_view.png" width="350px" />
+        <img alt="Support portal campaign view" src={require("./img/support_portal_view.png").default} width="350px" />
     </div>
 </center>
 
@@ -112,7 +112,7 @@ https://api.adgem.com/support/123/107/{playerid}
 This is the Support URL page where a player can submit a support request for a specific campaign.
 
 <center>
-    <img alt="Campaign support URL page" src="./img/support_url.png" width="350px" />
+    <img alt="Campaign support URL page" src={require("./img/support_url.png").default} width="350px" />
 </center>
 
 ### Our Player Support Process for Users via API Integrated Apps
