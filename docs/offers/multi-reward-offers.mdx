@@ -8,7 +8,7 @@ description: "Learn about multi-reward offers that allow users to earn cumulativ
 
 ### What are Multi-Reward Offers?
 
-Multi-Reward offers are offers that allow a user to earn cumulative rewards by completing various goals. Depending on the offer, the goals may or may not be required to complete in the order that they are shown.
+Multi-Reward offers are offers that allow a user to earn cumulative rewards by completing various goals. Depending on the offer, the goals may or may not be required to be completed in the order that they are shown.
 
 ### Accessing Multi-Reward Offers
 
@@ -18,7 +18,7 @@ Multi-Reward offers are offers that allow a user to earn cumulative rewards by c
 <img alt="Multi-Reward Modal on Offer Wall" src={require("./img/Multi-Reward-Modal-OW.png").default} width="400px" />
 </center>
 
-**Offer API**: Multi-Reward offers are a default addition to the Offer API call response and can be identified in the schema by the `is_multi_reward` field. This is a boolean field where `true` indicates that an offer is multi-reward and `false` indicates that it is a single reward offer.
+**Offer API**: Multi-Reward offers are a default addition to the Offer API call response and can be identified in the schema by the `is_multi_reward` field. This is a boolean field where `true` indicates that an offer is multi-reward and `false` indicates that it is a single-reward offer.
 
 In the API call, Multi-Reward offers will have the same schema organization as Single-Reward offers. The way to differentiate between Single and Multi-Reward offers in the API call will be the boolean `is_multi_reward` field. `true` = Multi-Reward, `false` = Single-Reward.
 
