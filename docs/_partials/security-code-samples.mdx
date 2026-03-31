@@ -246,17 +246,25 @@ const express = require('express');
 const crypto = require('crypto');
 
 const app = express();
-app.use(express.json());
+app.use(express.json({
+    verify: (req, _res, buf) => { req.rawBody = buf; }
+}));
 
 app.post('/postbacks/adgem/v3', (req, res) => {
-    const receivedSignature = req.headers['Signature'];
-    const postData = JSON.stringify(req.body);
+    const receivedSignature = req.get('Signature') ?? '';
     const expectedSignature = crypto
         .createHmac('sha256', process.env.ADGEM_POSTBACK_KEY)
-        .update(postData, 'utf8')
+        .update(req.rawBody)
         .digest('hex');
 
-    if (expectedSignature === receivedSignature) {
+    const isValid =
+        receivedSignature.length === expectedSignature.length &&
+        crypto.timingSafeEqual(
+            Buffer.from(expectedSignature, 'hex'),
+            Buffer.from(receivedSignature, 'hex')
+        );
+
+    if (isValid) {
         res.status(200).send();
     } else {
         res.status(401).send();
@@ -269,10 +277,10 @@ app.post('/postbacks/adgem/v3', (req, res) => {
 
 ```php
 Route::post('/postbacks/adgem/v3', function () {
-    $receivedSignature = request()->headers->get('Signature');
+    $receivedSignature = request()->headers->get('Signature', '');
     $expectedSignature = hash_hmac('sha256', request()->getContent(), env('ADGEM_POSTBACK_KEY'));
 
-    if ($expectedSignature === $receivedSignature) {
+    if (hash_equals($expectedSignature, $receivedSignature)) {
         return response()->noContent(200);
     } else {
         return response()->noContent(401);

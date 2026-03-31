@@ -86,7 +86,7 @@ Here is an example of the request body:
 ```json
 {
     "request_id": "01786456-b959-404a-baa7-05ef8a2e0290",
-    "timestamp": "2024-07-11T20:26:10.344522Z",
+    "timestamp": 1720727170,
     "data": {
         "app_id": "2",
         "campaign_id": "1",
@@ -115,7 +115,7 @@ Here is an example of the request body:
         "goal_id": "12345678911123456",
         "offer_name": "Romaguera-Harber",
         "tracking_type": "CPA",
-        "allow_multiple_conversions": "false",
+        "allow_multiple_conversions": false,
         "store_id": "com.whatever.example",
         "offer_id": "12345678900123456",
         "request_id": "6bfc84d8-5d9a-4964-bba4-0fd2c2ed1563",
@@ -124,12 +124,12 @@ Here is an example of the request body:
 }
 ```
 
-### Body Response Fields
+### Request Body Fields
 
 | Field | Description |
 |-------|-------------|
 | request_id | A unique ID for this postback request |
-| timestamp | The timestamp in UTC of when the postback was sent |
+| timestamp | Unix timestamp (seconds since epoch) of when the postback was sent |
 | app_id | The unique ID for your app on AdGem |
 | campaign_id | The unique ID of the campaign/offer that was completed |
 | player_id | The unique ID of the player/user on your system |
@@ -157,7 +157,7 @@ Here is an example of the request body:
 | goal_id | Indicates the unique ID of each goal in a campaign/offer that was completed |
 | offer_name | The name of the campaign/offer that was completed as it shows in the Offerwall/API call |
 | tracking_type | The type of offer/campaign completed (for example, `CPI`, `CPE`, `CPA`, `CPC`, `Market Research`) |
-| allow_multiple_conversions | Indicates if an offer allows for multiple conversions via boolean response |
+| allow_multiple_conversions | Boolean indicating if an offer allows for multiple conversions |
 | store_id | The unique ID of the app campaign, as assigned by the Google Play Store or Apple App Store |
 | offer_id | The unique offer version with which the user engaged |
 | conversion_type | The type of the conversion (for example, "install" when the `amount` is 0, otherwise "reward") |
@@ -178,15 +178,25 @@ const crypto = require('crypto');
 const app = express();
 const port = 3000;
 
-app.use(express.json());
+app.use(express.json({
+    verify: (req, _res, buf) => { req.rawBody = buf; }
+}));
 
 app.post('/postbacks/adgem/v3', (req, res) => {
-    const receivedSignature = req.headers['Signature'];
+    const receivedSignature = req.get('Signature') ?? '';
+    const expectedSignature = crypto
+        .createHmac('sha256', process.env.ADGEM_POSTBACK_KEY)
+        .update(req.rawBody)
+        .digest('hex');
 
-    const postData = JSON.stringify(req.body);
-    const expectedSignature = crypto.createHmac('sha256', 'secret-key').update(postData, 'utf8').digest('hex');
+    const isValid =
+        receivedSignature.length === expectedSignature.length &&
+        crypto.timingSafeEqual(
+            Buffer.from(expectedSignature, 'hex'),
+            Buffer.from(receivedSignature, 'hex')
+        );
 
-    if (expectedSignature === receivedSignature) {
+    if (isValid) {
         res.status(200).send();
     } else {
         res.status(401).send();
@@ -203,11 +213,11 @@ app.listen(port, () => {
 
 ```php
 Route::post('/postbacks/adgem/v3', function () {
-    $receivedSignature = request()->headers->get('Signature');
+    $receivedSignature = request()->headers->get('Signature', '');
 
-    $expectedSignature = hash_hmac('sha256', request()->getContent(), 'secret-key');
+    $expectedSignature = hash_hmac('sha256', request()->getContent(), env('ADGEM_POSTBACK_KEY'));
 
-    if ($expectedSignature === $receivedSignature) {
+    if (hash_equals($expectedSignature, $receivedSignature)) {
         return response()->noContent(200);
     } else {
         return response()->noContent(401);

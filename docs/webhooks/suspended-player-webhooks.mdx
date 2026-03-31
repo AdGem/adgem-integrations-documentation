@@ -62,11 +62,11 @@ Here is an example of the request body:
 | ban_reason | The reason the player_id has been suspended. |
 | created_at | The timestamp associated to the player event in the AdGem system. |
 | type | The type of player event that has occurred. |
-| timestamp | The unix time when the request was generated. Expect a slight delay between the time that the request is generated and the time it is received. |
+| timestamp | ISO-8601 UTC timestamp of when the request was generated (e.g., `2025-01-01T00:00:00.000000Z`). Expect a slight delay between the time that the request is generated and the time it is received. |
 
 ### Retrying Failed Requests
 
-When a webhook request is sent, a response with a 2xx-series status code is expected. If the response includes any other status code, the request will be retried up to three times. Be sure to account for this to avoid double-rewarding players. AdGem will use exponential backoff logic to retry at the following intervals: 1 second, 2 seconds, and 4 seconds.
+When a webhook request is sent, a response with a 2xx-series status code is expected. If the response includes any other status code, the request will be retried up to three times. Be sure to account for this to avoid duplicate event processing. AdGem will use exponential backoff logic to retry at the following intervals: 1 second, 2 seconds, and 4 seconds.
 
 ## Authentication
 
@@ -79,11 +79,11 @@ Examples:
 
 ```php
 Route::post('/webhook-receiver', function () {
-    $receivedSignature = request()->headers->get('Signature');
+    $receivedSignature = request()->headers->get('Signature', '');
 
-    $expectedSignature = hash_hmac('sha256', request()->getContent(), 'secret-key');
+    $expectedSignature = hash_hmac('sha256', request()->getContent(), env('ADGEM_WEBHOOK_SECRET'));
 
-    if ($expectedSignature === $receivedSignature) {
+    if (hash_equals($expectedSignature, $receivedSignature)) {
         return response()->noContent(200);
     } else {
         return response()->noContent(401);
@@ -101,15 +101,25 @@ const crypto = require('crypto');
 const app = express();
 const port = 3000;
 
-app.use(express.json());
+app.use(express.json({
+    verify: (req, _res, buf) => { req.rawBody = buf; }
+}));
 
 app.post('/webhook-receiver', (req, res) => {
-    const receivedSignature = req.headers['Signature'];
+    const receivedSignature = req.get('Signature') ?? '';
+    const expectedSignature = crypto
+        .createHmac('sha256', process.env.ADGEM_WEBHOOK_SECRET)
+        .update(req.rawBody)
+        .digest('hex');
 
-    const postData = JSON.stringify(req.body);
-    const expectedSignature = crypto.createHmac('sha256', 'secret-key').update(postData, 'utf8').digest('hex');
+    const isValid =
+        receivedSignature.length === expectedSignature.length &&
+        crypto.timingSafeEqual(
+            Buffer.from(expectedSignature, 'hex'),
+            Buffer.from(receivedSignature, 'hex')
+        );
 
-    if (expectedSignature === receivedSignature) {
+    if (isValid) {
         res.status(200).send();
     } else {
         res.status(401).send();
