@@ -1,0 +1,39 @@
+---
+sidebar_position: 2
+title: "Postback Options"
+description: "Overview of AdGem postback types including install and reward/conversion postbacks."
+---
+
+# Postback Options
+
+Postbacks are an essential part of the communication between AdGem and your app. They allow for real-time notifications of events, such as Player Install or Conversions, enabling you to track and optimize your campaigns seamlessly.
+
+You can set up your Postback URL in the <a href="https://dashboard.adgem.com/publisher/apps" target="_blank">AdGem Dashboard</a> and find more information in the [Postback Setup](./offer-api-postback-setup.mdx) guide.
+
+## Postback Methods
+
+AdGem can provide Postbacks to you either via a GET request or a POST request. By default, AdGem is set to send postbacks via GET request.
+
+Please note that the POST request method is currently in Beta status. If you would like to join the Beta program, reach out to your dedicated Publisher Support Advocate to get started.
+
+:::tip[Note]
+By default, AdGem only sends postbacks on Payable Conversion events. If you would like to enable Install postbacks to be sent to you, please reach out to your dedicated Publisher Support Advocate so we can enable this for you!
+:::
+
+## Install Postbacks
+
+For many of AdGem's offer campaigns we have the ability to send a postback to you when your Players install an app from an offer. This will allow you to better track the offer's performance with your Players on your platform.
+
+An install postback from AdGem will follow the same Postback URL string schema as you have placed in the AdGem dashboard.
+
+#### GET Request
+
+For GET request postbacks, AdGem **automatically** appends `&nonpayable_install_goal=true` to the end of the string.
+
+#### POST Request
+
+For POST request postbacks, AdGem will include a `conversion_type` field with a value of `install`.
+
+## Reward / Conversion Postbacks
+
+By default, AdGem will send a postback for a rewarded player conversion event. AdGem will send this postback to the same Postback URL set in the AdGem dashboard.
