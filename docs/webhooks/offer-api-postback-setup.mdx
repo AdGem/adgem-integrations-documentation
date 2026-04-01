@@ -1,0 +1,229 @@
+---
+sidebar_position: 3
+title: "Postback Setup"
+description: "Configure server postbacks for your AdGem integration, including GET and POST methods, macros, and security."
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+import PostbackMacrosTable from '@site/docs/_partials/postback-macros-table.mdx';
+import SecurityCodeSamples from '@site/docs/_partials/security-code-samples.mdx';
+
+# Postback Setup
+
+AdGem can provide Postbacks to you either via [GET Request](#get-requests-default) method or [POST Request](#post-requests) method. By default, AdGem is set to send postbacks via GET request unless otherwise enabled by your Publisher Support Advocate.
+
+Please note that the POST request postback method is currently in Beta status. If you would like to join the Beta program, reach out to your dedicated Publisher Support Advocate to get started.
+
+---
+
+## GET Requests (Default)
+
+### Enabling Server Postback
+
+From the AdGem Dashboard navigate to **Properties & Apps** and choose **Edit** from the **Options** drop down menu.
+
+![Edit button in dashboard](./img/editbutton.png)
+
+Once on the **Properties & Apps** menu, scroll down until you see **Postback Options**. Click on the radio input next to **Server Postback**.
+
+![Postback options in dashboard](./img/postbackoptions.png)
+
+Several new fields will appear that will allow you to configure your server postback.
+
+### Postback Key
+
+The first field is your **Postback Key**. Copy this key to a secure place as you will need it to implement Postback Hashing. **For security reasons, the Postback Key will only be visible once.** See the **[Postback Hashing](#postback-hashing-v2---get-requests)** section below to learn more about this important feature.
+
+![Postback keys in dashboard](./img/postbackkeys.png)
+
+### Postback URL
+
+Next, you will need to provide a **Postback URL** hosted on your server. AdGem will send a GET request to the URL you provide every time a conversion occurs from your traffic sources.
+
+![Postback URL input](./img/postbackurl06.11.24.png)
+
+<PostbackMacrosTable />
+
+<SecurityCodeSamples />
+
+---
+
+## POST Requests
+
+![Beta](https://img.shields.io/badge/Status-Beta-yellow)
+
+:::warning[Joining the Beta]
+V3 postbacks are in a beta status. If you would like to join the beta program, reach out to your dedicated Publisher Support Advocate.
+:::
+
+The Postback URL can be set in the <a href="https://dashboard.adgem.com/publisher/apps" target="_blank">AdGem Dashboard</a>. Instructions on how to input your Postback URL into the AdGem Dashboard can be found [above](#enabling-server-postback). AdGem can send postbacks for Reward events and Install events.
+
+#### Reward Postbacks
+
+These postbacks correspond to a player converting on a rewarded goal. Most offer goals will be of this type.
+
+The `conversion_type` will indicate this with a value of `"reward"`.
+
+#### Install Postbacks
+
+:::tip[Note]
+By default, AdGem only sends postbacks on Payable Conversion events. If you would like to enable Install postbacks to be sent to you, please reach out to your dedicated Publisher Support Advocate so we can enable this for you!
+:::
+
+These postbacks correspond to a player completing an install goal. These install goals are used primarily for tracking purposes, and they do not reward the player with in-game currency.
+
+The `conversion_type` will indicate this with a value of `"install"`.
+
+### Receiving AdGem Postbacks via POST Method
+
+A POST request will be made to the postback URL defined in your AdGem publisher dashboard.
+
+![Postback URL for POST method](./img/postbackurl-2024.07.29.png)
+
+Here is an example of the request body:
+
+```json
+{
+    "request_id": "01786456-b959-404a-baa7-05ef8a2e0290",
+    "timestamp": 1720727170,
+    "data": {
+        "app_id": "2",
+        "campaign_id": "1",
+        "player_id": "bernhard.edison",
+        "amount": 150,
+        "payout": 1.5,
+        "all_goals_completed": 1,
+        "conversion_id": "c5eb2a9d-41a4-4088-80bb-ebc87bd1bb62",
+        "app_version": "1.0",
+        "ad_type": "offerwall",
+        "country": "US",
+        "c1": "custom value 1",
+        "c2": "custom value 2",
+        "c3": "custom value 3",
+        "c4": "custom value 4",
+        "c5": "custom value 5",
+        "gaid": "bk9384xs-p449-96ds-r132",
+        "idfa": "AB1234CD-E123-12FG-J123",
+        "ip": "24.24.24.25",
+        "os_version": "10.0.0",
+        "platform": "Other",
+        "state": "New York",
+        "click_datetime": "2024-07-15 10:39:55",
+        "conversion_datetime": "2024-07-15 10:39:55",
+        "goal_name": "Reach level 20",
+        "goal_id": "12345678911123456",
+        "offer_name": "Romaguera-Harber",
+        "tracking_type": "CPA",
+        "allow_multiple_conversions": false,
+        "store_id": "com.whatever.example",
+        "offer_id": "12345678900123456",
+        "conversion_type": "reward"
+    }
+}
+```
+
+### Request Body Fields
+
+| Field | Description |
+|-------|-------------|
+| request_id | A unique ID for this postback request |
+| timestamp | Unix timestamp (seconds since epoch) of when the postback was sent |
+| app_id | The unique ID for your app on AdGem |
+| campaign_id | The unique ID of the campaign/offer that was completed |
+| player_id | The unique ID of the player/user on your system |
+| amount | The amount of virtual currency to reward the user who completed the offer |
+| payout | The decimal amount of revenue earned from the user completing the offer |
+| all_goals_completed | Indicates if all goals have been completed for the campaign |
+| conversion_id | The unique AdGem ID of the offer conversion |
+| app_version | The version of your app where the click originated |
+| ad_type | The type of ad unit where the click originated (for example `offerwall`) |
+| country | The location (i.e., the ISO country code) of the user when the offer was completed |
+| c1 | A custom parameter value as set by the publisher |
+| c2 | A custom parameter value as set by the publisher |
+| c3 | A custom parameter value as set by the publisher |
+| c4 | A custom parameter value as set by the publisher |
+| c5 | A custom parameter value as set by the publisher |
+| gaid | Google advertising ID, available when the developer is using Google Play services |
+| idfa | Apple advertising ID, available when the user has not limited ad tracking |
+| ip | The IP address for the user who completed the offer |
+| os_version | The user's operating system version number |
+| platform | The platform this user's device is using (for example, `iOS`) |
+| state | The user's state or region where they are located |
+| click_datetime | The exact date and time when the user clicked on the offer |
+| conversion_datetime | The exact date and time when the user completed the offer |
+| goal_name | Indicates the name of the completed goal |
+| goal_id | Indicates the unique ID of each goal in a campaign/offer that was completed |
+| offer_name | The name of the campaign/offer that was completed as it shows in the Offerwall/API call |
+| tracking_type | The type of offer/campaign completed (for example, `CPI`, `CPE`, `CPA`, `CPC`, `Market Research`) |
+| allow_multiple_conversions | Boolean indicating if an offer allows for multiple conversions |
+| store_id | The unique ID of the app campaign, as assigned by the Google Play Store or Apple App Store |
+| offer_id | The unique offer version with which the user engaged |
+| conversion_type | The type of the conversion (for example, "install" when the `amount` is 0, otherwise "reward") |
+
+### Verifying Authenticity
+
+To authenticate the request, hash the request body and the secret key using the HMAC-SHA256 algorithm. Compare the result to the provided `Signature` header value to confirm a match.
+
+Examples:
+
+<Tabs>
+<TabItem value="node" label="Node.js">
+
+```javascript
+const express = require('express');
+const crypto = require('crypto');
+
+const app = express();
+const port = 3000;
+
+app.use(express.json({
+    verify: (req, _res, buf) => { req.rawBody = buf; }
+}));
+
+app.post('/postbacks/adgem/v3', (req, res) => {
+    const receivedSignature = req.get('Signature') ?? '';
+    const expectedSignature = crypto
+        .createHmac('sha256', process.env.ADGEM_POSTBACK_KEY)
+        .update(req.rawBody)
+        .digest('hex');
+
+    // Compare hex strings as UTF-8 buffers to avoid silent
+    // truncation from Buffer.from(str, 'hex') on malformed input
+    const expected = Buffer.from(expectedSignature, 'utf8');
+    const received = Buffer.from(receivedSignature, 'utf8');
+    const isValid =
+        expected.length === received.length &&
+        crypto.timingSafeEqual(expected, received);
+
+    if (isValid) {
+        res.status(200).send();
+    } else {
+        res.status(401).send();
+    }
+});
+
+app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
+});
+```
+
+</TabItem>
+<TabItem value="php" label="PHP/Laravel">
+
+```php
+Route::post('/postbacks/adgem/v3', function () {
+    $receivedSignature = request()->headers->get('Signature', '');
+
+    $expectedSignature = hash_hmac('sha256', request()->getContent(), env('ADGEM_POSTBACK_KEY'));
+
+    if (hash_equals($expectedSignature, $receivedSignature)) {
+        return response()->noContent(200);
+    } else {
+        return response()->noContent(401);
+    }
+});
+```
+
+</TabItem>
+</Tabs>

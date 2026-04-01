@@ -1,0 +1,136 @@
+---
+sidebar_position: 5
+title: "Suspended Player Webhooks"
+description: "Real-time notifications when players are suspended or unsuspended from AdGem."
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Suspended Player Webhooks
+
+Our Suspended Player Webhook is designed to give your team even more control and flexibility. When a player is suspended from AdGem, we'll notify you instantly, allowing you to take immediate action. This allows you to ensure that suspended players won't receive reward redemptions or be shown any offers, preventing any issues before they arise. Additionally, bans may be lifted on a case-by-case basis after a review by the AdGem Support Team, with immediate notifications sent to you as well.
+
+For API-integrated publishers, this real-time notification system offers a seamless experience, enabling you to use the data we send to automatically filter out ineligible users, determine advertising logic, and maintain a streamlined, positive experience for your audience. By preventing suspended players from interacting with offers or rewards, you protect both your users and your brand's reputation, all while saving valuable time and effort.
+
+## Structure
+
+A POST request will be made to your webhook URL. The webhook URL can be placed and your secret token generated in the AdGem Publisher Dashboard in the <a href="https://dashboard.adgem.com/publisher/apps" target="_blank">Apps/Properties</a> tab.
+
+![Suspended Player Webhook Input](./img/suspended_player_webhook_url.png)
+
+Here is an example of the request body:
+
+:::note[Player ID Banned]
+
+```json
+{
+  "data": {
+    "player_id": "player123",
+    "app_id": 1,
+    "ban_reason": "events from 3 or more countries in 2 days",
+    "created_at": "2025-01-01T00:00:00.000000Z"
+  },
+  "type": "player.banned",
+  "timestamp": "2025-01-01T00:00:00.000000Z"
+}
+```
+
+:::
+
+:::note[Player ID Unbanned]
+
+```json
+{
+  "data": {
+    "player_id": "player123",
+    "app_id": 1,
+    "ban_reason": "removed player ban",
+    "created_at": "2025-01-01T00:00:00.000000Z"
+  },
+  "type": "player.unbanned",
+  "timestamp": "2025-01-01T00:00:00.000000Z"
+}
+```
+
+:::
+
+| Field | Explanation |
+|-------|-------------|
+| player_id | The parameter which represents the unique player as used internally in your application. |
+| app_id | The AdGem App ID associated with the player event. |
+| ban_reason | The reason the player_id has been suspended. |
+| created_at | The timestamp associated to the player event in the AdGem system. |
+| type | The type of player event that has occurred. |
+| timestamp | ISO-8601 UTC timestamp of when the request was generated (e.g., `2025-01-01T00:00:00.000000Z`). Expect a slight delay between the time that the request is generated and the time it is received. |
+
+### Retrying Failed Requests
+
+When a webhook request is sent, a response with a 2xx-series status code is expected. If the response includes any other status code, the request will be retried up to three times. Be sure to account for this to avoid duplicate event processing. AdGem will use exponential backoff logic to retry at the following intervals: 1 second, 2 seconds, and 4 seconds.
+
+## Authentication
+
+The webhook request headers contain a `Signature`. This is calculated by hashing the request body and the secret key using the HMAC-SHA256 algorithm. To authenticate the request, hash the request body and the secret key using the HMAC-SHA256 algorithm. Compare the result to `Signature` value to confirm a match.
+
+Examples:
+
+<Tabs>
+<TabItem value="php" label="PHP/Laravel">
+
+```php
+Route::post('/webhook-receiver', function () {
+    $receivedSignature = request()->headers->get('Signature', '');
+
+    $expectedSignature = hash_hmac('sha256', request()->getContent(), env('ADGEM_WEBHOOK_SECRET'));
+
+    if (hash_equals($expectedSignature, $receivedSignature)) {
+        return response()->noContent(200);
+    } else {
+        return response()->noContent(401);
+    }
+});
+```
+
+</TabItem>
+<TabItem value="node" label="Node.js">
+
+```javascript
+const express = require('express');
+const crypto = require('crypto');
+
+const app = express();
+const port = 3000;
+
+app.use(express.json({
+    verify: (req, _res, buf) => { req.rawBody = buf; }
+}));
+
+app.post('/webhook-receiver', (req, res) => {
+    const receivedSignature = req.get('Signature') ?? '';
+    const expectedSignature = crypto
+        .createHmac('sha256', process.env.ADGEM_WEBHOOK_SECRET)
+        .update(req.rawBody)
+        .digest('hex');
+
+    // Compare hex strings as UTF-8 buffers to avoid silent
+    // truncation from Buffer.from(str, 'hex') on malformed input
+    const expected = Buffer.from(expectedSignature, 'utf8');
+    const received = Buffer.from(receivedSignature, 'utf8');
+    const isValid =
+        expected.length === received.length &&
+        crypto.timingSafeEqual(expected, received);
+
+    if (isValid) {
+        res.status(200).send();
+    } else {
+        res.status(401).send();
+    }
+});
+
+app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
+});
+```
+
+</TabItem>
+</Tabs>

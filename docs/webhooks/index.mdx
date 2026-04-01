@@ -1,19 +1,23 @@
 ---
 sidebar_position: 1
-title: Webhooks
-description: Server-to-server notifications including postbacks, offer events, and banned player alerts.
+title: "Webhooks & Postbacks"
+description: "Server-to-server notifications including postbacks, offer event webhooks, and suspended player alerts."
 ---
 
-# Webhooks
+# Webhooks & Postbacks
 
-AdGem sends server-to-server notifications (webhooks) to your servers to notify you about important events.
+AdGem sends server-to-server notifications to your servers to keep you informed about important events in real time. These notifications fall into two categories: **postbacks** for conversion and install tracking, and **webhooks** for offer status changes and player suspension alerts.
 
-## Webhook Types
+## Postbacks
 
-- **Postbacks** - Conversion notifications when users complete offers
-- **Offer Events** - Status updates about offers
-- **Banned Players** - Notifications when users are banned
+Postbacks notify you when players complete offers or install apps. They are essential for tracking conversions and rewarding players accurately.
 
-:::note Content Coming Soon
-This section is being migrated from our legacy documentation. Check back soon for complete webhook integration guides.
-:::
+- **[Postback Options](./postback-options.mdx)** - Overview of postback types, including install and reward/conversion postbacks
+- **[Postback Setup](./offer-api-postback-setup.mdx)** - Step-by-step guide to configuring your postback URL, available macros, and security (IP whitelisting and postback hashing)
+
+## Webhooks
+
+Webhooks provide real-time notifications about offer-level changes and player suspension events.
+
+- **[Offer Event Webhooks](./offer-event-webhooks.mdx)** - Real-time notifications when offers are created, updated, or removed (exclusive to API integrations)
+- **[Suspended Player Webhooks](./suspended-player-webhooks.mdx)** - Instant alerts when players are suspended or unsuspended from AdGem
