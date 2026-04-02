@@ -34,7 +34,7 @@ The `support_portal` is located at the root level of the API response within the
 Here is an example URL for the `support_portal`. Replace \{**playerid**\} with the actual user's playerid.
 
 ```
-https://api.adgem.com/support/player?appid=123&playerid={playerid}
+https://adunits.adgem.com/support/player?appid=123&playerid={playerid}
 ```
 
 :::success[Example of a Successful API Response]
@@ -43,7 +43,7 @@ https://api.adgem.com/support/player?appid=123&playerid={playerid}
     "status": "success",
     "data": {...},
     "links": {
-      "support_portal": "https://api.adgem.com/support/player?appid=123&playerid={playerid}"
+      "support_portal": "https://adunits.adgem.com/support/player?appid=123&playerid={playerid}"
     }
 }
 ```
@@ -64,12 +64,12 @@ In this Support Portal page, a player can click "View" on an individual campaign
 
 ### Per-Campaign Support - support_url
 
-The `support_url` is included within each `data` object in the API response. Each `support_url` redirects to the support page corresponding to a specific `campaign_id`. This type of support link is best embedded where the user will have direct access to the offer since this link is unique per player and per campaign.
+The `support_url` is included within the `links` object in the API response. Each `support_url` redirects to the support page corresponding to a specific `campaign_id`. This type of support link is best embedded where the user will have direct access to the offer since this link is unique per player and per campaign.
 
 Here is an example URL for the `support_url`. Replace \{**playerid**\} with the actual user's playerid.
 
 ```
-https://api.adgem.com/support/123/107/{playerid}
+https://adunits.adgem.com/support/123/107/{playerid}
 ```
 
 :::success[Example of a Successful API Response]
@@ -77,7 +77,8 @@ https://api.adgem.com/support/123/107/{playerid}
 {
     "status": "success",
     "links":{
-      "support_portal": "https://api.adgem.com/support/player?appid=123&playerid={playerid}"
+      "support_portal": "https://adunits.adgem.com/support/player?appid=123&playerid={playerid}",
+      "support_url": "https://adunits.adgem.com/support/123/107/{playerid}"
     },
     "data": {
         "107": {
@@ -100,8 +101,7 @@ https://api.adgem.com/support/123/107/{playerid}
                 "start_datetime": "2018-05-03 00:00:00",
                 "end_datetime": "2022-12-22 04:59:59",
                 "is_multi_reward": "false",
-                "completion_difficulty": 1,
-                "support_url": "https://api.adgem.com/support/123/107/{playerid}"
+                "completion_difficulty": 1
             }
         }
     }
@@ -135,6 +135,4 @@ This is the Support URL page where a player can submit a support request for a s
 
 ### Refining the Process
 
-Currently, our process works as outlined above. We are constantly taking in feedback from Users, Publishers, and Advertisers to make the process even more streamlined. We are also excited to be working on a brand-new, in-house support platform that should launch in the next couple of months. This new platform will ask for all evidence upfront, which should reduce fraudulent tickets and reduce the back-and-forth correspondence between our Support Team and Users. Ideally this will result in a reduction in turnaround time too.
-
-If you have any feedback, or further questions about how AdGem handles support, please let us know and we would be happy to discuss!
+We are constantly taking in feedback from Users, Publishers, and Advertisers to make the process even more streamlined. If you have any feedback, or further questions about how AdGem handles support, please let us know and we would be happy to discuss!
