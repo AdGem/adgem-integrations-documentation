@@ -4,8 +4,60 @@
          <BeforeYouBegin platform="ios" />
 
   Props:
-    platform: 'ios' | 'android' | 'unity' | 'web' (optional, adds platform-specific requirements)
+    platform: 'ios' | 'android' | 'unity' | 'web' (optional, shows only that platform's requirements)
+    When omitted, all platform requirements are shown.
 */}
+
+export const PlatformRequirements = ({ platform }) => {
+  const ios = (
+    <details open={platform === 'ios'}>
+      <summary><strong>iOS SDK Requirements</strong></summary>
+      <ul>
+        <li>iOS <strong>15.8</strong> or higher</li>
+        <li><strong>Swift 5</strong> or <strong>Objective-C</strong></li>
+        <li><strong>Xcode 11</strong> or higher</li>
+      </ul>
+    </details>
+  );
+  const android = (
+    <details open={platform === 'android'}>
+      <summary><strong>Android SDK Requirements</strong></summary>
+      <ul>
+        <li>Android API level <strong>28</strong> (Android 9.0) or higher</li>
+        <li>Target SDK <strong>34</strong> or higher</li>
+        <li><strong>Android Studio</strong> with Gradle support</li>
+      </ul>
+    </details>
+  );
+  const unity = (
+    <details open={platform === 'unity'}>
+      <summary><strong>Unity SDK Requirements</strong></summary>
+      <ul>
+        <li>Unity <strong>2020.3</strong> or higher</li>
+        <li>iOS or Android build target configured</li>
+        <li>For iOS: Xcode 11+</li>
+        <li>For Android: Android Studio with Gradle</li>
+      </ul>
+    </details>
+  );
+  const web = (
+    <details open={platform === 'web'}>
+      <summary><strong>Web Offerwall Requirements</strong></summary>
+      <ul>
+        <li>Modern web browser with JavaScript enabled</li>
+        <li>HTTPS-enabled website (recommended for production)</li>
+        <li>Server-side postback endpoint</li>
+      </ul>
+    </details>
+  );
+
+  if (platform === 'ios') return ios;
+  if (platform === 'android') return android;
+  if (platform === 'unity') return unity;
+  if (platform === 'web') return web;
+
+  return <>{ios}{android}{unity}{web}</>;
+};
 
 :::info Before You Begin
 
@@ -24,39 +76,4 @@ By default, your app will **not** have access to AdGem's offers until you comple
 
 ### Platform Requirements
 
-<details>
-<summary><strong>iOS SDK Requirements</strong></summary>
-
-- iOS **15.8** or higher
-- **Swift 5** or **Objective-C**
-- **Xcode 11** or higher
-
-</details>
-
-<details>
-<summary><strong>Android SDK Requirements</strong></summary>
-
-- Android API level **28** (Android 9.0) or higher
-- Target SDK **34** or higher
-- **Android Studio** with Gradle support
-
-</details>
-
-<details>
-<summary><strong>Unity SDK Requirements</strong></summary>
-
-- Unity **2020.3** or higher
-- iOS or Android build target configured
-- For iOS: Xcode 11+
-- For Android: Android Studio with Gradle
-
-</details>
-
-<details>
-<summary><strong>Web Offerwall Requirements</strong></summary>
-
-- Modern web browser with JavaScript enabled
-- HTTPS-enabled website (recommended for production)
-- Server-side postback endpoint
-
-</details>
+<PlatformRequirements platform={props.platform} />

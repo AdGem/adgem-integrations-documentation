@@ -23,7 +23,7 @@ const preBuilt = [
   },
   {
     title: 'Unity SDK',
-    description: 'Cross-platform offerwall for Unity games.',
+    description: 'Cross-platform offerwall for Unity projects.',
     to: '/docs/integrations/unity-sdk',
   },
 ];

@@ -440,3 +440,30 @@ button,
   border-top: none;
   margin-top: 0;
 }
+
+/* ============================================
+   Tables — prevent short columns from wrapping
+   ============================================ */
+
+/* Doc page tables: prevent wrapping on non-description columns.
+   Tables with 4+ columns: first 3 columns stay on one line.
+   Tables with 2-3 columns: first column stays on one line. */
+.markdown table th:first-child,
+.markdown table td:first-child,
+.markdown table th:nth-child(2),
+.markdown table td:nth-child(2),
+.markdown table th:nth-child(3),
+.markdown table td:nth-child(3) {
+  white-space: nowrap;
+}
+
+/* Offer API (OpenAPI-generated): reduce excessive table row padding */
+.openapi-markdown__details td,
+.openapi-markdown__details th,
+.openapi__schema-container td,
+.openapi__schema-container th,
+[class*="openapi"] table td,
+[class*="openapi"] table th {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}

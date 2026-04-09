@@ -11,8 +11,8 @@ export default function Home() {
       description="AdGem integration documentation — monetize your app with rewarded offers">
       <Hero />
       <main>
-        <IntegrationCards />
         <QuickLinks />
+        <IntegrationCards />
       </main>
     </Layout>
   );

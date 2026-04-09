@@ -239,6 +239,22 @@ class PostbackHandler(BaseHTTPRequestHandler):
 For v3 POST postbacks, verify the request by hashing the request body with your secret key using HMAC-SHA256 and comparing it to the `Signature` header.
 
 <Tabs>
+<TabItem value="php-v3" label="PHP (Laravel)">
+
+```php
+Route::post('/postbacks/adgem/v3', function () {
+    $receivedSignature = request()->headers->get('Signature', '');
+    $expectedSignature = hash_hmac('sha256', request()->getContent(), env('ADGEM_POSTBACK_KEY'));
+
+    if (hash_equals($expectedSignature, $receivedSignature)) {
+        return response()->noContent(200);
+    } else {
+        return response()->noContent(401);
+    }
+});
+```
+
+</TabItem>
 <TabItem value="node-v3" label="Node.js (Express)">
 
 ```javascript
@@ -269,22 +285,6 @@ app.post('/postbacks/adgem/v3', (req, res) => {
         res.status(200).send();
     } else {
         res.status(401).send();
-    }
-});
-```
-
-</TabItem>
-<TabItem value="php-v3" label="PHP (Laravel)">
-
-```php
-Route::post('/postbacks/adgem/v3', function () {
-    $receivedSignature = request()->headers->get('Signature', '');
-    $expectedSignature = hash_hmac('sha256', request()->getContent(), env('ADGEM_POSTBACK_KEY'));
-
-    if (hash_equals($expectedSignature, $receivedSignature)) {
-        return response()->noContent(200);
-    } else {
-        return response()->noContent(401);
     }
 });
 ```
