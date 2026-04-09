@@ -1,7 +1,7 @@
 ---
 sidebar_position: 1
 title: Android SDK
-description: Integrate the AdGem Offer Wall into your Android application using the native Android SDK.
+description: Integrate the AdGem Offerwall into your Android application using the native Android SDK.
 ---
 
 # Android SDK Integration Guide
@@ -118,31 +118,31 @@ AdGem adgem = AdGem.get();
 There is no need to store an instance of AdGem globally. The SDK will cache its instance on the first call and will always return the same one for all subsequent calls to `AdGem.get()`.
 :::
 
-Use the AdGem class to show the Offer Wall in your project:
+Use the AdGem class to show the Offerwall in your project:
 
 ```java
-adGem.showOfferwall(); // Show Offer Wall
+adGem.showOfferwall(); // Show Offerwall
 ```
 
-### Step 4. Register the AdGem Offer Wall Callback
+### Step 4. Register the AdGem Offerwall Callback
 
-The AdGem SDK provides callbacks that notify when offer wall internal state changes.
+The AdGem SDK provides callbacks that notify when Offerwall internal state changes.
 
 ```java
 OfferwallCallback callback = new OfferwallCallback() {
     @Override
     public void onOfferwallLoadingStarted() {
-        // Notifies that the offer wall loading has started.
+        // Notifies that the Offerwall loading has started.
     }
 
     @Override
     public void onOfferwallLoadingFinished() {
-        // Notifies that the offer wall has been loaded.
+        // Notifies that the Offerwall has been loaded.
     }
 
     @Override
     public void onOfferwallLoadingFailed(String error) {
-        // Notifies that the offer wall has failed to load.
+        // Notifies that the Offerwall has failed to load.
     }
 
     @Override
@@ -152,19 +152,19 @@ OfferwallCallback callback = new OfferwallCallback() {
 
     @Override
     public void onOfferwallClosed() {
-        // Notifies that the offer wall was closed.
+        // Notifies that the Offerwall was closed.
     }
 };
 ```
 
-Offer wall callback may be registered through the instance of `AdGem`:
+Offerwall callback may be registered through the instance of `AdGem`:
 
 ```java
 AdGem adgem = AdGem.get();
 adgem.registerOfferwallCallback(callback);
 ```
 
-Once registered, a callback will be used to deliver offer wall updates.
+Once registered, a callback will be used to deliver Offerwall updates.
 
 :::warning Important
 AdGem will hold a strong reference to a callback. It is the caller's responsibility to unregister it. For example, if a callback is being registered in activity's `onCreate()` then it must be unregistered in the corresponding `onDestroy()` call.
@@ -191,7 +191,7 @@ public class GameActivity extends AppCompatActivity {
 }
 ```
 
-Offer Wall can be displayed by calling `adGem.showOfferwall(activity)`.
+Offerwall can be displayed by calling `adGem.showOfferwall(activity)`.
 
 ### Step 5. Set the Player ID
 
@@ -237,7 +237,7 @@ The AdGem Android SDK allows for several optional parameter values to be stored 
 If you have opted for a "Server Postback", on each successful offer completion by a user AdGem will send a GET request to your server. Please visit our guide on [Server Postback Setup](/docs/webhooks) to learn more.
 
 :::tip ProGuard Configuration
-If your code reads `proguardFiles getDefaultProguardFile('proguard-android-optimize')` in place, please change the code to `getDefaultProguardFile('proguard-android.txt')` instead. This will ensure that your App will be able to launch with the AdGem SDK enabled.
+If your code reads `proguardFiles getDefaultProguardFile('proguard-android-optimize')` in place, please change the code to `getDefaultProguardFile('proguard-android.txt')` instead. This will ensure that your app will be able to launch with the AdGem SDK enabled.
 :::
 
 ---
