@@ -1,7 +1,7 @@
 ---
 sidebar_position: 1
 title: Unity SDK
-description: Integrate the AdGem Offer Wall into your Unity game for both iOS and Android platforms.
+description: Integrate the AdGem Offerwall into your Unity game for both iOS and Android platforms.
 ---
 
 # Unity SDK Integration Guide
@@ -60,7 +60,7 @@ Set your AdGem App ID from the AdGem publisher dashboard in **Window > AdGem** s
 
 All communication with the SDK happens via the AdGem class.
 
-Use the AdGem class to show the Offer Wall in your project:
+Use the AdGem class to show the Offerwall in your project:
 
 ```csharp
 AdGem.ShowOfferwall()
@@ -70,24 +70,24 @@ AdGem.ShowOfferwall()
 There is no need to store an instance of AdGem globally. The SDK will cache its instance on the first call and will always return the same one for all subsequent calls to AdGem.
 :::
 
-### Step 4. Register the AdGem Offer Wall Callbacks
+### Step 4. Register the AdGem Offerwall Callbacks
 
-The AdGem SDK provides callbacks that notify when offer wall internal state changes. These may be registered through the instance of `AdGem.OfferwallCallback`.
+The AdGem SDK provides callbacks that notify when Offerwall internal state changes. These may be registered through the instance of `AdGem.OfferwallCallback`.
 
 ```csharp
 var callback = AdGem.OfferwallCallback;
 
 callback.OnLoadingStarted.AddListener(() =>
 {
-    // Notifies that the offer wall loading has started
+    // Notifies that the Offerwall loading has started
 });
 callback.OnLoadingFinished.AddListener(() =>
 {
-    // Notifies that the offer wall has been loaded.
+    // Notifies that the Offerwall has been loaded.
 });
 callback.OnLoadingFailed.AddListener(error =>
 {
-    // Notifies that the offer wall has failed to load.
+    // Notifies that the Offerwall has failed to load.
 });
 callback.OnRewardReceived.AddListener(amount =>
 {
@@ -95,11 +95,11 @@ callback.OnRewardReceived.AddListener(amount =>
 });
 callback.OnClosed.AddListener(() =>
 {
-    // Notifies that the offer wall was closed.
+    // Notifies that the Offerwall was closed.
 });
 ```
 
-Once registered, a callback will be used to deliver offer wall updates.
+Once registered, a callback will be used to deliver Offerwall updates.
 
 :::warning Important
 It is the caller's responsibility to unregister callbacks. For example, if callbacks were registered in MonoBehaviour's `Start()` then they must be unregistered in the corresponding `OnDestroy()` call.

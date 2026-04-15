@@ -13,17 +13,17 @@ const preBuilt = [
   },
   {
     title: 'iOS SDK',
-    description: 'Native iOS offerwall for iPhone and iPad apps.',
+    description: 'Native iOS Offerwall for iPhone and iPad apps.',
     to: '/docs/integrations/ios-sdk',
   },
   {
     title: 'Android SDK',
-    description: 'Native Android offerwall for mobile apps.',
+    description: 'Native Android Offerwall for mobile apps.',
     to: '/docs/integrations/android-sdk',
   },
   {
     title: 'Unity SDK',
-    description: 'Cross-platform offerwall for Unity projects.',
+    description: 'Cross-platform Offerwall for Unity projects.',
     to: '/docs/integrations/unity-sdk',
   },
 ];
@@ -68,7 +68,7 @@ export default function IntegrationCards() {
         <div className={styles.groupHeader}>
           <h3 className={styles.groupTitle}>Pre-built (Fastest)</h3>
           <p className={styles.groupDescription}>
-            Launch quickly with AdGem's proven, high-performing offerwall.
+            Launch quickly with AdGem's proven, high-performing Offerwall.
           </p>
         </div>
 

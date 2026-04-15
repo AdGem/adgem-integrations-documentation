@@ -1,7 +1,7 @@
 ---
 sidebar_position: 1
 title: iOS SDK
-description: Integrate the AdGem Offer Wall into your iOS application using the native iOS SDK.
+description: Integrate the AdGem Offerwall into your iOS application using the native iOS SDK.
 ---
 
 # iOS SDK Integration Guide
@@ -70,7 +70,7 @@ All communication with the SDK happens via the AdGem class. In order to access i
 import AdGemSdk
 ```
 
-Use the AdGem class to show the Offer Wall in your project:
+Use the AdGem class to show the Offerwall in your project:
 
 ```swift
 AdGem.showOfferwall()
@@ -84,22 +84,22 @@ There is no need to store an instance of AdGem globally. The SDK will cache its 
 
 The following delegate methods are available:
 
-**Called when the offer wall starts loading on the user's device:**
+**Called when the Offerwall starts loading on the user's device:**
 ```swift
 func offerwallLoadingStarted() {}
 ```
 
-**Called when the offer wall has finished loading on the user's device:**
+**Called when the Offerwall has finished loading on the user's device:**
 ```swift
 func offerwallLoadingFinished() {}
 ```
 
-**Called when the offer wall has closed on the user's device:**
+**Called when the Offerwall has closed on the user's device:**
 ```swift
 func offerwallClosed() {}
 ```
 
-**Called if the offer wall has failed to load due to an error:**
+**Called if the Offerwall has failed to load due to an error:**
 ```swift
 func offerwallLoadingFailed(error: Error) {}
 ```
