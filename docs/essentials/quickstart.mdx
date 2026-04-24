@@ -81,20 +81,20 @@ Back in the dashboard, scroll down to **Postback Options** on the same property 
 2. Paste your public endpoint URL into the **Postback URL** field. Use AdGem's macros to populate the parameters — at minimum:
 
    ```
-   https://your-server.example.com/postbacks/adgem?player_id={playerid}&amount={amount}&conversion_id={conversion_id}&hash={hash}
+   https://your-server.example.com/postbacks/adgem?player_id={player_id}&amount={amount}&payout={payout}&transaction_id={transaction_id}
    ```
 
 3. Save.
 
 :::tip Postback macros
-AdGem replaces `{playerid}`, `{amount}`, `{conversion_id}`, `{hash}`, and more before calling your URL. See [Postback Setup](/docs/webhooks/offer-api-postback-setup) for the full macro list.
+AdGem replaces `{player_id}`, `{amount}`, `{payout}`, `{transaction_id}`, and more before calling your URL. When you generate a Postback Key, AdGem also appends `request_id` and `verifier` query params automatically for signature verification. See [Postback Setup](/docs/webhooks/offer-api-postback-setup) for the full macro list.
 :::
 
 ---
 
 ## Step 4 — Verify a postback
 
-When a player completes an offer, AdGem calls your endpoint. Verify the `hash` parameter before crediting the player:
+When a player completes an offer, AdGem calls your endpoint. Verify the `verifier` parameter before crediting the player by hashing the request URL (with the `verifier` stripped) using HMAC-SHA256 keyed by your Postback Key:
 
 ```javascript
 const crypto = require('crypto');
@@ -103,15 +103,20 @@ const express = require('express');
 const app = express();
 
 app.get('/postbacks/adgem', (req, res) => {
-  const { player_id, amount, conversion_id, hash } = req.query;
+  const { player_id, amount, transaction_id, verifier } = req.query;
+  if (!verifier) return res.status(422).send('Missing verifier');
+
+  // Rebuild the URL with the verifier stripped
+  const url = new URL(`${req.protocol}://${req.headers.host}${req.originalUrl}`);
+  url.searchParams.delete('verifier');
 
   const expected = crypto
-    .createHash('md5')
-    .update(`${conversion_id}${process.env.ADGEM_POSTBACK_KEY}`)
+    .createHmac('sha256', process.env.ADGEM_POSTBACK_KEY)
+    .update(url.toString())
     .digest('hex');
 
-  if (hash !== expected) {
-    return res.status(401).send('Invalid signature');
+  if (expected !== verifier) {
+    return res.status(422).send('Invalid verifier');
   }
 
   // Credit the player
@@ -122,7 +127,13 @@ app.get('/postbacks/adgem', (req, res) => {
 app.listen(3000);
 ```
 
-Trigger a test conversion from the AdGem dashboard (your Publisher Support Advocate can flip this on for you). You should see the GET hit your server, verify cleanly, and reward the player.
+:::tip More languages
+The [Postback Setup guide](/docs/webhooks/offer-api-postback-setup) has full examples for PHP, along with IP whitelisting (a second layer of security worth pairing with verification).
+:::
+
+### Firing a real postback
+
+The cleanest way to see a postback hit your server end-to-end is to complete a low-payout offer yourself on your live Offer Wall using a test `player_id`. If you need AdGem to simulate a conversion without running a live offer, reach out to your Publisher Support Advocate — they can help you exercise the pipeline against your endpoint.
 
 **That's it.** You have a working Offer Wall and an authenticated postback pipeline.
 
