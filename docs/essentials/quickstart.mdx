@@ -1,0 +1,178 @@
+---
+sidebar_position: 2
+title: "Quickstart: 5-Minute Postback"
+description: "Stand up a working AdGem Offer Wall with server postbacks in about five minutes."
+---
+
+import BeforeYouBegin from '@site/docs/_partials/before-you-begin.mdx';
+
+<div className="page-summary">
+  <strong>The fastest path to a working AdGem integration.</strong> This guide takes you from a fresh AdGem account to a live Offer Wall that pays out real rewards to your players — with server-to-server postback verification — in about five minutes.
+</div>
+
+# Quickstart: 5-Minute Postback
+
+:::tip What you'll build
+A working Offer Wall embedded in your site, wired to a postback endpoint that receives (and verifies) AdGem's conversion callbacks. Everything you need to start rewarding players on day one.
+:::
+
+## Why this Quickstart exists
+
+_Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat._
+
+_Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum._
+
+## Prerequisites
+
+<BeforeYouBegin platform="web" />
+
+You'll also need:
+
+- A server endpoint you can POST/GET to (for the postback — any `https://` URL your team controls)
+- Five uninterrupted minutes
+
+---
+
+## Step 1 — Create a Web property
+
+In the [AdGem Publisher Dashboard](https://dashboard.adgem.com/publisher/apps):
+
+1. Click **Properties & Apps** in the left nav.
+2. Click the **New Property** button.
+3. Select **Desktop/Web** from the Platform dropdown.
+4. Name your property and submit the form.
+
+:::note
+You need a distinct property for every website URL you integrate. Stash your new **Property ID** — you'll need it in the next step.
+:::
+
+---
+
+## Step 2 — Drop the Offer Wall into your site
+
+On your new property's settings page, open the **Offerwall** tab. Copy the **Web Offerwall Direct Link** and append a `playerid` query param for your logged-in user:
+
+```html
+<a href="https://api.adgem.com/v1/wall?appid=YOUR_APP_ID&playerid=USER_ID" target="_blank">
+  Earn Rewards
+</a>
+```
+
+Prefer an embedded experience? Use the **Full Screen iFrame Code** instead:
+
+```html
+<iframe
+  src="https://api.adgem.com/v1/wall?appid=YOUR_APP_ID&playerid=USER_ID"
+  width="100%"
+  height="600"
+  frameBorder="0">
+</iframe>
+```
+
+Load the page. If you see the Offer Wall, you're halfway home.
+
+---
+
+## Step 3 — Configure your postback
+
+Back in the dashboard, scroll down to **Postback Options** on the same property page. Pick **Server Postback**.
+
+1. Copy the **Postback Key** that appears. **This is shown once** — save it somewhere secure (a secrets manager, `.env`, or your deploy pipeline).
+2. Paste your public endpoint URL into the **Postback URL** field. Use AdGem's macros to populate the parameters — at minimum:
+
+   ```
+   https://your-server.example.com/postbacks/adgem?player_id={player_id}&amount={amount}&payout={payout}&transaction_id={transaction_id}
+   ```
+
+3. Save.
+
+:::tip Postback macros
+AdGem replaces `{player_id}`, `{amount}`, `{payout}`, `{transaction_id}`, and more before calling your URL. When you generate a Postback Key, AdGem also appends `request_id` and `verifier` query params automatically for signature verification. See [Postback Setup](/docs/webhooks/offer-api-postback-setup) for the full macro list.
+:::
+
+---
+
+## Step 4 — Verify a postback
+
+When a player completes an offer, AdGem calls your endpoint. Verify the `verifier` parameter before crediting the player by hashing the request URL (with the `verifier` stripped) using HMAC-SHA256 keyed by your Postback Key:
+
+```javascript
+const crypto = require('crypto');
+const express = require('express');
+
+const app = express();
+
+app.get('/postbacks/adgem', (req, res) => {
+  const { player_id, amount, transaction_id, verifier } = req.query;
+  if (!verifier) return res.status(422).send('Missing verifier');
+
+  // Rebuild the URL with the verifier stripped
+  const url = new URL(`${req.protocol}://${req.headers.host}${req.originalUrl}`);
+  url.searchParams.delete('verifier');
+
+  const expected = crypto
+    .createHmac('sha256', process.env.ADGEM_POSTBACK_KEY)
+    .update(url.toString())
+    .digest('hex');
+
+  if (expected !== verifier) {
+    return res.status(422).send('Invalid verifier');
+  }
+
+  // Credit the player
+  rewardPlayer(player_id, Number(amount));
+  res.status(200).send('OK');
+});
+
+app.listen(3000);
+```
+
+:::tip More languages
+The [Postback Setup guide](/docs/webhooks/offer-api-postback-setup) has full examples for PHP, along with IP whitelisting (a second layer of security worth pairing with verification).
+:::
+
+### Firing a real postback
+
+The cleanest way to see a postback hit your server end-to-end is to complete a low-payout offer yourself on your live Offer Wall using a test `player_id`. If you need AdGem to simulate a conversion without running a live offer, reach out to your Publisher Support Advocate — they can help you exercise the pipeline against your endpoint.
+
+**That's it.** You have a working Offer Wall and an authenticated postback pipeline.
+
+---
+
+## What's next
+
+<div className="row">
+  <div className="col col--4">
+    <div className="card margin-bottom--md">
+      <div className="card__header">
+        <h3>Customize the wall</h3>
+      </div>
+      <div className="card__body">
+        <p>Currency name, icon, multipliers — make it yours.</p>
+        <a href="/docs/integrations/web-offerwall/customization" className="button button--primary button--block">Customization guide</a>
+      </div>
+    </div>
+  </div>
+  <div className="col col--4">
+    <div className="card margin-bottom--md">
+      <div className="card__header">
+        <h3>Go deeper on postbacks</h3>
+      </div>
+      <div className="card__body">
+        <p>POST-based postbacks, IP whitelisting, full macro list.</p>
+        <a href="/docs/webhooks/offer-api-postback-setup" className="button button--primary button--block">Postback setup</a>
+      </div>
+    </div>
+  </div>
+  <div className="col col--4">
+    <div className="card margin-bottom--md">
+      <div className="card__header">
+        <h3>Build on the API</h3>
+      </div>
+      <div className="card__body">
+        <p>Bring your own UI with the Offer API or Targeted API.</p>
+        <a href="/docs/integrations/offer-api" className="button button--primary button--block">Offer API</a>
+      </div>
+    </div>
+  </div>
+</div>

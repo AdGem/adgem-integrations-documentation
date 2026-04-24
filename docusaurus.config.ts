@@ -66,6 +66,11 @@ const config: Config = {
         },
         items: [
           {
+            label: "Essentials",
+            position: "left",
+            to: "/docs/essentials",
+          },
+          {
             label: "Getting Started",
             position: "left",
             to: "/docs/getting-started",

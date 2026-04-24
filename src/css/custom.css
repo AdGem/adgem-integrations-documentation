@@ -467,3 +467,41 @@ button,
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
 }
+
+/* ============================================
+   Page Summary — plain-English TLDR at top of docs pages (AGPI-1890/1891)
+   ============================================ */
+
+.page-summary {
+  border-left: 4px solid var(--adgem-accent-cyan);
+  background: linear-gradient(
+    90deg,
+    rgba(130, 231, 246, 0.08) 0%,
+    rgba(87, 62, 242, 0.04) 100%
+  );
+  padding: 1.25rem 1.5rem;
+  margin: 0 0 2rem 0;
+  border-radius: 0 8px 8px 0;
+  font-family: 'Red Hat Display', system-ui, -apple-system, sans-serif;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--ifm-font-color-base);
+}
+
+.page-summary strong {
+  color: var(--adgem-primary);
+  font-weight: 700;
+}
+
+[data-theme='dark'] .page-summary {
+  background: linear-gradient(
+    90deg,
+    rgba(130, 231, 246, 0.12) 0%,
+    rgba(87, 62, 242, 0.08) 100%
+  );
+  border-left-color: var(--adgem-accent-cyan);
+}
+
+[data-theme='dark'] .page-summary strong {
+  color: var(--adgem-accent-cyan);
+}
