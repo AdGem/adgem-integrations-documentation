@@ -1,0 +1,97 @@
+/* Homepage — Gus' audience-rail + integration-chooser layout (PUB-191 skeleton) */
+
+.hero {
+  padding: 3.5rem 0;
+  text-align: center;
+  background: var(--ifm-color-primary-darkest);
+  color: #fff;
+}
+
+.heroTitle {
+  font-size: 2.6rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+.heroTagline {
+  font-size: 1.25rem;
+  opacity: 0.92;
+  margin: 0;
+}
+
+.section {
+  padding: 2.5rem 0;
+}
+
+.sectionTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1.25rem;
+}
+
+.card {
+  height: 100%;
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 10px;
+  padding: 1.5rem;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.card:hover {
+  border-color: var(--ifm-color-primary);
+  transform: translateY(-2px);
+}
+
+.cardTitle {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.cardLink {
+  display: inline-block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.chooserCol {
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 10px;
+  padding: 1.5rem;
+  height: 100%;
+}
+
+.chooserList {
+  list-style: none;
+  padding: 0;
+  margin: 0.75rem 0 0;
+}
+
+.chooserList li {
+  padding: 0.4rem 0;
+  border-bottom: 1px solid var(--ifm-color-emphasis-100);
+}
+
+.badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--ifm-color-primary);
+  margin-left: 0.4rem;
+}
+
+.rewardCard {
+  border: 1px solid var(--ifm-color-primary);
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin-top: 1.5rem;
+  background: var(--ifm-color-emphasis-100);
+}
+
+.placeholderNote {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--ifm-color-emphasis-600);
+  padding-bottom: 2rem;
+}

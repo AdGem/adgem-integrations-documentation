@@ -64,84 +64,33 @@ const config: Config = {
           alt: "AdGem Logo",
           src: "img/adgem-logo-white.svg",
         },
+        // Five top-level surfaces (Gus' IA, PUB-191). Each links to its surface
+        // landing; the scoped sidebar follows from the target doc automatically.
         items: [
           {
-            label: "Getting Started",
+            label: "Get Started",
             position: "left",
-            to: "/docs/getting-started",
+            to: "/docs/get-started",
           },
           {
-            label: "Integrations",
+            label: "Integrate",
             position: "left",
-            type: "dropdown",
-            items: [
-              {
-                type: "html",
-                value: "<b>Pre-built (Fastest)</b>",
-                className: "dropdown-header",
-              },
-              {
-                label: "Web Offerwall (Recommended)",
-                to: "/docs/integrations/web-offerwall",
-              },
-              {
-                label: "iOS SDK",
-                to: "/docs/integrations/ios-sdk",
-              },
-              {
-                label: "Android SDK",
-                to: "/docs/integrations/android-sdk",
-              },
-              {
-                label: "Unity SDK",
-                to: "/docs/integrations/unity-sdk",
-              },
-              {
-                type: "html",
-                value: "<b>Partner-built (Custom Experience)</b>",
-                className: "dropdown-header",
-              },
-              {
-                label: "Offer API (REST)",
-                to: "/docs/integrations/offer-api",
-              },
-              {
-                label: "Targeted API (GraphQL)",
-                to: "/docs/integrations/targeted-api",
-              },
-            ],
+            to: "/docs/integrate/overview",
           },
           {
-            label: "Webhooks & Postbacks",
+            label: "Configure",
             position: "left",
-            to: "/docs/webhooks",
+            to: "/docs/configure",
+          },
+          {
+            label: "Reference",
+            position: "left",
+            to: "/docs/reference",
           },
           {
             label: "Resources",
             position: "left",
-            type: "dropdown",
-            items: [
-              {
-                label: "Offer Wall",
-                to: "/docs/offer-wall",
-              },
-              {
-                label: "Monetization",
-                to: "/docs/monetization",
-              },
-              {
-                label: "Reporting API",
-                to: "/docs/api-reference",
-              },
-              {
-                label: "Resources & Support",
-                to: "/docs/resources",
-              },
-              {
-                label: "Legal",
-                to: "/docs/legal",
-              },
-            ],
+            to: "/docs/resources",
           },
           {
             href: "https://github.com/AdGem/adgem-integrations-documentation",
@@ -152,6 +101,22 @@ const config: Config = {
       },
       footer: {
         style: "dark",
+        links: [
+          {
+            title: "Evaluate",
+            items: [
+              { label: "For Decision Makers", to: "/for-decision-makers" },
+            ],
+          },
+          {
+            title: "More",
+            items: [
+              { label: "Service Status", href: "https://status.adgem.com" },
+              { label: "Legal", href: "https://adgem.com/legal" },
+              { label: "Support", href: "https://adgem.com/support" },
+            ],
+          },
+        ],
         copyright: `Copyright © ${new Date().getFullYear()} <a href="https://adgem.com">AdGem</a>.`,
       },
       prism: {
