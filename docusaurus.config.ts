@@ -85,7 +85,10 @@ const config: Config = {
           {
             label: "Reference",
             position: "left",
-            to: "/docs/reference",
+            // Reference defaults to the Prism overview per Gus' v5 IA ("Prism is the
+            // default landing"). The reference/index surface landing stays reachable
+            // via the sidebar/breadcrumb. (PUB-191, WS1)
+            to: "/docs/reference/prism/overview",
           },
           {
             label: "Resources",

@@ -17,8 +17,10 @@ Five top-level surfaces, each with its own sidebar scoped to that surface. Cross
 1. **Get Started** — welcome, core-concepts, quickstart, decide-your-path
 2. **Integrate** — two axes:
    - *Offer Delivery:* Pre-built (Web Offerwall `[Recommended]`, iOS SDK, Android SDK, Unity SDK) / Partner-built (Prism `[Recommended]`, Offer API)
-   - *Reward Mechanism* (flat): Server-to-Server Postbacks v3 `[Recommended]`, Postbacks v2 `[Deprecated]`, Client-side Polling `[Deprecated]`, Third-party Integrations
+   - *Reward Mechanism* (flat): Server-to-Server Postbacks v3 `[Recommended]`, Postbacks v2 (supported, no badge), Client-side Polling (NOT deprecated — see note), Third-party Integrations
    - Postbacks live in **Integrate**, not Configure.
+   - **Postback status — CORRECTED 2026-06-09 (Micah, PUB-191 owner; diverges from Gus' v5):** v2 and v3 are *both supported* — v2 is **not** deprecated. v3 is `[Recommended]` and is **out of beta**. Point partners to v3 over v2, but do not badge v2 `[Deprecated]`. v3 is *not* sequential-over-v2; they're parallel postback generations (mechanically GET vs POST, but **do not** frame the docs by HTTP method — that was rejected). Keep slugs `postbacks-v3`/`postbacks-v2` for now; a clearer capability-based distinction is an open WS2/WS4 question. **Heads-up to Gus needed** (v5 marked v2 `[Deprecated]`).
+   - **Client-side Polling — CORRECTED 2026-06-09 (verified against the iOS and Android SDK source):** polling is **NOT deprecated** — it is the *current* reward-completion mechanism inside the Pre-built SDKs. Android (`OfferCompletionChecker`) polls the `checkofferconversions` endpoint (20s while the offerwall is open and an offer has been started; 60s for up to 5 min after close); iOS (`AdGemManager`) polls `/checkforoffercompletion` (20–30s), gated by a server-sent `should_poll` flag. Do **not** badge Client-side Polling `[Deprecated]`. If anything is discouraged it's *publishers hand-rolling their own polling loop* in a Partner-built integration (vs. postbacks) — confirm that nuance with Gus/product, but SDK-internal polling is live. Also re-confirm whether Client-side Polling is truly deprecated or just discouraged (same correction may apply).
 3. **Configure** — webhooks, security, sandbox & test mode, customization, promotions
 4. **Reference** — Prism-first: Prism (GraphQL), Offer API (REST), Reporting API (REST), Webhook Events, Error Codes
 5. **Resources** — changelog, migrations, glossary, branding-assets
@@ -53,11 +55,11 @@ Suggested order: WS1 → (WS4 + WS3 in parallel) → WS2 → WS8 → WS10, with 
 **Goal:** Lock the five-surface structure so content authoring can begin without rework.
 
 **Key tasks:**
-- [ ] Resolve the Reference landing nit: `reference/index` should route to / default to the Prism overview (`reference/prism/overview`). Decision is LOCKED to keep per-surface landing pages; confirm the Reference landing either redirects or renders a Prism-first overview rather than a generic index.
-- [ ] Postback slug: skeleton uses `postbacks-v3`; Gus' prototype used `server-postbacks-v3`; doc §3 says `postbacks-v3`. Keep `postbacks-v3`; confirm with Gus and lock it (this is a URL that the redirect map in WS8 depends on).
-- [ ] Legal: **LOCKED — link out to `adgem.com/legal`. Legal copy does not live in this repo.** The skeleton already does this (footer link). Action is to confirm no legal `.mdx` pages get migrated into `docs/` (see WS2) and that PUB-205 is repointed/closed accordingly.
-- [ ] Confirm `sidebars.ts` five scoped sidebars match the locked structure; confirm navbar `to:` targets in `docusaurus.config.ts` resolve after any landing-route change.
-- [ ] Re-run `npm run build` after each structural change (`onBrokenLinks: "throw"` will catch dangling sidebar IDs).
+- [x] Resolve the Reference landing nit. **RESOLVED (2026-06-09):** navbar "Reference" repointed `/docs/reference` → `/docs/reference/prism/overview` in `docusaurus.config.ts`, so the top-nav entry lands on the Prism overview per Gus' "Prism is the default landing." The `reference/index` surface landing is kept (per-surface-landing lock) and remains reachable via sidebar/breadcrumb. Minimal/reversible; no redirect plugin (WS8 owns redirects). Both `build/docs/reference/prism/overview.html` and `build/docs/reference.html` verified present.
+- [x] Postback slug. **DECISION (2026-06-09): keep `postbacks-v3`** — already the slug in `sidebars.ts:61` (`integrate/reward-mechanism/postbacks-v3`) and matches doc §3. (Gus' prototype used `server-postbacks-v3`; not adopting.) WS8 redirect map keys off this URL. *Remaining: quick verbal confirm from Gus — non-blocking, slug is locked in code + aligns with the v5 source.*
+- [x] Legal: **LOCKED — link out to `adgem.com/legal`.** CONFIRMED (2026-06-09): no legal `.md`/`.mdx` pages exist under any `docs/` surface (only mentions are in `docs/plans/`); footer link points external. PUB-205 still to be repointed/closed (tracked in appendix / WS2).
+- [x] Confirm `sidebars.ts` five scoped sidebars match the locked structure; confirm navbar `to:` targets resolve. CONFIRMED (2026-06-09): five scoped sidebars match Gus' v5 1:1 (verified against PUB-191 transcription); all five navbar targets resolve post-repoint.
+- [x] Re-run `npm run build` — passes clean, zero broken-link errors, after the navbar change.
 
 **Dependencies:** None. This is the first task.
 
@@ -79,19 +81,20 @@ Suggested order: WS1 → (WS4 + WS3 in parallel) → WS2 → WS8 → WS10, with 
 
 **Inventory (verified 2026-06-08):**
 - **Already migrated on `origin/main`:** 85 content files under `docs/` (excludes `docs/plans/` and `docs/_partials/`). This count includes the auto-generated Offer API and Targeted API trees (see WS3 — those regenerate, they are not hand-migrated). Authored/hand-written prose pages number roughly 40 once the generated API trees are set aside.
-- **Static-only (never migrated), backstop = `~/dev/adgem-static-documentation/publisher-support/docs/`:** the static set is 49 pages and is ~95% already represented on main. The genuine content gaps are:
+- **Static-only (never migrated), backstop = the static-docs repo (`publisher-support/docs/`):** the static set is 49 pages and is ~95% already represented on main. The genuine content gaps are:
   - `ad-units.md` — no equivalent on main.
   - `featured-ad-placements.md` — no equivalent on main (revenue ad unit; ~30% revenue-lift claim — verify before publishing).
   - Per-platform postback-setup pages (`android-`, `ios-`, `unity-`, `web-`, `api-postback-setup`) exist in static but were consolidated on main under `docs/webhooks/` (`postback-options`, `offer-api-postback-setup`). Confirm nothing platform-specific was dropped in the consolidation before relying on main alone.
   - Per-platform `*-changelog` and `*-integration-guide` pages in static map to the per-SDK `index.mdx` + `changelog.mdx` dirs on main — confirm parity, not re-migrate.
-- **Player-support (separate audience, do NOT fold into publisher docs):** 6 pages in `~/dev/adgem-static-documentation/player-support/docs/` (`index`, `player-support-faq`, `player-terms-of-service`, `icloud`, `ios26-users`, `example-screenshots`). These belong to a separate instance per PUB-204/PUB-192. On main there is one bridge page (`docs/resources/player-support-overview.mdx`) that should link out, not host player content.
+- **Player-support (separate audience, do NOT fold into publisher docs):** 6 pages in the static-docs repo (`player-support/docs/`): `index`, `player-support-faq`, `player-terms-of-service`, `icloud`, `ios26-users`, `example-screenshots`. These belong to a separate instance per PUB-204/PUB-192. On main there is one bridge page (`docs/resources/player-support-overview.mdx`) that should link out, not host player content.
 
 **Key tasks:**
-- [ ] Produce a definitive remap table: every `origin/main` page (use `git ls-tree -r --name-only origin/main -- docs/`) → its new five-surface path. Save the table in this plan or alongside it; the redirect map (WS8) is derived from it.
+- [ ] Produce a definitive remap table: every old content page → its new five-surface path. Save the table in this plan or alongside it; the redirect map (WS8) is derived from it. **SOURCING NOTE (2026-06-09):** once PR #43 merges to `main`, `git ls-tree origin/main -- docs/` returns the *new* skeleton, not the old content — the old tree is preserved in git history at the pre-merge SHA. Either (preferred) **build this remap table now, before #43 merges, while `origin/main` still exposes the old tree**, or pin the pre-merge SHA and source content via `git show <sha>:docs/...`. The static-docs backstop repo also mirrors ~95% of it. Old content is **not lost** by merging — only the convenience of `origin/main` HEAD is.
 - [ ] Migrate the static-only gaps (`ad-units`, `featured-ad-placements`) into the right surfaces (likely Configure or a Pre-built offer-wall page) or explicitly decide to drop them.
 - [ ] Move migrated prose from old dirs (`getting-started/`, `integrations/`, `webhooks/`, `monetization/`, `offers/`, `configuration/`, `resources/`, `api-reference/`) into the new surfaces, filling the placeholder pages. **Exclude `legal/`** — legal links out to `adgem.com/legal` and is not migrated into this repo.
 - [ ] Apply Prism naming globally: replace "Targeted API" with "Prism" in prose, titles, links, and frontmatter.
 - [ ] Enforce postbacks-in-Integrate: webhook *configuration* stays in Configure; postback *integration* (v2/v3, polling, third-party) lives in Integrate.
+- [ ] **Postback content cleanup (Micah, 2026-06-09):** (a) remove `v2`/`v3` from *example endpoint paths* in code snippets (e.g. `/postbacks/adgem/v3` → a neutral example like `/postbacks/adgem`) — the version suffix in sample URLs causes more confusion than clarity; (b) remove "v3 is in Beta" language — v3 is GA; (c) do **not** mark Postbacks v2 `[Deprecated]` — both supported, recommend v3; (d) revisit how to distinguish the two postback types in prose (not by HTTP method) — open question for WS4 conventions lock.
 - [ ] Rewrite every cross-link to the new URLs (these are the same links the redirect map protects externally).
 - [ ] Confirm player-support stays out of the publisher instance; keep only the bridge/overview link.
 
@@ -325,6 +328,7 @@ Suggested order: WS1 → (WS4 + WS3 in parallel) → WS2 → WS8 → WS10, with 
 - [ ] **Redirect QA** — script the old→new map (WS8) and assert every old URL returns 200/301 to the correct target.
 - [ ] **Analytics** — confirm analytics/tracking is wired for the new domain.
 - [ ] **Go-live checklist:** DNS cutover to Amplify, retire GH Pages + its PR-preview workflow, confirm `DOCUSAURUS_URL` = custom domain, smoke-test sandbox on production, announce.
+- [ ] **BEFORE FINAL DEPLOY — fix the Legal footer link (Micah, 2026-06-09):** footer currently points to `https://adgem.com/legal`, which **404s** (no such index page). Decision stands (legal is link-out, not hosted here), but the target is broken. Real pages: `https://adgem.com/privacy-policy/`, `https://adgem.com/terms-and-conditions/`, `https://adgem.com/player-agreement/`. Either replace the single "Legal" footer item with these three real links, or get marketing to create `/legal`. Also resolve where the old **SDK License Agreement** lives now (no external link found in adgem.com footer) — ask Iliana. Left as-is for now per Micah; **must be fixed before launch.**
 
 **Dependencies:** Everything. This is the last workstream.
 
@@ -373,4 +377,4 @@ Many tickets carry titles/scopes from the OLD "Essentials + Platform" direction.
 - `sidebars.ts` and `docusaurus.config.ts` read on this branch; five scoped sidebars and five-surface navbar confirmed present.
 - OpenAPI generator `outputDir` is `docs/integrations/offer-api`; GraphQL generator `baseURL` is `integrations/targeted-api` — both must move under `reference/` (WS3).
 - Footer links Legal out to `adgem.com/legal` (locked: legal is link-out, not hosted in this repo).
-- Inventory counts computed 2026-06-08 from `git ls-tree -r --name-only origin/main -- docs/` and `find ~/dev/adgem-static-documentation -name '*.md'`.
+- Inventory counts computed 2026-06-08 from `git ls-tree -r --name-only origin/main -- docs/` and a recursive `*.md` count of the static-docs repo.
