@@ -16,7 +16,7 @@ export default function GraphQLPlayGround() {
         require('@graphiql/plugin-explorer/style.css');
 
         const fetcher = createGraphiQLFetcher({
-          url: siteConfig.customFields.TARGETED_API_SCHEMA_URL,
+          url: siteConfig.customFields.PRISM_SCHEMA_URL,
           headers: {
             'Content-Type': 'application/json',
             Accept: 'application/json',
@@ -30,11 +30,11 @@ export default function GraphQLPlayGround() {
             <div id='graphiql-info' className="alert alert--info margin-bottom--md" role="alert">
               <h4>Using the GraphQL Playground</h4>
               <p>
-                You need an API token to use this tool, add it in the "Headers" tab at the bottom:
+                You need a Prism access token to use this tool. Add it in the "Headers" tab at the bottom:
               </p>
-              <pre>{'{\n  "Authorization": "Bearer YOUR_TOKEN_HERE" \n}'}</pre>
+              <pre>{'{\n  "Authorization": "Bearer YOUR_ACCESS_TOKEN" \n}'}</pre>
               <p>
-                Refer to the <Link href="/adgem-integrations-documentation/docs/integrations/targeted-api/authentication">authentication guide</Link> to learn how to get an API token.
+                Refer to the <Link to="/docs/reference/prism/authentication">authentication guide</Link> to learn how to get an access token.
               </p>
             </div>
             <GraphiQL

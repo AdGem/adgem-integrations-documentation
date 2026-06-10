@@ -28,8 +28,8 @@ npm run graphql-to-doc     # Generate GraphQL docs from schema endpoint
 ## Environment Setup
 
 Copy `.env.example` to `.env` and configure:
-- `TARGETED_API_SCHEMA_URL` - GraphQL schema endpoint URL
-- `TARGETED_API_TOKEN` - Bearer token for schema access (set in docusaurus.config.ts customFields)
+- `PRISM_SCHEMA_URL` - Prism (GraphQL) schema endpoint URL (also exposed to the client-side playground via `docusaurus.config.ts` customFields)
+- `PRISM_ACCESS_TOKEN` - short-lived Cognito access token (Bearer) for schema introspection at generation time
 
 ## Architecture
 

@@ -240,7 +240,7 @@ const config: Config = {
         config: {
           offer: {
             specPath: "examples/offer.yaml",
-            outputDir: "docs/integrations/offer-api",
+            outputDir: "docs/reference/offer-api",
             sidebarOptions: {
               groupPathsBy: "tag",
               categoryLinkSource: "tag",
@@ -254,17 +254,17 @@ const config: Config = {
       "@graphql-markdown/docusaurus",
       /** @type {import('@graphql-markdown/types').ConfigOptions} */
       {
-        schema: process.env.TARGETED_API_SCHEMA_URL,
+        schema: process.env.PRISM_SCHEMA_URL,
         rootPath: './docs',
-        baseURL: "integrations/targeted-api",
-        homePage: "./static/targeted-api.md",
+        baseURL: "reference/prism",
+        homePage: "./static/prism.md",
         // ... other options
         loaders: {
           UrlLoader: {
             module: "@graphql-tools/url-loader",
             options: {
               headers: {
-                Authorization: 'Bearer ' + process.env.TARGETED_API_TOKEN,
+                Authorization: 'Bearer ' + process.env.PRISM_ACCESS_TOKEN,
               }
             }
           }
@@ -275,7 +275,10 @@ const config: Config = {
 
   themes: ["docusaurus-theme-openapi-docs"],
   customFields: {
-    'TARGETED_API_SCHEMA_URL': process.env.TARGETED_API_SCHEMA_URL ?? 'https://targeted-api.adgem.com/v1/offers',
+    // Prism (GraphQL) endpoint, exposed to the client-side GraphiQL playground.
+    // Value still points at the targeted-api host (backend not renamed); only the
+    // docs/var name is rebranded to Prism. (PUB-191, WS3)
+    'PRISM_SCHEMA_URL': process.env.PRISM_SCHEMA_URL ?? 'https://targeted-api.adgem.com/v1/offers',
   },
 };
 

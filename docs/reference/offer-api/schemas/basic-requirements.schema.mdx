@@ -1,0 +1,33 @@
+---
+id: basic-requirements
+title: "Basic Requirements"
+description: ""
+sidebar_label: "Basic Requirements"
+hide_title: true
+hide_table_of_contents: true
+schema: true
+sample: {"description":"Must be a new user.","order":1}
+custom_edit_url: null
+---
+
+import Schema from "@theme/Schema";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Basic Requirements"}
+>
+</Heading>
+
+
+
+
+
+<Schema
+  schema={{"x-tags":["offer"],"required":["description","order"],"properties":{"description":{"type":"string","example":"Must be a new user."},"order":{"type":"integer","example":1}},"type":"object","title":"Basic Requirements"}}
+  schemaType={"response"}
+>
+  
+</Schema>
+            
