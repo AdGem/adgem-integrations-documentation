@@ -202,13 +202,12 @@ Suggested order: WS1 → (WS4 + WS3 in parallel) → WS2 → WS8 → WS10, with 
 
 **Goal:** Move hosting off GitHub Pages to AWS Amplify with PR previews.
 
-**Infra facts from Ron's notes — VERIFY before relying on them:**
-- AWS account `172122050326` (verify)
-- Region `us-east-2` (verify)
-- The AWS account is all click-ops — **NO CDK/IaC** (verify)
+**Infra access — retrieve before starting (not recorded here; this repo is public):**
+- AWS account ID, region, and console access: get from Ron or the team's credentials store, and **verify** before relying on them.
+- The AWS setup is managed via the console rather than an IaC pipeline — capture the console steps in a runbook as you go.
 
 **Key tasks:**
-- [ ] Set up the Amplify app via click-ops (no IaC), connected to this repo.
+- [ ] Set up the Amplify app via the console, connected to this repo.
 - [ ] Add an `amplify.yml` build config to the repo (`npm ci` → `gen-api-docs` + `graphql-to-doc` if generating at build time per WS3 → `npm run build`; artifacts from `build/`).
 - [ ] Set Amplify env vars: `DOCUSAURUS_URL`, `DOCUSAURUS_BASE_URL` (Amplify serves at root, so `baseUrl` becomes `/` — this differs from the GH Pages subpath and is a likely WS5 fix), `TARGETED_API_SCHEMA_URL`, `TARGETED_API_TOKEN`.
 - [ ] Enable Amplify PR previews; plan to retire the existing GitHub Pages `pr-preview/pr-{number}/` workflow once Amplify previews are confirmed working.
@@ -238,7 +237,7 @@ Suggested order: WS1 → (WS4 + WS3 in parallel) → WS2 → WS8 → WS10, with 
 
 **Key tasks:**
 - [ ] Add `docs.adgem.com` as a custom domain in Amplify.
-- [ ] Create the DNS records (CNAME/ANAME) — note adgem.com is managed on WP Engine/WordPress per project history; coordinate with whoever controls DNS (Iliana's side).
+- [ ] Create the DNS records (CNAME/ANAME) — adgem.com DNS is managed externally; coordinate with whoever controls it (Iliana's side).
 - [ ] Provision/verify the TLS certificate (Amplify-managed ACM).
 - [ ] Update `DOCUSAURUS_URL` to `https://docs.adgem.com` once live; confirm canonical URLs and sitemap reflect the new domain.
 
@@ -249,7 +248,7 @@ Suggested order: WS1 → (WS4 + WS3 in parallel) → WS2 → WS8 → WS10, with 
 - Canonical/sitemap URLs use the custom domain.
 
 **Open questions / risks:**
-- DNS is controlled outside this team (WordPress/WP Engine side) — lead time on records.
+- DNS is controlled outside this team (external provider) — lead time on records.
 
 **Linear:** PUB-199 (same ticket as hosting).
 
@@ -272,7 +271,7 @@ Suggested order: WS1 → (WS4 + WS3 in parallel) → WS2 → WS8 → WS10, with 
   - old `/docs/legal/*` → external `https://adgem.com/legal` (legal is link-out, not a v2 page)
 - [ ] Evaluate the two mechanisms and pick (or combine):
   - **Docusaurus client redirects** (`@docusaurus/plugin-client-redirects`) — versioned in-repo, works on any host, but client-side (a flash + weaker SEO signal than a 301).
-  - **Amplify rewrites/redirects** — true 301s, host-level, better for SEO, but click-ops config tied to Amplify (WS6).
+  - **Amplify rewrites/redirects** — true 301s, host-level, better for SEO, but console-configured and tied to Amplify (WS6).
 - [ ] Recommended: Amplify 301s for SEO-critical top-level paths + Docusaurus client redirects as a portable fallback. Confirm with whoever owns SEO.
 
 **Dependencies:** WS1 + WS2 (final URLs), WS6 (if using Amplify redirects).

@@ -9,4 +9,4 @@ sidebar_label: Server-to-Server Postbacks (v2)
 Structure-only page for IA validation — see [PUB-191](https://linear.app/adaction/issue/PUB-191). Real content is a follow-on.
 :::
 
-`[Deprecated]` Legacy GET-based postbacks. See the Postback v2 → v3 migration guide.
+GET-based postbacks. Still supported; v3 is recommended for new integrations. See the Postback v2 → v3 migration guide.
