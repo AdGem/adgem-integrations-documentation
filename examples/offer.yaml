@@ -334,7 +334,7 @@ components:
         os_targeting:
           type: array
           items:
-            $ref: '#/components/schemas/Os'
+            $ref: '#/components/schemas/OS'
           example:
             name: android
             min: '4.0'
@@ -453,7 +453,8 @@ components:
           type: boolean
           example: false
       type: object
-    Os:
+    OS:
+      title: OS
       x-tags:
         - offer
       required:

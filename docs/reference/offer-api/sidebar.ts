@@ -47,7 +47,7 @@ const sidebar: SidebarsConfig = {
         {
           type: "doc",
           id: "reference/offer-api/schemas/os",
-          label: "Os",
+          label: "OS",
           className: "schema",
         },
         {
