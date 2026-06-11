@@ -16,12 +16,6 @@ const sidebar: SidebarsConfig = {
       items: [
         {
           type: "doc",
-          id: "reference/offer-api/schemas/category",
-          label: "Category",
-          className: "schema",
-        },
-        {
-          type: "doc",
           id: "reference/offer-api/schemas/city",
           label: "City",
           className: "schema",
@@ -30,12 +24,6 @@ const sidebar: SidebarsConfig = {
           type: "doc",
           id: "reference/offer-api/schemas/country",
           label: "Country",
-          className: "schema",
-        },
-        {
-          type: "doc",
-          id: "reference/offer-api/schemas/device",
-          label: "Device",
           className: "schema",
         },
         {

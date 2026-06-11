@@ -211,6 +211,9 @@ components:
         is_multi_reward:
           type: boolean
           example: false
+        is_featured_campaign:
+          type: boolean
+          example: false
         campaign_vertical:
           type: string
           example: 'Content Discovery'
@@ -262,8 +265,16 @@ components:
             categories:
               type: array
               items:
-                $ref: '#/components/schemas/Category'
-              example: app
+                type: string
+                enum:
+                  - app
+                  - free
+                  - paid
+                  - survey
+                  - trial
+                  - user_info_request
+              example:
+                - app
             sort_order_setting:
               type: integer
               nullable: true
@@ -272,6 +283,10 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/Sticker'
+            hero_image_url:
+              type: string
+              nullable: true
+              example: 'https://adgem.com/images/offerwall/offerwall_hero.png'
             offer_cta:
               type: string
               nullable: true
@@ -299,7 +314,11 @@ components:
               example: 'https://api.adgem.com/v1/click?all=1&appid=1&cid=100&playerid={playerid}'
             support_url:
               type: string
-              example: 'https://api.adgem.com/support/1/100/{playerid}'
+              example: 'https://adunits.adgem.com/support-single-offer?appid=1&playerid={playerid}&campaignid=100'
+            interstitial_url:
+              type: string
+              description: Present when a click URL exists; derived from the click URL.
+              example: 'https://api.adgem.com/offer-interstitial?all=1&appid=1&cid=100&playerid={playerid}'
           type: object
         stats:
           properties:
@@ -330,7 +349,15 @@ components:
         device_targeting:
           type: array
           items:
-            $ref: '#/components/schemas/Device'
+            type: string
+            enum:
+              - android
+              - ios
+              - ios_app
+              - desktop
+          example:
+            - android
+            - ios
         os_targeting:
           type: array
           items:
@@ -351,17 +378,6 @@ components:
         attribution_window_days:
           type: integer
           example: 30
-    Category:
-      x-tags:
-        - offer
-      type: string
-      enum:
-        - app
-        - free
-        - paid
-        - survey
-        - trial
-        - user_info_request
     City:
       x-tags:
         - offer
@@ -376,9 +392,9 @@ components:
           nullable: true
           example: los-angeles
         geoname_id:
-          type: string
+          type: integer
           nullable: true
-          example: '5368361'
+          example: 5368361
       type: object
     Country:
       x-tags:
@@ -394,9 +410,9 @@ components:
           nullable: true
           example: united-states
         iso_numeric:
-          type: string
+          type: integer
           nullable: true
-          example: '840'
+          example: 840
         iso_alpha2:
           type: string
           nullable: true
@@ -406,19 +422,10 @@ components:
           nullable: true
           example: USA
         geoname_id:
-          type: string
+          type: integer
           nullable: true
-          example: '6252001'
+          example: 6252001
       type: object
-    Device:
-      x-tags:
-        - offer
-      type: string
-      enum:
-        - android
-        - ios
-        - ios_app
-        - desktop
     Goal:
       x-tags:
         - offer
@@ -452,6 +459,13 @@ components:
         is_purchase_goal:
           type: boolean
           example: false
+        is_attribution:
+          type: boolean
+          example: false
+        maximum_completion_time_days:
+          type: integer
+          nullable: true
+          example: 30
       type: object
     OS:
       title: OS
@@ -487,9 +501,9 @@ components:
           nullable: true
           example: california
         geoname_id:
-          type: string
+          type: integer
           nullable: true
-          example: '5332921'
+          example: 5332921
       type: object
     Sticker:
       x-tags:
@@ -502,7 +516,7 @@ components:
         color:
           type: string
           nullable: true
-          example: FF0000
+          example: '#FF0000'
       type: object
     Basic_Requirements:
       x-tags:
