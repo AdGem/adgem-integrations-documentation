@@ -467,3 +467,28 @@ button,
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
 }
+
+/* OpenAPI info page: the version badge sits directly above the API title.
+   Make it block-level (fit-content keeps the pill shape) so margin-bottom
+   adds a gap before the heading. (Only appears on OpenAPI info pages — this
+   site has no docs versioning.) */
+.theme-doc-version-badge {
+  display: block;
+  width: fit-content;
+  margin-bottom: 1rem;
+}
+
+/* Authentication (security-scheme) table: vertically center cell content.
+   The table and the `openapi-tabs__security-schemes` tablist <ul> sit on separate
+   branches under `.openapi-tabs__schema-container`, so anchor on that ancestor and
+   use :has() to scope to the auth container only (not operation-page schema tables).
+   The cell content is wrapped in <p> with a default 1rem bottom margin — that
+   asymmetric margin is what throws off the centering, so zero it out as well. */
+.openapi-tabs__schema-container:has(.openapi-tabs__security-schemes) table th,
+.openapi-tabs__schema-container:has(.openapi-tabs__security-schemes) table td {
+  vertical-align: middle;
+}
+.openapi-tabs__schema-container:has(.openapi-tabs__security-schemes) table th p,
+.openapi-tabs__schema-container:has(.openapi-tabs__security-schemes) table td p {
+  margin: 0;
+}
