@@ -16,6 +16,12 @@ const sidebar: SidebarsConfig = {
       items: [
         {
           type: "doc",
+          id: "reference/offer-api/schemas/offer",
+          label: "Offer",
+          className: "schema",
+        },
+        {
+          type: "doc",
           id: "reference/offer-api/schemas/city",
           label: "City",
           className: "schema",

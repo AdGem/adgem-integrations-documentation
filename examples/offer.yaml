@@ -155,7 +155,9 @@ components:
           description: The next page number, or `null` if there are no more pages.
           example: 2
     Offer:
-      type: offer
+      type: object
+      x-tags:
+        - offer
       required:
         - id
         - name
