@@ -492,3 +492,10 @@ button,
 .openapi-tabs__schema-container:has(.openapi-tabs__security-schemes) table td p {
   margin: 0;
 }
+
+/* Schema property rows: the enum "Possible values:" renders in a <p> with Infima's
+   ~1rem bottom margin, leaving a gap beneath enums and detaching the "Example:" line
+   from the property it belongs to. Tighten it so values/example stay grouped. */
+.openapi-schema__list-item > div > p {
+  margin-bottom: 0.25rem;
+}
