@@ -117,6 +117,13 @@ Suggested order: WS1 → (WS4 + WS3 in parallel) → WS2 → WS8 → WS10, with 
 
 ## WS3 — Auto-generated Reference (OpenAPI + GraphQL)
 
+> **STATUS / RESHAPE (2026-06-15):**
+> - **Offer API (REST) — DONE.** Generated from `examples/offer.yaml`, env/config rebranded to Prism (`PRISM_SCHEMA_URL`/`PRISM_ACCESS_TOKEN`), spec **corrected to match the real `/v1/offers`** (verified against `OfferService::formatOfferForResponse` + webhook payload against `WebhookFulfillmentService`), and IA restructured (Endpoints / Offer model / Schemas; webhook events → Webhook Events). `examples/offer.yaml` is currently the **only accurate, public-only** Offer API spec.
+> - **Prism (GraphQL) — PENDING.** Config repointed (`baseURL: reference/prism`, `static/prism.md`), playground BYO-token wired. Generation is **blocked on a Cognito access token** (`graphql-to-doc`). Commit-time generation per the decision below.
+> - **Source-of-truth (reshaped):** the long-term plan is to generate the public spec from **offer-api's own swagger-php annotations** and **hand-copy** it into the docs (automated sync = later improvement). BUT a 2026-06-15 audit found offer-api's annotations currently document the **internal/admin** API (`RequestOffer`/`ResponseOffer`/`StaticApiResponseOffer`, all `Admin`-tagged); the public `GET /v1/offers` is unannotated and there are no webhook annotations. So this needs a **public-annotation build-out in offer-api** (separate PR, that team): annotate the public endpoint + webhook events, match `formatOfferForResponse`, separate public-vs-internal scan (exclude v2 **and** admin/CRUD), fix the duplicate `@OA\Property("stats")` bug. Same treatment for the **targeted-api/Prism** service (schema descriptions). Until then, docs stay on the corrected `examples/offer.yaml`.
+> - **Gotcha:** `gen-api-docs` does not overwrite existing generated files — always `clean-api-docs` first when the spec changes (documented in CLAUDE.md).
+> - **AI PR check** (annotation drift guardrail) = **low-priority, after everything else.** Build as *deterministic contract test (gate) + advisory AI PR nudge*, not AI-as-gate. Per-repo (offer-api, targeted-api).
+
 **Goal:** Regenerate the API reference trees into their new Reference locations and rebrand the GraphQL surface to Prism. These trees were removed with the old content on this branch and must be regenerated.
 
 **Current generator config (`docusaurus.config.ts`):**
