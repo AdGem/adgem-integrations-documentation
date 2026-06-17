@@ -364,9 +364,9 @@ components:
           items:
             $ref: '#/components/schemas/OS'
           example:
-            name: android
-            min: '4.0'
-            max: '10.0'
+            - name: android
+              min: '4.0'
+              max: '10.0'
         app_store_categories:
           type: array
           items:
@@ -393,9 +393,9 @@ components:
           nullable: true
           example: los-angeles
         geoname_id:
-          type: integer
+          type: string
           nullable: true
-          example: 5368361
+          example: '5368361'
       type: object
     Country:
       x-tags:
@@ -411,9 +411,9 @@ components:
           nullable: true
           example: united-states
         iso_numeric:
-          type: integer
+          type: string
           nullable: true
-          example: 840
+          example: '840'
         iso_alpha2:
           type: string
           nullable: true
@@ -423,9 +423,9 @@ components:
           nullable: true
           example: USA
         geoname_id:
-          type: integer
+          type: string
           nullable: true
-          example: 6252001
+          example: '6252001'
       type: object
     Goal:
       x-tags:
@@ -502,9 +502,9 @@ components:
           nullable: true
           example: california
         geoname_id:
-          type: integer
+          type: string
           nullable: true
-          example: 5332921
+          example: '5332921'
       type: object
     Sticker:
       x-tags:
@@ -586,7 +586,7 @@ x-webhooks:
   updatedOffer:
     post:
       summary: Updated offer
-      description: Information about a updated offer in the system
+      description: Information about an updated offer in the system
       operationId: updatedOffer
       tags:
         - offer
