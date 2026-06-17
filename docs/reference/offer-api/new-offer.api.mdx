@@ -1,0 +1,71 @@
+---
+id: new-offer
+title: "New offer"
+description: "Information about a new offer in the system"
+sidebar_label: "New offer"
+hide_title: true
+hide_table_of_contents: true
+api: eJyNVmtv2zYU/SsXzJcWkGXZ6yMThmHpGgwGhqZoOvTDWqzX5JXFliJZPuxqgf/7cKnEcR7DBhiwRN7nuYeHuhKKogzaJ+2saMXKdi4MyG+Aa5cTIFjages6CqAtpJ4gjjHRICrhPIViu1KiFZZ2F2wmKpFwE0X7pyhu4lMlAn3LFNMrp0bRXgnpbCKb+BG9N1qWKPMvkYu4ElH2NCA/pdGTaIVbfyGZRCV84JxJU7zdPVjFFLTdiEqQzcMhfS0DYSLF9Zb37NWd90CD25ISn/aVUJj+R97ixz0/kvo7Dt7w0mL5w7PnL16e/vjs+YvrZ7GvuN87ntom2hTQDq6LfSUkDh71xv637b4SSaeSssD/gda9c19fcydlb6CYcPCPVTsNW7TcN83Y9E4Ly2b5bNYsZs0CmqYtP/Fv+cSed3jOOpASbQqZykL0zsYJt2XT8N9dyr2jlIMFhGXTQEyYcoTkQFvFtCBIPaZCO54N7DBCIEl6SwpilpJi7LIxYylsoNQ75iJtmV6V8Jh60YrddY2ViBS2FJicVyIHI1rRp+RjO5+Xoc7Q6xrVhoZaumG+XYjqXrmvqcNsEkyBxL46jtPO54vly7qpm3rRnjanpw/cC2Rw9nYFT4yTaJ6K/SeuSuag03jJxJ+wekUYKJxlrv8wOM7BTRQz0Yp1MRIPcN9Xgs/Su9tTd34z1Ftu3zscN9Q/kPtRBh8IvLjL0cVdqj1OnUpo27mHFDg5gZVNwakseeWjfd8T3CKFxrhdBJ/XRseeQuGHz8ZMshQBrQKlozc4MlMGsJj0lswIriiWDrCjddSJwAVA72t43+sI5TxNCgaMCki0sCbIkRSLHcIWg6Y0guvgj9WUaOfC1wgUPUmNxoywI2OgcwE6wpQDKfAGJQ1kmSWlo8gJj1sKhfSRW7tp4snapR6ithtDJdGQTdKzQDsM6imsR1AT9SpA4+wGdjr1sHFoZoEMD3E6IeyKkK3+lglWr0tlhLKf8tQfH8B7XAtuURtcGzqG9lH8WcKDMxBdSNpuimHCsKHy5rqbAJx+GgGPh0J8pAIdwboEiqLeWFIcfs3DMGaaQyA0RZ1AGl1glWQxaDcF+0AsCW4YyCoYXS6e4PIUnLYURngOg7Y5UamdbMyB2PRQFfS4JcCiJ2zCgjO4mCD7WXIz1sfrjmpYdZMres+le2cM98wunHBwoaiWhRfNfCh3po6w08ZAoMjawdSyQCG4UMObi/fn7QRGhAHH63ncFNERKcAuUYFxnOpcEzEq5d4ClYmNFY4g0XttN/NEg3cBwwgeM1Oq4HRyAqwnZNP1hXt/DjlShAu2gWXdwKQut6B8JSby+XfZo91QqS5QFyj20yZ0wQ0TNGfqNxpuGQMKY792GFThA0LsXUgzU1T8OH7FUS1EnqROfHyn8V1/PwAyI+Ezl+iC/rt00cKklfDTFOmvEunnz9ATKgo1nB03ABgIonR+4tnNIOuPVlSCr4ZJkhYs4uLeVccg8RqFIV50lxS2WtLRFaKcjEe3x6H9Wczeu5B4ZVa8Z2jVTDqrdJGHuajKNxHK8k1ksag7j+Ry8uRreUBtykdA5345JBHVvWvsdmdfCaMl2UjHMT3Knni8dzzb+Xy329VYdmsXNvNr1zj/ffXr+ZvL89mybuo+DYYv+n8AX66Ezg==
+sidebar_class_name: "event api-method"
+info_path: docs/reference/offer-api/offer-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"New offer"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"event"}
+  path={"webhook"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Information about a new offer in the system
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={undefined}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"content":{"application/json":{"schema":{"type":"object","properties":{"type":{"type":"string","enum":["offer.created","offer.updated","offer.removed"]},"data":{"type":"object","properties":{"offerId":{"type":"string","example":"1234567894561234567"},"appId":{"type":"integer","example":1},"campaignId":{"type":"integer","example":1}},"title":"OfferWebhookData"},"timestamp":{"type":"string","format":"date-time","example":"2024-01-01 00:00:00"}},"title":"OfferWebhook"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"Return a 200 status to indicate that the data was received successfully"}}}
+>
+  
+</StatusCodes>
+
+
+      

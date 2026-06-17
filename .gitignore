@@ -23,3 +23,5 @@ yarn-error.log*
 
 # Environment variables
 .env
+# Generated OpenAPI sidebar — not imported (we hand-arrange in sidebars.ts)
+docs/reference/offer-api/sidebar.ts

@@ -107,19 +107,32 @@ const sidebars: SidebarsConfig = {
       type: "category",
       label: "Offer API (REST)",
       link: { type: "doc", id: "reference/offer-api/overview" },
+      // Generated OpenAPI pages (gen-api-docs) are hand-arranged here so operations,
+      // the Offer model, and data-type schemas are grouped separately rather than
+      // flattened together. Webhook events are surfaced under "Webhook Events" below.
       items: [
+        "reference/offer-api/offer-api", // generated Introduction (overview/auth summary)
         "reference/offer-api/authentication",
         "reference/offer-api/pagination",
         "reference/offer-api/errors",
         "reference/offer-api/versioning",
         {
           type: "category",
-          label: "Resources",
+          label: "Endpoints",
+          items: ["reference/offer-api/get-offers"],
+        },
+        "reference/offer-api/schemas/offer", // The Offer model
+        {
+          type: "category",
+          label: "Schemas",
           items: [
-            "reference/offer-api/resources/offers",
-            "reference/offer-api/resources/goals",
-            "reference/offer-api/resources/clicks",
-            "reference/offer-api/resources/tokens",
+            "reference/offer-api/schemas/goal",
+            "reference/offer-api/schemas/sticker",
+            "reference/offer-api/schemas/os",
+            "reference/offer-api/schemas/country",
+            "reference/offer-api/schemas/state",
+            "reference/offer-api/schemas/city",
+            "reference/offer-api/schemas/basic-requirements",
           ],
         },
       ],
@@ -133,7 +146,18 @@ const sidebars: SidebarsConfig = {
         "reference/reporting-api/errors",
       ],
     },
-    "reference/webhook-events",
+    {
+      type: "category",
+      label: "Webhook Events",
+      link: { type: "doc", id: "reference/webhook-events" },
+      // Public offer lifecycle webhooks (generated from the Offer API spec's
+      // x-webhooks; pages live under reference/offer-api/ but belong here in the IA).
+      items: [
+        "reference/offer-api/new-offer",
+        "reference/offer-api/updated-offer",
+        "reference/offer-api/deleted-offer",
+      ],
+    },
     "reference/errors",
   ],
 

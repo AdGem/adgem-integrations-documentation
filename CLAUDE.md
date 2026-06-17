@@ -28,8 +28,8 @@ npm run graphql-to-doc     # Generate GraphQL docs from schema endpoint
 ## Environment Setup
 
 Copy `.env.example` to `.env` and configure:
-- `TARGETED_API_SCHEMA_URL` - GraphQL schema endpoint URL
-- `TARGETED_API_TOKEN` - Bearer token for schema access (set in docusaurus.config.ts customFields)
+- `PRISM_SCHEMA_URL` - Prism (GraphQL) schema endpoint URL (also exposed to the client-side playground via `docusaurus.config.ts` customFields)
+- `PRISM_ACCESS_TOKEN` - short-lived Cognito access token (Bearer) for schema introspection at generation time
 
 ## Architecture
 
@@ -62,9 +62,9 @@ static/
 
 ## Workflow
 
-1. **REST API changes**: Edit `examples/offer.yaml`, then run `npm run gen-api-docs`
+1. **REST API changes**: Edit `examples/offer.yaml`, then run `npm run clean-api-docs && npm run gen-api-docs`. **Note:** `gen-api-docs` will NOT overwrite already-generated `*.api.mdx` / `*.schema.mdx` files, so a bare `gen-api-docs` silently ignores edits to existing schemas — always `clean-api-docs` first when changing the spec. Generated output lives under `docs/reference/offer-api/` (hand-written conceptual pages there — overview/authentication/etc. — are preserved by clean).
 2. **GraphQL docs refresh**: Run `npm run graphql-to-doc` (requires valid env vars)
-3. **Manual docs**: Edit `.mdx` files directly in `docs/targeted-api/` for FAQ, playground, etc.
+3. **Manual docs**: Edit `.mdx` files directly in `docs/reference/prism/` for FAQ, playground, etc.
 
 ## PR Template
 

@@ -16,8 +16,7 @@ info:
     We recommend you call our API every 5 minutes to ensure your players have access to the most up-to-date offers. If your app is polling the API more than 60/min this will result in an error. NOTE: Offers may return to the feed after they have been removed due to day capping/temporary pausing.
 
     ## Authentication
-    The Offer API offers two forms of authentication:
-      - API Key
+    The Offer API uses OAuth 2.0 bearer access tokens. Exchange the refresh token from your AdGem publisher dashboard for a short-lived access token, then send it on every request as an `Authorization: Bearer <access_token>` header. Access tokens are scoped to your app.
 
   version: 1.0.0
   title: Offer API
@@ -33,17 +32,6 @@ tags:
   - name: offer
     description: Everything about your Offers
     x-displayName: Offers
-  - name: offer_model
-    x-displayName: The Offer Model
-    description: |
-      <SchemaDefinition schemaRef="#/components/schemas/Offer" />
-x-tagGroups:
-  - name: General
-    tags:
-      - offer
-  - name: Models
-    tags:
-      - offer_model
 paths:
   /offers:
     get:
@@ -155,7 +143,9 @@ components:
           description: The next page number, or `null` if there are no more pages.
           example: 2
     Offer:
-      type: offer
+      type: object
+      x-tags:
+        - offer
       required:
         - id
         - name
@@ -211,6 +201,9 @@ components:
         is_multi_reward:
           type: boolean
           example: false
+        is_featured_campaign:
+          type: boolean
+          example: false
         campaign_vertical:
           type: string
           example: 'Content Discovery'
@@ -262,8 +255,16 @@ components:
             categories:
               type: array
               items:
-                $ref: '#/components/schemas/Category'
-              example: app
+                type: string
+                enum:
+                  - app
+                  - free
+                  - paid
+                  - survey
+                  - trial
+                  - user_info_request
+              example:
+                - app
             sort_order_setting:
               type: integer
               nullable: true
@@ -272,6 +273,10 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/Sticker'
+            hero_image_url:
+              type: string
+              nullable: true
+              example: 'https://adgem.com/images/offerwall/offerwall_hero.png'
             offer_cta:
               type: string
               nullable: true
@@ -299,7 +304,11 @@ components:
               example: 'https://api.adgem.com/v1/click?all=1&appid=1&cid=100&playerid={playerid}'
             support_url:
               type: string
-              example: 'https://api.adgem.com/support/1/100/{playerid}'
+              example: 'https://adunits.adgem.com/support-single-offer?appid=1&playerid={playerid}&campaignid=100'
+            interstitial_url:
+              type: string
+              description: Present when a click URL exists; derived from the click URL.
+              example: 'https://api.adgem.com/offer-interstitial?all=1&appid=1&cid=100&playerid={playerid}'
           type: object
         stats:
           properties:
@@ -330,15 +339,23 @@ components:
         device_targeting:
           type: array
           items:
-            $ref: '#/components/schemas/Device'
+            type: string
+            enum:
+              - android
+              - ios
+              - ios_app
+              - desktop
+          example:
+            - android
+            - ios
         os_targeting:
           type: array
           items:
-            $ref: '#/components/schemas/Os'
+            $ref: '#/components/schemas/OS'
           example:
-            name: android
-            min: '4.0'
-            max: '10.0'
+            - name: android
+              min: '4.0'
+              max: '10.0'
         app_store_categories:
           type: array
           items:
@@ -351,17 +368,6 @@ components:
         attribution_window_days:
           type: integer
           example: 30
-    Category:
-      x-tags:
-        - offer
-      type: string
-      enum:
-        - app
-        - free
-        - paid
-        - survey
-        - trial
-        - user_info_request
     City:
       x-tags:
         - offer
@@ -410,15 +416,6 @@ components:
           nullable: true
           example: '6252001'
       type: object
-    Device:
-      x-tags:
-        - offer
-      type: string
-      enum:
-        - android
-        - ios
-        - ios_app
-        - desktop
     Goal:
       x-tags:
         - offer
@@ -452,8 +449,16 @@ components:
         is_purchase_goal:
           type: boolean
           example: false
+        is_attribution:
+          type: boolean
+          example: false
+        maximum_completion_time_days:
+          type: integer
+          nullable: true
+          example: 30
       type: object
-    Os:
+    OS:
+      title: OS
       x-tags:
         - offer
       required:
@@ -501,7 +506,7 @@ components:
         color:
           type: string
           nullable: true
-          example: FF0000
+          example: '#FF0000'
       type: object
     Basic_Requirements:
       x-tags:
@@ -570,7 +575,7 @@ x-webhooks:
   updatedOffer:
     post:
       summary: Updated offer
-      description: Information about a updated offer in the system
+      description: Information about an updated offer in the system
       operationId: updatedOffer
       tags:
         - offer

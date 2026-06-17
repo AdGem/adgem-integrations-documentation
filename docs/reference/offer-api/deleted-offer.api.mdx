@@ -1,0 +1,71 @@
+---
+id: deleted-offer
+title: "Deleted offer"
+description: "Information about a deleted offer in the system"
+sidebar_label: "Deleted offer"
+hide_title: true
+hide_table_of_contents: true
+api: eJyNVtuO2zYQ/ZUB85IAsiy7uWyFouimWRQGimyRTZGHJmjG5MhiQpEsL3bUhf+9GMrr9V6KFjBgiZz7OTzUtVAUZdA+aWdFK1a2c2FAfgNcu5wAQZGhRApc11EAbSH1BHGMiQZRCecpFPuVEq042F6yqahEwk0U7R+iuIpPlQj0V6aYXjs1ivZaSGcT2cSP6L3RskSaf4lczLWIsqcB+SmNnkQr3PoLySQq4QPnTZri7e7RKqag7UZUgmwejulrGQgTKa65vGev7rwHGtyWlPi0r4TC9D/yFj/u+5HU33DwhpcWy++ev3j56uz75y9eHp7FvuJ+73hqm2hThnZ0XewrIXHwqDf2v233lUg6lZRl/B9o3Tv39Q13UvYGigkH/1i1E+iMHyaasemdFpbN8vmsWcyaBTRNW37i3/KJPe8wzjqQEm0KmcpC9M7GaW7LpuG/u9R7RykHCwjLpoGYMOUIyYG2imlBkHpMhXqMDewwQiBJeksKYpaSYuyyMWMpbKDUO+YjbZlelfCYetGK3aHGSkQKWwpMzmuRgxGt6FPysZ3PC6gz9LpGtaGhlm6YbxeiulfuG+owmwRTILGvTuO08/li+apu6qZetGfN2dkD9zIyOP9tBU+Nk2ieif0nrkrmoNN4xcSfZvWaMFA4z1z/ETjOwU0UM9GKdTESD+a+rwSfpXe3p+7iBtRbbt87HDfUP5L7UQYfCby4y9HFXao9Tp1KaNu5hxR48gRWNgWnsuSVj/Z9T3A7KTTG7SL4vDY69hQKP3w2ZpKmCGgVKB29wZGZMoDFpLdkRnBFtXSAHa2jTgQuAHpfw/teRyjnaVIx4KmARAtrghxJseAhbDFoSiO4Dn5fTYl2LnyNQNGT1GjMCDsyBjoXoCNMOZACb1DSQJZZUjqKnPC0pVBIH7m1myaerl3qIWq7MVQSDdkkPQu0w6CewXoENVGvAjTObmCnUw8bh2YWyDCI0wlhV4Rs9V+ZYPWmVEYo+ylP/fHBeE9rwS1qg2tDp6N9dP4s4cEZiC4kbTfFMGHYUHlz3U0ATj9BwPBQiI9UoCNYl0BR1BtLisOvGQxjJhwCoSnqBNLoMlZJFoN2U7APxJLghoGsgtHl4gkuT8FpS2GEFzBomxOV2snGHIhNj1VBj1sCLHrCJiw4g4sJsp8lN2N9PHRUw6qbXNF7Lt07Y7hnduGEgwtFtSy8bOZDuTd1hJ02BgJF1g6mlgUKwYUa3l6+v2inYUQYcDzgcVNER6QAu0RljONU55qIp1LuLVCZ2FjhCBK913YzTzR4FzCM4DEzpcqcnjwB1hOy6XDh3schR4pwyTawrBuY1OV2KF+JiXzxTfZoN1SqC9QFiv20CV1wwzSac/ULDbeMAYWxXzsMqvABIfYupJkpKn4av+KoFiIjqRMf3wm+w/cDIDMSPnOJLui/SxctTFoJP0yR/iyRfvwMPaGiUMP5aQOAgSBK5yee3QBZf7SiEnw1TJK0YBEX9646HhKvURjiZXdFYaslnVwhysl4cnsc25/F7L0LiVdmxXuGVs2ks0oXeZiLqnwToSzfRBaLujMkV5MnX8sDalM+Ajr30zGJqO5dY7c7+0oYLclGOo3pUfbE8N7xbOfz3W5XY9mtXdjMD65x/uvq54u3VxezZd3UfRoMX/T/ABIQh+g=
+sidebar_class_name: "event api-method"
+info_path: docs/reference/offer-api/offer-api
+custom_edit_url: null
+---
+
+import MethodEndpoint from "@theme/ApiExplorer/MethodEndpoint";
+import ParamsDetails from "@theme/ParamsDetails";
+import RequestSchema from "@theme/RequestSchema";
+import StatusCodes from "@theme/StatusCodes";
+import OperationTabs from "@theme/OperationTabs";
+import TabItem from "@theme/TabItem";
+import Heading from "@theme/Heading";
+
+<Heading
+  as={"h1"}
+  className={"openapi__heading"}
+  children={"Deleted offer"}
+>
+</Heading>
+
+<MethodEndpoint
+  method={"event"}
+  path={"webhook"}
+  context={"endpoint"}
+>
+  
+</MethodEndpoint>
+
+
+
+Information about a deleted offer in the system
+
+<Heading
+  id={"request"}
+  as={"h2"}
+  className={"openapi-tabs__heading"}
+  children={"Request"}
+>
+</Heading>
+
+<ParamsDetails
+  parameters={undefined}
+>
+  
+</ParamsDetails>
+
+<RequestSchema
+  title={"Body"}
+  body={{"content":{"application/json":{"schema":{"type":"object","properties":{"type":{"type":"string","enum":["offer.created","offer.updated","offer.removed"]},"data":{"type":"object","properties":{"offerId":{"type":"string","example":"1234567894561234567"},"appId":{"type":"integer","example":1},"campaignId":{"type":"integer","example":1}},"title":"OfferWebhookData"},"timestamp":{"type":"string","format":"date-time","example":"2024-01-01 00:00:00"}},"title":"OfferWebhook"}}},"required":true}}
+>
+  
+</RequestSchema>
+
+<StatusCodes
+  id={undefined}
+  label={undefined}
+  responses={{"200":{"description":"Return a 200 status to indicate that the data was received successfully"}}}
+>
+  
+</StatusCodes>
+
+
+      
