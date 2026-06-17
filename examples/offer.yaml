@@ -32,17 +32,6 @@ tags:
   - name: offer
     description: Everything about your Offers
     x-displayName: Offers
-  - name: offer_model
-    x-displayName: The Offer Model
-    description: |
-      <SchemaDefinition schemaRef="#/components/schemas/Offer" />
-x-tagGroups:
-  - name: General
-    tags:
-      - offer
-  - name: Models
-    tags:
-      - offer_model
 paths:
   /offers:
     get:
