@@ -16,8 +16,7 @@ info:
     We recommend you call our API every 5 minutes to ensure your players have access to the most up-to-date offers. If your app is polling the API more than 60/min this will result in an error. NOTE: Offers may return to the feed after they have been removed due to day capping/temporary pausing.
 
     ## Authentication
-    The Offer API offers two forms of authentication:
-      - API Key
+    The Offer API uses OAuth 2.0 bearer access tokens. Exchange the refresh token from your AdGem publisher dashboard for a short-lived access token, then send it on every request as an `Authorization: Bearer <access_token>` header. Access tokens are scoped to your app.
 
   version: 1.0.0
   title: Offer API
