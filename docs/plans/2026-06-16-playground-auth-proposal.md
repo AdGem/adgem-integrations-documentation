@@ -61,4 +61,31 @@ We want live, interactive playgrounds in the **public** docs so developers can e
 
 **Build-time synergy:** the Documentation Prism app's token can also drive `graphql-to-doc` schema introspection, so standing up the test app + token mechanism unblocks both the generated Prism reference and the playground.
 
-**Sequencing:** MVP = proxy + Documentation apps (frictionless, test data). Follow-up = BYO-token advanced mode. The Prism *reference* (schema + conceptual pages) can proceed independently of the playground.
+**Sequencing — UPDATED 2026-06-18 (timeline-driven):** **BYO (paste access token) ships first as the MVP; the proxy + Documentation apps is the fast-follow default.** (Reversed from the original "proxy MVP" because of the June 30 target — see Part 3.) The Prism *reference* (schema + conceptual pages) proceeds independently of the playground.
+
+---
+
+## Part 3 — BYO vs. Proxy decision record (2026-06-18)
+
+Two approaches were compared in depth. BYO has two sub-variants: paste the **access** token (pub mints out-of-band) vs. paste a **refresh** token and let the playground mint (the "smooth" variant).
+
+### Configuration complexity
+- **BYO (paste access token):** lowest. Playground UI already exists (`graphql-playground.jsx` headers panel; OpenAPI theme auth field). No CORS change (offers endpoints are already `*`); **no token-endpoint CORS** (browser never calls it). No infra. ≈ an auth guide.
+- **BYO (mint from refresh token):** + CORS on the shared `cognito-token` endpoint in **both** services (app-level `config/cors.php`, scoped to docs origin) + refresh token in the browser. A sensitive change.
+- **Proxy + test apps:** highest. Lambda (Function URL) + Secrets Manager + IAM via **CDK in the docs repo** (first IaC in the docs AWS account → platform sign-off + CI deploy creds); a **Documentation publisher + 2 apps** whitelisted + seeded with sample offers; rotate the refresh token; rate-limit the public endpoint. **No CORS changes anywhere.**
+
+### End-user friction
+- **BYO (access token):** high — obtain refresh token → exchange → copy → paste → re-mint ~hourly.
+- **BYO (refresh token):** medium — paste a refresh token once; longer-lived secret in the browser.
+- **Proxy:** none — click and run; no token/login/expiry.
+
+### Assumptions before the user sees offers
+- **BYO (either):** the user is an existing pub with a refresh token; their app is whitelisted/active; offers exist for it; exchange+paste done and token unexpired. → Prospects / evaluators / new pubs likely see **nothing**.
+- **Proxy:** Documentation apps exist + whitelisted + seeded (one-time, owned by us); proxy up + token valid. → **Any** visitor sees consistent demo offers immediately; no assumptions about the user.
+
+### Net
+- **Proxy** is the better *default* for a frictionless, anyone-can-try-it experience aligned with the docs' eval/onboarding audience — the deciding factors being the assumptions row (BYO shows nothing to the audience docs court) and that "frictionless BYO" collapses into a worse-security proxy (token-endpoint CORS + refresh-token-in-browser).
+- **BYO** is far cheaper, has no platform/data dependencies, and is fine if the audience is existing integrators.
+
+### Decision (timeline-driven)
+With a **June 30** "usable" target (~12 days), **ship BYO (access token) first** — it has **no external dependencies** (no platform IaC approval, deploy creds, or Documentation-apps provisioning) and ~no build. The **proxy default is the fast-follow.** BYO is not throwaway — it becomes the documented "advanced: query your own app" mode. Rationale: the proxy's risk to the date isn't the code, it's the cross-team/infra dependencies; and the playground is not the timeline's long pole (content + hosting are).
