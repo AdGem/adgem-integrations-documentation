@@ -17,7 +17,7 @@ Note: confirm the **docs AWS account + region** with Ron (recorded outside this 
 - [ ] **No `graphql-to-doc` at build, no Cognito token needed in Amplify** — the Prism reference is generated commit-time and committed.
 
 **Env vars**
-- [ ] `DOCUSAURUS_BASE_URL=/` — Amplify serves at root (differs from GH Pages' `/adgem-integrations-documentation/` subpath; this is also the fix for the broken-on-GH-Pages asset paths).
+- [ ] `DOCUSAURUS_BASE_URL=/` — **for Amplify only** (Amplify, including its default domain, serves at root; this also fixes the broken-on-GH-Pages asset paths). **Per-host base path:** the **GH Pages fallback keeps its existing subpath base-url** (`/adgem-integrations-documentation/`, the repo default) — do **not** set `/` there.
 - [ ] `DOCUSAURUS_URL` = the live origin (Amplify default domain first, then `https://docs.adgem.com`).
 - [ ] `PRISM_SCHEMA_URL` = `https://targeted-api.adgem.com/v1/offers` (non-secret; exposed to the client playground). **No `PRISM_ACCESS_TOKEN` needed in Amplify.**
 
@@ -26,7 +26,7 @@ Note: confirm the **docs AWS account + region** with Ron (recorded outside this 
 - [ ] Add `docs.adgem.com` as a custom domain in Amplify; create the DNS record(s) (CNAME/ANAME) it requires.
 - [ ] Provision/verify the TLS cert (Amplify-managed ACM).
 - [ ] Once live: set `DOCUSAURUS_URL=https://docs.adgem.com`; confirm canonical URLs + sitemap.
-- **Fallback if DNS/cert slips past June 30:** launch on the Amplify default domain (or keep GH Pages) and cut over to `docs.adgem.com` as a fast-follow — don't let DNS block the date.
+- **Fallback if DNS/cert slips past June 30:** launch on the **Amplify default domain** (root, `BASE_URL=/`) — or **keep GH Pages** (uses its existing subpath base-url, *not* `/`) — and cut over to `docs.adgem.com` as a fast-follow. Don't let DNS block the date.
 
 **Cutover**
 - [ ] After the domain is live and verified, retire GH Pages + its PR-preview workflow.

@@ -10,7 +10,8 @@ The playground (BYO vs proxy) is **not** the long pole. The date is won or lost 
 - Five-surface IA, navigable (done).
 - **Offer API (REST) reference** (done, PR #44).
 - **Prism (GraphQL) reference** — *if* a Cognito token lands in time (generate + wire per the approved design).
-- **Priority content** migrated: Get Started (all), Integrate primary paths (Web Offerwall, Prism, Offer API, Postbacks v3), Configure essentials, the Reference conceptual pages, Resources essentials. Cognito-only auth.
+- **Priority content** migrated: Get Started (all), Integrate primary paths (Web Offerwall, Prism, Offer API, Postbacks v3), Configure essentials, Resources essentials. Cognito-only auth.
+- **Reference conceptual pages** (Offer API + Prism overview/auth/errors/versioning, etc.): **author-fresh** — these have no old source (see content-status), so they're written, not migrated.
 - **BYO playground** (paste access token) for Prism + the REST "try-it."
 - **Hosted** — Amplify + `docs.adgem.com` preferred; **fallback = GH Pages / Amplify default domain** if domain/DNS slip.
 - Build passes + one Playwright visual pass.
