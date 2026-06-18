@@ -1,12 +1,19 @@
 ---
 title: Resources
 sidebar_label: Resources
+description: Branding assets, glossary, support, and other resources for AdGem publishers.
 ---
 
 # Resources
 
-:::note Prototype placeholder
-Structure-only page for IA validation — see [PUB-191](https://linear.app/adaction/issue/PUB-191). Real content is a follow-on.
-:::
+Helpful resources for AdGem publishers, including branding materials, industry terminology, support information, and more.
 
-Episodic, definitional, auxiliary — the stuff you look up on demand, between integration sessions.
+## Support
+
+- **[Player Support Overview](./player-support-overview.md)** --- How AdGem handles player support requests on behalf of publishers.
+- **[Service Status](https://status.adgem.com)** --- Real-time AdGem service status monitoring.
+
+## Reference
+
+- **[Branding Assets](./branding-assets.mdx)** --- Official AdGem logos and media assets for your integration.
+- **[Glossary](./glossary.md)** --- Definitions for 75+ advertising and mobile industry terms.
