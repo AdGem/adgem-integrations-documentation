@@ -54,7 +54,7 @@ dependencies {
 
 #### Maven Installation
 
-Or integrate the Android SDK into your Android Studio Project with Maven by adding the following code to your application's `build.maven`:
+Or integrate the Android SDK into your Android Studio Project with Maven by adding the following code to your application's `pom.xml`:
 
 ```xml
 <dependency>
@@ -111,7 +111,7 @@ Optionally, you may also lock the orientation of the ads by setting `lockOrienta
 All communication with the SDK happens via the AdGem class. Within your application's main or first Activity class, add the following line of code:
 
 ```java
-AdGem adgem = AdGem.get();
+AdGem adGem = AdGem.get();
 ```
 
 :::note
@@ -121,7 +121,7 @@ There is no need to store an instance of AdGem globally. The SDK will cache its 
 Use the AdGem class to show the Offerwall in your project:
 
 ```java
-adGem.showOfferwall(); // Show Offerwall
+adGem.showOfferwall(this); // Show Offerwall (pass your Activity as the Context)
 ```
 
 ### Step 4. Register the AdGem Offerwall Callback
@@ -160,8 +160,8 @@ OfferwallCallback callback = new OfferwallCallback() {
 Offerwall callback may be registered through the instance of `AdGem`:
 
 ```java
-AdGem adgem = AdGem.get();
-adgem.registerOfferwallCallback(callback);
+AdGem adGem = AdGem.get();
+adGem.registerOfferwallCallback(callback);
 ```
 
 Once registered, a callback will be used to deliver Offerwall updates.
@@ -213,7 +213,7 @@ PlayerMetadata player = PlayerMetadata.Builder.createWithPlayerId("myPlayerId")
   .customField5("custom_field_5")
   .build();
 
-adgem.setPlayerMetaData(player);
+adGem.setPlayerMetaData(player);
 ```
 
 ---

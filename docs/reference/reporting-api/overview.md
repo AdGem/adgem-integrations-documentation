@@ -46,7 +46,7 @@ You will not get another opportunity to view or copy the API key without generat
 
 ### Step 2: Authentication
 
-All requests must include the API key and application type in the header. Send a GET request to the following endpoint:
+All requests must include your API key as a Bearer token in the `Authorization` header. Send a GET request to the following endpoint:
 
 ```
 https://dashboard.adgem.com/v1/report
@@ -77,7 +77,7 @@ Use the request parameters below to customize the data returned in the response.
 |---|---|---|
 | `group_by` | Array of Strings | **Required.** Options: `app_id`, `date`, `platform`, `country`, `offer` |
 | `date_range` | Object | **Required.** Needs `start_date` and `end_date` properties in `Y-m-d H:i:s` format. Example: `2019-11-30 11:54:06` |
-| `fields` | Array of Strings | Fields to return in the response. Options: `app_id`, `app_name`, `country_name`, `platform_name`, `date`, `offer_name`, `dau` (Daily Active Users), `payout`, `offerwall_loads`, `gross_clicks`, `distinct_clicks`, `conversions`, `ctr` (Click Through Rate), `cr` (Conversion Rate), `ecpm` (Effective Cost Per Mille) |
+| `fields` | Array of Strings | Fields to return in the response. Options: `app_id`, `app_name`, `country_name`, `platform_name`, `date`, `offer_name`, `count` (Daily Active Users), `payout`, `offer_wall_loads`, `gross_clicks`, `distinct_clicks`, `conversions`, `ctr` (Click Through Rate), `cver` (Conversion Rate), `ecpm` (Effective Cost Per Mille) |
 | `filter_by` | Array of Strings | Options: `app_id`, `platform`, `country`. Note: country values must use the ISO 3166 Alpha-2 code. |
 | `apps` | Array of Integers | App IDs to retrieve data for. Requires `app_id` in the `filter_by` field. |
 | `platforms` | Array of Strings | Platforms to retrieve data for. Requires `platform` in the `filter_by` field. |
@@ -97,7 +97,7 @@ These are the default fields returned in the response. To return specific fields
 | `date` | string | |
 | `app_name` | string | The name of your app on AdGem |
 | `offer_wall_loads` | integer | |
-| `clicks` | integer | Gross clicks |
+| `gross_clicks` | integer | Gross clicks |
 | `distinct_clicks` | integer | Unique clicks |
 | `conversions` | integer | |
 | `impressions` | integer | |
