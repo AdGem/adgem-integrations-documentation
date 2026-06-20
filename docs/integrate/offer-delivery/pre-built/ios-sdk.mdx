@@ -16,7 +16,7 @@ import CreateAppProperty from '@site/docs/_partials/sdk-step0-create-app.mdx';
 
 <DeprecationNotice
   deadline="July 1, 2025"
-  currentVersion="v2.0.0"
+  currentVersion="v2.4.1"
   platform="iOS"
 />
 
@@ -34,24 +34,16 @@ import CreateAppProperty from '@site/docs/_partials/sdk-step0-create-app.mdx';
 
 ### Step 1. Install the AdGem iOS SDK
 
-There are two ways to add the AdGem SDK to your iOS app. We recommend that you use the CocoaPods approach, but you can also download it and add it manually if you prefer.
+Add the AdGem SDK to your app with **Swift Package Manager**:
 
-#### CocoaPods Integration Method (Recommended)
+1. In Xcode, choose **File > Add Package Dependencies…**
 
-1. Install **CocoaPods** (v1.9 or newer). You can find more information on how to install CocoaPods [here](https://guides.cocoapods.org/using/getting-started.html).
-
-2. Edit your **Podfile** and add the following line:
-   ```ruby
-   pod 'AdGem'
+2. Enter the package URL:
+   ```
+   https://github.com/AdGem/ios-sdk-package
    ```
 
-3. Run `pod install` in your terminal window. CocoaPods will automatically download the framework and install it into your project.
-
-#### Manual Download
-
-1. Download the latest version of the **[AdGem iOS SDK v2.0.0](https://adgem-framework.s3.amazonaws.com/iOS-2.0.0.zip)**
-
-2. Drag the **AdGemSdk.xcframework** folder into the **Frameworks, Libraries, and Embedded Content section** in Xcode
+3. Select the **AdGemSdk** library and add it to your app target. Swift Package Manager downloads and links the framework automatically.
 
 ### Step 2. Configure the AdGem SDK
 
