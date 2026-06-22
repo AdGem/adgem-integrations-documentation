@@ -1,0 +1,167 @@
+---
+title: Unity SDK
+sidebar_label: Unity SDK
+description: Integrate the AdGem Offerwall into your Unity game for both iOS and Android platforms.
+---
+
+# Unity SDK Integration Guide
+
+import DeprecationNotice from '@site/src/components/DeprecationNotice';
+import SDKBadge from '@site/src/components/SDKBadge';
+import BeforeYouBegin from '@site/docs/_partials/before-you-begin.mdx';
+import PlayerIdRequirements from '@site/docs/_partials/player-id-requirements.mdx';
+import CreateAppProperty from '@site/docs/_partials/sdk-step0-create-app.mdx';
+
+<SDKBadge platform="unity" />
+
+<DeprecationNotice
+  deadline="July 1, 2025"
+  currentVersion="v1.6.14"
+  platform="Unity"
+/>
+
+## Requirements
+
+<BeforeYouBegin platform="unity" />
+
+---
+
+## Integration
+
+### Step 0. Create an App Property in the AdGem Publisher Dashboard
+
+<CreateAppProperty />
+
+### Step 1. Install the AdGem Unity SDK
+
+Install the AdGem Unity SDK package via the [Unity Package Manager using a Git URL](https://docs.unity3d.com/Manual/upm-ui-giturl.html):
+
+```
+https://github.com/AdGem/adgem-sdk-unity-package.git#1.6.14
+```
+
+In the Editor, you can access the Package Manager window through the **Window > Package Manager** menu.
+
+:::tip External Dependencies
+In order to resolve native Android/iOS dependencies of the AdGem Unity SDK, use the [External Dependency Manager for Unity](https://github.com/googlesamples/unity-jar-resolver).
+:::
+
+### Step 2. Configure the AdGem SDK
+
+Set your AdGem App ID from the AdGem publisher dashboard in **Window > AdGem** settings menu.
+
+### Step 3. Use the AdGem Class
+
+All communication with the SDK happens via the AdGem class.
+
+Use the AdGem class to show the Offerwall in your project:
+
+```csharp
+AdGem.ShowOfferwall()
+```
+
+:::note
+There is no need to store an instance of AdGem globally. The SDK will cache its instance on the first call and will always return the same one for all subsequent calls to AdGem.
+:::
+
+### Step 4. Register the AdGem Offerwall Callbacks
+
+The AdGem SDK provides callbacks that notify when Offerwall internal state changes. These may be registered through the instance of `AdGem.OfferwallCallback`.
+
+```csharp
+var callback = AdGem.OfferwallCallback;
+
+callback.OnLoadingStarted.AddListener(() =>
+{
+    // Notifies that the Offerwall loading has started
+});
+callback.OnLoadingFinished.AddListener(() =>
+{
+    // Notifies that the Offerwall has been loaded.
+});
+callback.OnLoadingFailed.AddListener(error =>
+{
+    // Notifies that the Offerwall has failed to load.
+});
+callback.OnRewardReceived.AddListener(amount =>
+{
+    // Notifies that the user has completed an action and should be rewarded with a specified virtual currency amount.
+});
+callback.OnClosed.AddListener(() =>
+{
+    // Notifies that the Offerwall was closed.
+});
+```
+
+Once registered, a callback will be used to deliver Offerwall updates.
+
+:::warning Important
+It is the caller's responsibility to unregister callbacks. For example, if callbacks were registered in MonoBehaviour's `Start()` then they must be unregistered in the corresponding `OnDestroy()` call.
+:::
+
+```csharp
+public class AdGemDemoController : MonoBehaviour
+{
+    private void Start()
+    {
+        ...
+        var callbackDelegate = AdGem.OfferwallCallback;
+        callbackDelegate.OnLoadingStarted.AddListener(OnOfferwallLoadingStarted);
+        callbackDelegate.OnLoadingFinished.AddListener(OnOfferwallLoadingFinished);
+        callbackDelegate.OnLoadingFailed.AddListener(OnOfferwallLoadingFailed);
+        callbackDelegate.OnRewardReceived.AddListener(OnOfferwallRewardReceived);
+        callbackDelegate.OnClosed.AddListener(OnOfferwallClosed);
+        ...
+    }
+
+    private void OnDestroy()
+    {
+        ...
+        var callbackDelegate = AdGem.OfferwallCallback;
+        callbackDelegate.OnLoadingStarted.RemoveListener(OnOfferwallLoadingStarted);
+        callbackDelegate.OnLoadingFinished.RemoveListener(OnOfferwallLoadingFinished);
+        callbackDelegate.OnLoadingFailed.RemoveListener(OnOfferwallLoadingFailed);
+        callbackDelegate.OnRewardReceived.RemoveListener(OnOfferwallRewardReceived);
+        callbackDelegate.OnClosed.RemoveListener(OnOfferwallClosed);
+        ...
+    }
+}
+```
+
+### Step 5. Set the Player ID
+
+<PlayerIdRequirements />
+
+```csharp
+var metadata = new PlayerMetadata("playerID-123")
+{
+    gender = PlayerMetadata.Gender.MALE,
+    age = Random.Range(12, 87),
+    placement = Random.Range(1, 1195),
+    createdAt = DateTime.Now,
+    isPayer = true,
+    iapTotalUsd = Random.Range(1.99f, 1267)
+};
+
+AdGem.SetPlayerMetaData(metadata);
+```
+
+---
+
+## Additional Information
+
+### Optional Parameters
+
+:::note
+All parameter names and their values are case-sensitive.
+:::
+
+You can optimize your revenue potential by segmenting your users using the optional parameters available in the Unity SDK, such as age, gender, placement, and custom fields.
+
+### Debug Logging
+
+You can enable verbose logging by setting the `Is Debug` flag to true in **Window > AdGem** settings menu. By default, verbose logging is disabled.
+
+### Postback Setup
+
+If you have opted for a "Server Postback", on each successful offer completion by a user AdGem will send a server postback to your server. See [Postbacks](/docs/integrate/reward-mechanism/postbacks-v3) to learn more.

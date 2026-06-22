@@ -176,6 +176,7 @@ const sidebars: SidebarsConfig = {
     },
     "resources/glossary",
     "resources/branding-assets",
+    "resources/player-support-overview",
   ],
 };
 

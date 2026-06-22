@@ -1,12 +1,13 @@
 ---
 title: Configure
 sidebar_label: Configure
+description: Customize your Offerwall appearance, promotions, and webhooks.
 ---
 
 # Configure
 
-:::note Prototype placeholder
-Structure-only page for IA validation — see [PUB-191](https://linear.app/adaction/issue/PUB-191). Real content is a follow-on.
-:::
+Customize how the AdGem Offerwall looks and behaves in your application, and tune how your integration runs. These are cross-cutting concerns — they are not how you integrate.
 
-Cross-cutting concerns: webhooks, security, sandbox, customization, promotions. These tune how your integration runs — they are not how you integrate.
+- **[Customization](/docs/configure/customization)** — Set up your virtual currency name, icon, and multiplier to match your app's branding.
+- **[Promotions](/docs/configure/promotions)** — Schedule currency sales and promotional events to boost engagement and revenue.
+- **[Webhooks](/docs/configure/webhooks)** — Configure real-time alerts for offer status changes and player suspensions.
