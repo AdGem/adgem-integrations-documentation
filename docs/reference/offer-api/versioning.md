@@ -5,10 +5,10 @@ sidebar_label: Versioning
 
 # Offer API — Versioning
 
-The Offer API is versioned in the URL path. The current version is **v1**:
+The base URL — `https://offer-api.adgem.com` — stays the same across versions; the API version is the first path segment. The current version is **v1**:
 
 ```
-https://offer-api.adgem.com/v1
+https://offer-api.adgem.com/v1/offers
 ```
 
 - **Additive, backward-compatible changes** (for example, new fields on a response) are made within the current version without bumping it. Build your integration to **ignore unrecognized fields** so these additions don't break it.

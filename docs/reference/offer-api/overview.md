@@ -10,8 +10,10 @@ The Offer API is a REST API that returns the offers available to your app so you
 **Base URL**
 
 ```
-https://offer-api.adgem.com/v1
+https://offer-api.adgem.com
 ```
+
+All endpoints are served under the current API version path, `/v1` — for example, `https://offer-api.adgem.com/v1/offers`. See [Versioning](/docs/reference/offer-api/versioning).
 
 ## When to use the Offer API
 
