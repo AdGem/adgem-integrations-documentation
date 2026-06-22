@@ -11,7 +11,7 @@ The Offer API uses standard HTTP status codes.
 |---|---|---|
 | `200 OK` | Success | The response body contains the `offers` array (and a `pagination` object when paginating). |
 | `401 Unauthorized` | Authentication failed | Missing, expired, or invalid bearer token. Send a valid token — see [Authentication](/docs/reference/offer-api/authentication). |
-| `422 Unprocessable Entity` | Validation error | Invalid query parameters — for example `page` without `per_page`, or `per_page` outside 1–100. See [Pagination](/docs/reference/offer-api/pagination). |
+| `422 Unprocessable Entity` | Validation error | Invalid query parameters — for example `page` without `per_page`, `per_page` outside 1–100, or an unsupported value for a filter or `sort` parameter. See [`GET /v1/offers`](/docs/reference/offer-api/get-offers) for accepted parameters and values, and [Pagination](/docs/reference/offer-api/pagination). |
 
 ## Rate limiting
 

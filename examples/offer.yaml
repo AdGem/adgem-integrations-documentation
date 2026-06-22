@@ -50,6 +50,73 @@ paths:
         **Note:** If you provide `page` without `per_page`, the request will return a `422` validation error.
       operationId: getOffers
       parameters:
+        - name: tracking_types
+          in: query
+          required: false
+          description: |
+            Filter to offers with the given tracking type(s). Comma-separated list.
+            Allowed values: `CPI`, `CPE`, `CPA`, `CPC`, `Market Research`.
+          schema:
+            type: string
+            example: 'CPI,CPE'
+        - name: categories
+          in: query
+          required: false
+          description: |
+            Filter to offers in the given creative categor(ies). Comma-separated list.
+            Allowed values: `app`, `free`, `paid`, `survey`, `trial`, `user_info_request`.
+          schema:
+            type: string
+            example: 'app,free'
+        - name: country_codes
+          in: query
+          required: false
+          description: |
+            Filter to offers targeting the given countries. Comma-separated ISO 3166-1 alpha-2 country codes.
+          schema:
+            type: string
+            example: 'US,GB'
+        - name: reward_type
+          in: query
+          required: false
+          description: Filter by reward structure.
+          schema:
+            type: string
+            enum:
+              - all
+              - single
+              - multi
+            default: all
+            example: all
+        - name: platform
+          in: query
+          required: false
+          description: Filter to offers targeting the given platform.
+          schema:
+            type: string
+            enum:
+              - all
+              - android
+              - ios
+              - web
+            example: android
+        - name: language
+          in: query
+          required: false
+          description: Filter offers by language (language code, e.g. `en`).
+          schema:
+            type: string
+            example: en
+        - name: sort
+          in: query
+          required: false
+          description: |
+            Sort the results, in the form `<option>.<direction>`.
+            Options: `epc` (network EPC), `last_activation` (most recently activated).
+            Directions: `asc`, `desc`.
+          schema:
+            type: string
+            example: 'epc.desc'
         - name: per_page
           in: query
           required: false
