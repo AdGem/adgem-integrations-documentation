@@ -9,7 +9,7 @@ The `/v1/users/token` endpoint allows you to obtain a JWT access token by exchan
 
 ## Endpoint
 
-```
+```http
 POST https://targeted-api.adgem.com/v1/users/token
 ```
 

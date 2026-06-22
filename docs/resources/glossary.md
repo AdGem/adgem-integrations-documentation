@@ -1,7 +1,7 @@
 ---
 title: Glossary
 sidebar_label: Glossary
-description: Definitions for 75+ advertising and mobile industry terms used throughout AdGem documentation.
+description: Definitions for 70+ advertising and mobile industry terms used throughout AdGem documentation.
 ---
 
 # Glossary

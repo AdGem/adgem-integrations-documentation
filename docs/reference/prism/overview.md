@@ -9,7 +9,7 @@ The `/v1/offers` endpoint is the GraphQL entry point for retrieving targeted off
 
 ## Endpoint
 
-```
+```http
 POST https://targeted-api.adgem.com/v1/offers
 ```
 
@@ -67,7 +67,7 @@ curl -X POST https://targeted-api.adgem.com/v1/offers \
 
 ## Error Responses
 
-#### 401 Unauthorized
+### 401 Unauthorized
 
 Returned when the JWT token is missing or invalid.
 
@@ -77,7 +77,7 @@ Returned when the JWT token is missing or invalid.
 }
 ```
 
-#### 403 Forbidden
+### 403 Forbidden
 
 Returned when the token is valid but lacks the required scopes.
 

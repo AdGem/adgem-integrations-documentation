@@ -13,7 +13,7 @@ AdGem sends a postback to your server whenever a player completes an offer. The 
 
 By default, AdGem sends postbacks on payable conversion events. AdGem can also send **install postbacks** for tracking purposes when a player installs an app from an offer. If you would like to enable install postbacks, reach out to your dedicated Publisher Support Advocate.
 
-You can set up your Postback URL in the <a href="https://dashboard.adgem.com/publisher/apps" target="_blank">AdGem Dashboard</a>.
+You can set up your Postback URL in the <a href="https://dashboard.adgem.com/publisher/apps" target="_blank" rel="noopener noreferrer">AdGem Dashboard</a>.
 
 ## Choose a reward mechanism
 
