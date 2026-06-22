@@ -15,19 +15,35 @@ Authorization: Bearer <access_token>
 
 ## Getting an access token
 
-Authentication uses a **refresh-token → access-token** exchange:
+Exchange a **refresh token** — issued from your [AdGem Publisher Dashboard](https://dashboard.adgem.com/publisher/apps) — for a short-lived access token at the token endpoint:
 
-1. Get your **refresh token** for the app from the [AdGem Publisher Dashboard](https://dashboard.adgem.com/publisher/apps).
-2. Exchange it for a **short-lived access token**.
-3. Send that access token as a bearer token on every request, and exchange again for a new one when it expires.
+```http
+POST /v1/users/token HTTP/1.1
+Host: offer-api.adgem.com
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=refresh_token&refresh_token=<your_refresh_token>
+```
+
+**Response — `201 Created`:**
+
+```json
+{
+  "message": "Authorized",
+  "access_token": "<access_token>",
+  "expires_in": 3600
+}
+```
+
+Then send the access token as a bearer token on every Offer API request (see the `Authorization` header above).
 
 Access tokens are:
 
-- **Short-lived** — they expire, so refresh them rather than caching one indefinitely.
-- **Scoped to a single app** — a token only returns offers for the app it was issued for. Use the correct token per app.
+- **Short-lived** — `expires_in` is in seconds (typically one hour). Exchange your refresh token again for a new access token when the current one expires; don't cache a single token indefinitely.
+- **Scoped to a single app** — a token only returns offers for the app its refresh token belongs to. Use the correct token per app.
 
 :::warning Keep tokens server-side
-Treat refresh and access tokens as secrets. Call the Offer API from your server, not from client apps where a token could be extracted. See [Configure › Security](/docs/configure/security) for credential- and postback-handling guidance.
+Treat refresh and access tokens as secrets. Perform the token exchange and Offer API calls from your server, not from client apps where a token could be extracted. See [Configure › Security](/docs/configure/security) for credential- and postback-handling guidance.
 :::
 
 ## Unauthorized requests
