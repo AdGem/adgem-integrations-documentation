@@ -22,7 +22,7 @@ Choose the Offer API when you want to build a **custom offer experience** with f
 ## How it works
 
 1. [Authenticate](/docs/reference/offer-api/authentication) with a bearer access token scoped to your app.
-2. Call [`GET /offers`](/docs/reference/offer-api/get-offers) to retrieve the current offers for your app.
+2. Call [`GET /v1/offers`](/docs/reference/offer-api/get-offers) to retrieve the current offers for your app.
 3. Reward players when offers are completed, via [postbacks](/docs/integrate/reward-mechanism/postbacks-v3).
 
 ## Polling guidance
@@ -35,5 +35,5 @@ The Offer API is **not** intended for real-time, per-request client calls. Poll 
 
 ## Related
 
-- [`GET /offers` reference](/docs/reference/offer-api/get-offers)
+- [`GET /v1/offers` reference](/docs/reference/offer-api/get-offers)
 - [Authentication](/docs/reference/offer-api/authentication) · [Pagination](/docs/reference/offer-api/pagination) · [Errors](/docs/reference/offer-api/errors) · [Versioning](/docs/reference/offer-api/versioning)

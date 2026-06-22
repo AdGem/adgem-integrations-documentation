@@ -5,7 +5,7 @@ sidebar_label: Pagination
 
 # Offer API — Pagination
 
-Pagination on [`GET /offers`](/docs/reference/offer-api/get-offers) is **optional**. By default the endpoint returns **all** available offers in a single response. To page through results, add the `per_page` query parameter.
+Pagination on [`GET /v1/offers`](/docs/reference/offer-api/get-offers) is **optional**. By default the endpoint returns **all** available offers in a single response. To page through results, add the `per_page` query parameter.
 
 ## Parameters
 
