@@ -5,8 +5,14 @@ sidebar_label: Errors
 
 # Offer API — Errors
 
-:::note Prototype placeholder
-Structure-only page for IA validation — see [PUB-191](https://linear.app/adaction/issue/PUB-191). Real content is a follow-on.
-:::
+The Offer API uses standard HTTP status codes.
 
-Error codes specific to Offer API.
+| Status | Meaning | Cause / fix |
+|---|---|---|
+| `200 OK` | Success | The response body contains the `offers` array (and a `pagination` object when paginating). |
+| `401 Unauthorized` | Authentication failed | Missing, expired, or invalid bearer token. Send a valid token — see [Authentication](/docs/reference/offer-api/authentication). |
+| `422 Unprocessable Entity` | Validation error | Invalid query parameters — for example `page` without `per_page`, or `per_page` outside 1–100. See [Pagination](/docs/reference/offer-api/pagination). |
+
+## Rate limiting
+
+The Offer API is built for periodic polling, not real-time calls. Requests above **60 per minute** for an app are rate-limited and rejected. Poll about once every 5 minutes and cache results — see [Polling guidance](/docs/reference/offer-api/overview#polling-guidance).
