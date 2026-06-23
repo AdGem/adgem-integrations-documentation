@@ -52,6 +52,6 @@ Notify you when a player's eligibility changes, so you can stop (or resume) show
 
 Every request includes a `Signature` header — an HMAC-SHA256 hash of the **raw request body** using your webhook secret key. Recompute it and compare to confirm the request came from AdGem. See [Configure › Webhooks](/docs/configure/webhooks) for PHP and Node verification examples.
 
-## Delivery & retries
+## Delivery and retries
 
 AdGem expects a `2xx` response. Any other status is retried up to three times (player events use exponential backoff: 1s, 2s, 4s). Process events **idempotently** so retries don't double-apply.
