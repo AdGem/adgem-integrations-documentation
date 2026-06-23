@@ -71,7 +71,9 @@ const sidebars: SidebarsConfig = {
     "configure/index",
     "configure/webhooks",
     "configure/security",
-    "configure/sandbox",
+    // "configure/sandbox" hidden for launch — no self-serve sandbox/test-mode feature exists yet
+    // (not in offer-api or new_dashboard). Decision to socialize with the team: cut, "coming soon",
+    // or build the feature first. See PUB-191. Re-add this line to restore it in the nav.
     "configure/customization",
     "configure/promotions",
   ],
