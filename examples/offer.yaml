@@ -408,13 +408,13 @@ components:
           items:
             type: string
             enum:
-              - android
-              - ios
-              - ios_app
-              - desktop
+              - iphone
+              - ipad
+              - android_phone
+              - android_tablet
           example:
-            - android
-            - ios
+            - iphone
+            - ipad
         os_targeting:
           type: array
           items:
