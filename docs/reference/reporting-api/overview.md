@@ -120,20 +120,32 @@ These are the default fields returned in the response. To return specific fields
 
 ### Default Report Request
 
-```http
-GET https://dashboard.adgem.com/v1/report?group_by[]=app_id&group_by[]=date&date_range[start_date]=2019-12-29%2000%3A00%3A00&date_range[end_date]=2019-12-30%2000%3A00%3A00
-
-Accept: application/json
-Authorization: Bearer <YOUR_ACCESS_TOKEN>
+```bash
+curl -G https://dashboard.adgem.com/v1/report \
+  -H "Accept: application/json" \
+  -H "Authorization: Bearer <YOUR_ACCESS_TOKEN>" \
+  --data-urlencode "group_by[]=app_id" \
+  --data-urlencode "group_by[]=date" \
+  --data-urlencode "date_range[start_date]=2019-12-29 00:00:00" \
+  --data-urlencode "date_range[end_date]=2019-12-30 00:00:00"
 ```
 
 ### Customized Report Request
 
 This request includes groups, filters, and specific fields to return in the response.
 
-```http
-GET https://dashboard.adgem.com/v1/report?fields[]=app_id&fields[]=date&fields[]=app_name&fields[]=count&group_by[]=app_id&group_by[]=date&filter_by[]=app_id&apps[]=13&date_range[start_date]=2019-12-29%2000%3A00%3A00&date_range[end_date]=2019-12-30%2000%3A00%3A00
-
-Accept: application/json
-Authorization: Bearer <YOUR_ACCESS_TOKEN>
+```bash
+curl -G https://dashboard.adgem.com/v1/report \
+  -H "Accept: application/json" \
+  -H "Authorization: Bearer <YOUR_ACCESS_TOKEN>" \
+  --data-urlencode "fields[]=app_id" \
+  --data-urlencode "fields[]=date" \
+  --data-urlencode "fields[]=app_name" \
+  --data-urlencode "fields[]=count" \
+  --data-urlencode "group_by[]=app_id" \
+  --data-urlencode "group_by[]=date" \
+  --data-urlencode "filter_by[]=app_id" \
+  --data-urlencode "apps[]=13" \
+  --data-urlencode "date_range[start_date]=2019-12-29 00:00:00" \
+  --data-urlencode "date_range[end_date]=2019-12-30 00:00:00"
 ```

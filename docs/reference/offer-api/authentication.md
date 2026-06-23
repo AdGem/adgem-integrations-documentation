@@ -5,27 +5,19 @@ sidebar_label: Authentication
 
 # Offer API — Authentication
 
-The Offer API uses **OAuth 2.0 bearer access tokens**. Every request must include a valid access token in the `Authorization` header:
-
-```http
-GET /v1/offers HTTP/1.1
-Host: offer-api.adgem.com
-Authorization: Bearer <access_token>
-```
+The Offer API uses **OAuth 2.0 bearer access tokens**. Every request must include a valid access token in the `Authorization` header.
 
 ## Getting an access token
 
-Exchange a **refresh token** — issued from your [AdGem Publisher Dashboard](https://dashboard.adgem.com/publisher/apps) — for a short-lived access token at the token endpoint:
+Exchange a **refresh token** — issued from your [AdGem Publisher Dashboard](https://dashboard.adgem.com/publisher/apps) — for a short-lived access token at the `/v1/users/token` endpoint. This follows the [OAuth 2.0 specification (RFC 6749)](https://datatracker.ietf.org/doc/html/rfc6749) and requires a form-encoded body:
 
-```http
-POST /v1/users/token HTTP/1.1
-Host: offer-api.adgem.com
-Content-Type: application/x-www-form-urlencoded
-
-grant_type=refresh_token&refresh_token=<your_refresh_token>
+```bash
+curl -X POST https://offer-api.adgem.com/v1/users/token \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  -d "grant_type=refresh_token&refresh_token=<your_refresh_token>"
 ```
 
-**Response — `201 Created`:**
+A successful request returns `201 Created` with your access token:
 
 ```json
 {
@@ -35,7 +27,14 @@ grant_type=refresh_token&refresh_token=<your_refresh_token>
 }
 ```
 
-Then send the access token as a bearer token on every Offer API request (see the `Authorization` header above).
+## Using the access token
+
+Send the access token as a bearer token on every Offer API request:
+
+```bash
+curl https://offer-api.adgem.com/v1/offers \
+  -H "Authorization: Bearer <access_token>"
+```
 
 Access tokens are:
 
