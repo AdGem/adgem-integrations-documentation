@@ -1,9 +1,9 @@
 ---
-title: Offer API — Versioning
+title: Versioning
 sidebar_label: Versioning
 ---
 
-# Offer API — Versioning
+# Versioning
 
 The base URL — `https://offer-api.adgem.com` — stays the same across versions; the API version is the first path segment. The current version is **v1**:
 

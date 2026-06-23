@@ -1,9 +1,9 @@
 ---
-title: Offer API — Overview
+title: Overview
 sidebar_label: Overview
 ---
 
-# Offer API — Overview
+# Overview
 
 The Offer API is a REST API that returns the offers available to your app so you can display them in your own UI. It returns every available offer (single- and multi-reward) by default, along with goal data and a unique ID per offer, and is designed for **server-side polling** — not real-time client calls.
 

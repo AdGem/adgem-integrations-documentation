@@ -1,9 +1,9 @@
 ---
-title: Offer API — Errors
+title: Errors
 sidebar_label: Errors
 ---
 
-# Offer API — Errors
+# Errors
 
 The Offer API uses standard HTTP status codes.
 

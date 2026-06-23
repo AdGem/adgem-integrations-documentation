@@ -1,9 +1,9 @@
 ---
-title: Offer API — Authentication
+title: Authentication
 sidebar_label: Authentication
 ---
 
-# Offer API — Authentication
+# Authentication
 
 The Offer API uses **OAuth 2.0 bearer access tokens**. Every request must include a valid access token in the `Authorization` header.
 
