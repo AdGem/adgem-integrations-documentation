@@ -5,8 +5,19 @@ sidebar_label: Reference
 
 # Reference
 
-:::note Prototype placeholder
-Structure-only page for IA validation — see [PUB-191](https://linear.app/adaction/issue/PUB-191). Real content is a follow-on.
-:::
+Specifications and lookup docs for AdGem's APIs and webhooks. If you're building an integration, start with [Get Started](/docs/get-started) or [Integrate](/docs/integrate) — come here for the exact endpoints, fields, and error codes.
 
-Spec-driven, in-the-moment lookup. Auto-generated where possible. Prism is the default landing.
+## APIs
+
+| API | Style | Use it to |
+|---|---|---|
+| [Prism](/docs/reference/prism/overview) | GraphQL | Query targeted offers for a player, selecting exactly the fields you need |
+| [Offer API](/docs/reference/offer-api/overview) | REST | Pull all available offers for an app and render them in your own UI |
+| [Reporting API](/docs/reference/reporting-api/overview) | REST | Retrieve performance metrics — impressions, clicks, conversions, payout |
+
+## Also here
+
+- [Webhook Events](/docs/reference/webhook-events) — real-time offer- and player-level notifications.
+- [Error Codes](/docs/reference/errors) — HTTP status codes used across the APIs.
+
+Not sure which API fits? See [Decide your path](/docs/get-started/decide).
