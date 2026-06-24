@@ -15,4 +15,4 @@ The Offer API uses standard HTTP status codes.
 
 ## Rate limiting
 
-The Offer API is built for periodic polling, not real-time calls. Requests above **60 per minute** for an app are rate-limited and rejected. Poll about once every 5 minutes and cache results — see [Polling guidance](/docs/reference/offer-api/overview#polling-guidance).
+The Offer API is built for periodic polling, not real-time calls. Polling far more frequently than recommended is rate-limited and rejected. Poll about once every 5 minutes and cache results — see [Polling guidance](/docs/reference/offer-api/overview#polling-guidance).

@@ -30,7 +30,7 @@ Choose the Offer API when you want to build a **custom offer experience** with f
 The Offer API is **not** intended for real-time, per-request client calls. Poll on a schedule and cache the results:
 
 - Poll about **once every 5 minutes** to keep offers current.
-- Requests above **60 per minute** for an app are rate-limited and rejected.
+- Polling far more frequently than recommended is rate-limited and rejected.
 - Offers can re-enter the feed after being removed (for example, after day-capping or a temporary pause), so treat each response as the current full set rather than a one-time snapshot.
 
 ## Related
