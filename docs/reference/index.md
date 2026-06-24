@@ -5,7 +5,7 @@ sidebar_label: Reference
 
 # Reference
 
-Specifications and lookup docs for AdGem's APIs and webhooks. If you're building an integration, start with [Get Started](/docs/get-started) or [Integrate](/docs/integrate) — come here for the exact endpoints, fields, and error codes.
+Specifications and lookup docs for AdGem's APIs and webhooks. If you're building an integration, start with [Get Started](/docs/get-started) or [Integrate](/docs/integrate/overview) — come here for the exact endpoints, fields, and error codes.
 
 ## APIs
 
