@@ -31,7 +31,7 @@ Your app is ready to serve live offers when all of the following are complete:
 
 - [ ] Your app is approved and offers are enabled (confirm with your advocate).
 - [ ] Your **postback URL and secret** are configured in the dashboard.
-- [ ] You **verify the postback `Signature`** (HMAC-SHA256), and optionally allowlist AdGem's IP — see [Security](/docs/configure/security).
+- [ ] You **verify the postback `Signature`** (HMAC-SHA256), and optionally whitelist AdGem's IP — see [Security](/docs/configure/security).
 - [ ] A test conversion produced a successful postback **and** your server credited the player.
 - [ ] Player IDs are **persistent, unique, and lowercase-alphanumeric** (max 256 characters).
 - [ ] **Notify your advocate before going live** so they can remove the test offer from your integration.

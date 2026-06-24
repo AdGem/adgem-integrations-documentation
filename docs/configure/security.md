@@ -26,7 +26,7 @@ Treat refresh tokens, access tokens, and your postback/webhook secret as secrets
 AdGem offers two complementary checks for [postbacks](/docs/integrate/reward-mechanism/postbacks-v3) — we strongly recommend using both:
 
 - **Signature (HMAC-SHA256)** — AdGem signs each postback with your secret key. Recompute the hash and compare it before crediting a reward.
-- **IP allowlisting** — postbacks come from a static AdGem IP address. Restrict your endpoint to it (contact your Publisher Support Advocate for the production address).
+- **IP whitelisting** — postbacks come from a static AdGem IP address. Restrict your endpoint to it (contact your Publisher Support Advocate for the production address).
 
 Together these stop a third party who discovers your postback URL from sending forged conversions.
 

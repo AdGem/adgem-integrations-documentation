@@ -16,5 +16,5 @@ Use client-side polling when you can't run a server-to-server postback receiver.
 3. When the callback reports a completed reward, credit the player in your app.
 
 :::warning Validate rewards
-Because the signal originates on the device, treat client-side rewards as less tamper-resistant than server postbacks. Where possible, reconcile against the [Offer API](/docs/reference/offer-api/overview), or enable [postbacks](/docs/integrate/reward-mechanism/postbacks-v3) as the system of record.
+Because the signal originates on the device, treat client-side rewards as less tamper-resistant than server postbacks. Where possible, enable [postbacks](/docs/integrate/reward-mechanism/postbacks-v3) as your system of record for reward delivery — they're sent server-to-server and verified by signature.
 :::
