@@ -63,7 +63,7 @@ paths:
           in: query
           required: false
           description: |
-            Filter to offers in the given creative categor(ies). Comma-separated list.
+            Filter to offers in the given creative categories. Comma-separated list.
             Allowed values: `app`, `free`, `paid`, `survey`, `trial`, `user_info_request`.
           schema:
             type: string
@@ -99,6 +99,7 @@ paths:
               - android
               - ios
               - web
+            default: all
             example: android
         - name: language
           in: query
@@ -116,6 +117,7 @@ paths:
             Directions: `asc`, `desc`.
           schema:
             type: string
+            pattern: '^(epc|last_activation)\.(asc|desc)$'
             example: 'epc.desc'
         - name: per_page
           in: query
