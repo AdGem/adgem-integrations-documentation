@@ -18,7 +18,7 @@ The test offer only works in **Google Chrome** — other browsers have introduce
 ## Run a test
 
 1. **Set the player ID.** Where you set it depends on your integration:
-   - **SDK** (iOS / Android / Unity) and **Direct Link / iFrame** (Web Offerwall): the player ID is supplied at the point the offer wall loads.
+   - **SDK** (iOS / Android / Unity) and **Direct Link / iFrame** (Web Offerwall): the player ID is supplied at the point the offerwall loads.
    - **API** (Prism, Offer API): the player ID is interpolated into the offer's **click URL** — replace the `{playerid}` placeholder with the player's ID before the player clicks.
 
    Use a **unique player ID for each test run** — for example, `test-player-001`, then `test-player-002`, and so on.
@@ -27,7 +27,7 @@ The test offer only works in **Google Chrome** — other browsers have introduce
 
 ## Go-live checklist
 
-Once your tests pass:
+Your app is ready to serve live offers when all of the following are complete:
 
 - [ ] Your app is approved and offers are enabled (confirm with your advocate).
 - [ ] Your **postback URL and secret** are configured in the dashboard.
@@ -40,6 +40,6 @@ Once your tests pass:
 
 | Integration | Where the player ID goes | Also confirm |
 |---|---|---|
-| SDK (iOS / Android / Unity) | Set via the SDK as the offer wall loads | The reward callback fires, or your server postback — see [Client-side Polling](/docs/integrate/reward-mechanism/client-polling) |
-| Direct Link / iFrame (Web Offerwall) | `playerid` in the offer-wall URL | The URL carries both your `appid` and `playerid` |
-| API (Prism / Offer API) | Interpolated into the offer's click URL | You authenticate with a bearer token and poll on a schedule |
+| SDK (iOS / Android / Unity) | Set via the SDK as the offerwall loads | The reward callback fires, or your server postback — see [Client-side Polling](/docs/integrate/reward-mechanism/client-polling) |
+| Direct Link / iFrame (Web Offerwall) | `playerid` in the offerwall URL | The URL carries both your `appid` and `playerid` |
+| API (Prism / Offer API) | Interpolated into the offer's click URL | Authenticate with a bearer token. (Offer API: poll on a schedule and cache. Prism: query per request.) |
