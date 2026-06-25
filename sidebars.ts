@@ -178,6 +178,8 @@ const sidebars: SidebarsConfig = {
     "resources/glossary",
     "resources/branding-assets",
     "resources/player-support-overview",
+    "resources/player-support-links",
+    "resources/developer-support",
   ],
 };
 

@@ -487,3 +487,59 @@ button,
 .openapi-schema__list-item > div > p {
   margin-bottom: 0.25rem;
 }
+
+/* ============================================
+   Decide your path — delivery spectrum
+   Build-vs-consume visual. Tiers wrap on narrow
+   viewports (flex-wrap), so it's responsive with
+   no media queries.
+   ============================================ */
+
+.delivery-spectrum {
+  margin: 1.5rem 0 2rem;
+}
+
+.delivery-spectrum__track {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.5rem 1.25rem;
+  margin-bottom: 1rem;
+  border-radius: 50px;
+  background: linear-gradient(90deg, var(--adgem-secondary-purple), var(--adgem-accent-magenta));
+  color: var(--adgem-white);
+  font-family: var(--ifm-heading-font-family);
+  font-weight: 700;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.delivery-spectrum__tiers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.delivery-spectrum__tier {
+  flex: 1 1 200px;
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-top: 3px solid var(--adgem-secondary-purple);
+  border-radius: 8px;
+  background: var(--ifm-background-surface-color);
+}
+
+.delivery-spectrum__tier strong {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-family: var(--ifm-heading-font-family);
+  font-size: 1rem;
+}
+
+.delivery-spectrum__tier span {
+  font-size: 0.875rem;
+  color: var(--ifm-color-emphasis-700);
+  line-height: 1.4;
+}
