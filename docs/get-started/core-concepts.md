@@ -26,7 +26,7 @@ A single step within an offer. A **single-reward** offer has one goal — comple
 
 ## Completion difficulty
 
-A ranking of how much time and effort an offer takes to complete, from easy to hard (a quick sign-up versus a multi-day gaming milestone). It helps you decide how to surface or prioritize offers. The exact values are documented on the [offer schema](/docs/reference/offer-api/schemas/offer) in the Reference.
+A ranking of how much time and effort an offer takes to complete, from easy to hard (a quick sign-up versus a multi-day gaming milestone). It helps you decide how to surface or prioritize offers. It's returned as the [`completion_difficulty`](/docs/reference/offer-api/schemas/offer) field on each offer.
 
 ## Conversion
 

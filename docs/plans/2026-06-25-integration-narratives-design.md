@@ -8,7 +8,7 @@ The marketing/product content gaps: 8 net-new narrative/positioning pages. Draft
 
 One axis: **how much do you want to build vs. let AdGem handle?** Presented as a spectrum, **by fit** — platform, control appetite, engineering capacity, time-to-revenue.
 
-```
+```text
 Consume ◄──────────────────────────────────────► Build
 Web Offerwall / SDKs   →   Prism   →   Offer API
 (we build the UI)        (our offers,    (raw catalog,
