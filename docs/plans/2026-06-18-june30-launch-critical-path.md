@@ -22,7 +22,7 @@ The playground (BYO vs proxy) is **not** the long pole. The date is won or lost 
 - **Full content depth** on remaining/lower-priority pages + the deferred gap pages (payments, etc.).
 - **Redirects** (full map) + `docs.adgem.com` **cutover** if it slips.
 - **Component-library formal lock** with Iliana (WS4) + content polish.
-- offer-api → docs **automated spec sync** + the **AI PR-check** guardrail.
+- **offer-api → docs automated spec sync**: consume offer-api's generated `openapi.public.yaml` in the docs build (commit it into the docs repo, or pull it in CI) so `PublicApi.php` is the single source of truth and the docs regenerate from it — removes the manual hand-copy that caused the 2026-06-23 drift (device_targeting fixed in offer-api only; filter/sort params added in docs only). Add an **AI PR-check guardrail** to flag spec divergence.
 
 ## Parallel tracks
 | Track | Work | Owner | Notes / dependency |

@@ -13,7 +13,7 @@ info:
 
     The Offer API is not designed to be called in real-time client scenarios.
 
-    We recommend you call our API every 5 minutes to ensure your players have access to the most up-to-date offers. If your app is polling the API more than 60/min this will result in an error. NOTE: Offers may return to the feed after they have been removed due to day capping/temporary pausing.
+    We recommend you call our API every 5 minutes to ensure your players have access to the most up-to-date offers. Polling far more frequently than recommended will result in rate-limited, rejected requests. NOTE: Offers may return to the feed after they have been removed due to day capping/temporary pausing.
 
     ## Authentication
     The Offer API uses OAuth 2.0 bearer access tokens. Exchange the refresh token from your AdGem publisher dashboard for a short-lived access token, then send it on every request as an `Authorization: Bearer <access_token>` header. Access tokens are scoped to your app.
@@ -50,6 +50,75 @@ paths:
         **Note:** If you provide `page` without `per_page`, the request will return a `422` validation error.
       operationId: getOffers
       parameters:
+        - name: tracking_types
+          in: query
+          required: false
+          description: |
+            Filter to offers with the given tracking type(s). Comma-separated list.
+            Allowed values: `CPI`, `CPE`, `CPA`, `CPC`, `Market Research`.
+          schema:
+            type: string
+            example: 'CPI,CPE'
+        - name: categories
+          in: query
+          required: false
+          description: |
+            Filter to offers in the given creative categories. Comma-separated list.
+            Allowed values: `app`, `free`, `paid`, `survey`, `trial`, `user_info_request`.
+          schema:
+            type: string
+            example: 'app,free'
+        - name: country_codes
+          in: query
+          required: false
+          description: |
+            Filter to offers targeting the given countries. Comma-separated ISO 3166-1 alpha-2 country codes.
+          schema:
+            type: string
+            example: 'US,GB'
+        - name: reward_type
+          in: query
+          required: false
+          description: Filter by reward structure.
+          schema:
+            type: string
+            enum:
+              - all
+              - single
+              - multi
+            default: all
+            example: all
+        - name: platform
+          in: query
+          required: false
+          description: Filter to offers targeting the given platform.
+          schema:
+            type: string
+            enum:
+              - all
+              - android
+              - ios
+              - web
+            default: all
+            example: android
+        - name: language
+          in: query
+          required: false
+          description: Filter offers by language (language code, e.g. `en`).
+          schema:
+            type: string
+            example: en
+        - name: sort
+          in: query
+          required: false
+          description: |
+            Sort the results, in the form `<option>.<direction>`.
+            Options: `epc` (network EPC), `last_activation` (most recently activated).
+            Directions: `asc`, `desc`.
+          schema:
+            type: string
+            pattern: '^(epc|last_activation)\.(asc|desc)$'
+            example: 'epc.desc'
         - name: per_page
           in: query
           required: false
@@ -341,13 +410,13 @@ components:
           items:
             type: string
             enum:
-              - android
-              - ios
-              - ios_app
-              - desktop
+              - iphone
+              - ipad
+              - android_phone
+              - android_tablet
           example:
-            - android
-            - ios
+            - iphone
+            - ipad
         os_targeting:
           type: array
           items:
