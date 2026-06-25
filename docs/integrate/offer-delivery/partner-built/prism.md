@@ -8,7 +8,7 @@ description: When and why to choose Prism — AdGem's GraphQL API that returns p
 
 **Recommended for most custom-UI builds.**
 
-Prism is AdGem's GraphQL API (formerly the "Targeted API") for building your own offer experience. You own the UI; Prism supplies the offers — already personalized.
+Prism is AdGem's GraphQL API for building your own offer experience. You own the UI; Prism supplies the offers — already personalized.
 
 ## Why Prism
 
