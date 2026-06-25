@@ -43,8 +43,8 @@ query GetOffersWithCreatives($playerId: String!) {
 
 ## Tracking links
 
-Prism also exposes a `links` query for a player's tracking links. See the [schema reference](/docs/reference/prism/schema/queries) for its fields and the full set of queries.
+Prism also exposes a `links` query for a player's tracking links — select the fields you need on it the same way as offers.
 
 ---
 
-GraphQL returns exactly the fields you request, so ask for only what you need. The [schema reference](/docs/reference/prism/schema/queries) lists every query, field, and type.
+GraphQL returns exactly the fields you request, so ask for only what you need. GraphQL is also introspective, so you can explore the available queries, fields, and types directly from any GraphQL client.

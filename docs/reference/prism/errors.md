@@ -29,4 +29,4 @@ A request that authenticates but has a problem with the query returns **`200 OK`
 }
 ```
 
-Common causes: requesting a field that doesn't exist, omitting a required argument (such as `player_id`), or a malformed query. See the [schema reference](/docs/reference/prism/schema/queries) for valid queries and fields.
+Common causes: requesting a field that doesn't exist, omitting a required argument (such as `player_id`), or a malformed query. GraphQL is introspective, so you can confirm valid queries and fields from any GraphQL client.
