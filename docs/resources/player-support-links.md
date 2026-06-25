@@ -14,7 +14,7 @@ Returned at the root of the response, inside the `links` object. The portal list
 
 Replace `{appid}` with your app ID and `{playerid}` with the player's ID:
 
-```
+```text
 https://adunits.adgem.com/support/player?appid={appid}&playerid={playerid}
 ```
 
@@ -22,7 +22,7 @@ https://adunits.adgem.com/support/player?appid={appid}&playerid={playerid}
 
 Returned with each offer in the response. Each `support_url` is unique per player and per campaign, so it's best placed alongside the specific offer it belongs to.
 
-```
+```text
 https://adunits.adgem.com/support-single-offer?appid={appid}&playerid={playerid}&campaignid={campaignid}
 ```
 

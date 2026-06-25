@@ -42,6 +42,6 @@ Cleanliness: **clean** = 1:1 · **split** = one old page → multiple new (pick 
 ## How clean is it?
 - **Most surface moves are clean 1:1** (getting-started, configuration, integrations SDKs/APIs, api-reference, resources).
 - **A handful are "split"** — one old page fans out to two v2 homes (webhooks → Integrate + Configure; offers → core-concepts; web-offerwall customization). For redirects, pick the **primary** target per old URL.
-- **The genuinely messy / unresolved are the gaps:** `monetization/*` (no payments home), the Resources extras (developer-support/product-roadmap/support-urls), and `legal/sdk-license-agreement` — these can't be mapped cleanly until the content gaps (see content-status doc) are decided.
+- **The former gaps are now resolved** (decided 2026-06-24): `monetization/*` → `get-started/quickstart#payments-and-monetization` (split); `developer-support` and `support-urls` → Resources pages (clean); `product-roadmap` → dropped. The only remaining no-target is `legal/sdk-license-agreement` (no external URL found).
 
 **Verdict:** ~80% maps cleanly; the rest is blocked on the same gap decisions as content. So the redirect map is mostly mechanical *once the gaps are resolved*. Mechanism (Docusaurus client redirects vs. Amplify 301s) is a WS8/hosting decision — see the platform handoff.
