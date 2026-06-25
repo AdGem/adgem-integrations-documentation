@@ -111,7 +111,8 @@ const sidebars: SidebarsConfig = {
       // the Offer model, and data-type schemas are grouped separately rather than
       // flattened together. Webhook events are surfaced under "Webhook Events" below.
       items: [
-        "reference/offer-api/offer-api", // generated Introduction (overview/auth summary)
+        // Generated "Introduction" (offer-api.info) omitted — redundant with the hand-written
+        // Overview (the category link above), and it produced an odd /offer-api/offer-api URL.
         "reference/offer-api/authentication",
         "reference/offer-api/pagination",
         "reference/offer-api/errors",
