@@ -14,7 +14,7 @@ Postback **v2** delivers conversions as a **GET** request with query-string para
 | Method | `GET` | `POST` |
 | Payload | query-string parameters | JSON body |
 | Body shape | flat parameters | `request_id` and `timestamp` at the top level; all other fields under `data` |
-| Signature | `verifier` query parameter (HMAC-SHA256 over the URL) | `Signature` request header (HMAC-SHA256 over the raw JSON body) |
+| Signature | `verifier` query parameter (HMAC-SHA256 over the URL) | `Signature` request header (HMAC-SHA256 over the raw request body) |
 | Booleans | strings (`1`/`0` or `true`/`false`) | native JSON booleans |
 
 ## Migrate
