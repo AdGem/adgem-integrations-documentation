@@ -25,12 +25,14 @@ Cleanliness: **clean** = 1:1 · **split** = one old page → multiple new (pick 
 | `/docs/configuration` | `/docs/configure` | clean |
 | `/docs/configuration/offer-wall-customization` | `/docs/configure/customization` | clean |
 | `/docs/configuration/offer-wall-promotions` | `/docs/configure/promotions` | clean |
-| `/docs/monetization`, `/monetization/payment-*` | **(payments has no v2 home yet)** | **no target** |
+| `/docs/monetization`, `/monetization/payment-*` | `/docs/get-started/quickstart#payments-and-monetization` (decided 2026-06-24) | split |
 | `/docs/offers` | `/docs/get-started/core-concepts` | split |
 | `/docs/offers/multi-reward-offers`, `/completion-difficulty-scale` | `/docs/get-started/core-concepts` (or Resources/Reference) | split |
 | `/docs/api-reference` | `/docs/reference/reporting-api/overview` | clean |
 | `/docs/resources` (+ glossary, branding-assets) | `/docs/resources/*` | clean |
-| `/docs/resources/developer-support`, `/product-roadmap`, `/support-urls` | **(keep/externalize/drop undecided)** | **no target** |
+| `/docs/resources/developer-support` | `/docs/resources/developer-support` | clean |
+| `/docs/resources/support-urls` | `/docs/resources/player-support-links` | clean |
+| `/docs/resources/product-roadmap` | **drop** (decided 2026-06-24 — not migrated; no roadmap in v2 IA) | drop |
 | `/docs/resources/service-status` | `https://status.adgem.com` | external |
 | `/docs/legal/privacy-policy` | `https://adgem.com/privacy-policy/` | external |
 | `/docs/legal/terms-and-conditions` | `https://adgem.com/terms-and-conditions/` | external |
