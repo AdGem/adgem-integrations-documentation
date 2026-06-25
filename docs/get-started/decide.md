@@ -8,7 +8,7 @@ description: Choose how to deliver AdGem offers — from a ready-made offerwall 
 
 Every AdGem integration comes down to one question: **how much do you want to build yourself, and how much do you want AdGem to handle?**
 
-Offer delivery sits on a spectrum. At one end, AdGem gives you a ready-made offerwall and you ship in an afternoon. At the other, we hand you the raw offer catalog and you build the experience and the logic. Prism sits in the middle: our personalized offers, your UI.
+Offer delivery sits on a spectrum. At one end, AdGem gives you a ready-made offerwall to embed. At the other, we hand you the raw offer catalog and you build the experience and the logic. Prism sits in the middle: our personalized offers, your UI.
 
 ```text
    Consume more  ◄──────────────────────────────────►  Build more
