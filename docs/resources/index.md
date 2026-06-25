@@ -11,6 +11,8 @@ Helpful resources for AdGem publishers, including branding materials, industry t
 ## Support
 
 - **[Player Support Overview](./player-support-overview.md)** --- How AdGem handles player support requests on behalf of publishers.
+- **[Player Support Links](./player-support-links.md)** --- The `support_portal` and `support_url` links the APIs return for players.
+- **[Developer Support](./developer-support.md)** --- How to get engineering help with your integration.
 - **[Service Status](https://status.adgem.com)** --- Real-time AdGem service status monitoring.
 
 ## Reference

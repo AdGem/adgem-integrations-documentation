@@ -25,12 +25,14 @@ Cleanliness: **clean** = 1:1 · **split** = one old page → multiple new (pick 
 | `/docs/configuration` | `/docs/configure` | clean |
 | `/docs/configuration/offer-wall-customization` | `/docs/configure/customization` | clean |
 | `/docs/configuration/offer-wall-promotions` | `/docs/configure/promotions` | clean |
-| `/docs/monetization`, `/monetization/payment-*` | **(payments has no v2 home yet)** | **no target** |
+| `/docs/monetization`, `/monetization/payment-*` | `/docs/get-started/quickstart#payments-and-monetization` (decided 2026-06-24) | split |
 | `/docs/offers` | `/docs/get-started/core-concepts` | split |
 | `/docs/offers/multi-reward-offers`, `/completion-difficulty-scale` | `/docs/get-started/core-concepts` (or Resources/Reference) | split |
 | `/docs/api-reference` | `/docs/reference/reporting-api/overview` | clean |
 | `/docs/resources` (+ glossary, branding-assets) | `/docs/resources/*` | clean |
-| `/docs/resources/developer-support`, `/product-roadmap`, `/support-urls` | **(keep/externalize/drop undecided)** | **no target** |
+| `/docs/resources/developer-support` | `/docs/resources/developer-support` | clean |
+| `/docs/resources/support-urls` | `/docs/resources/player-support-links` | clean |
+| `/docs/resources/product-roadmap` | **drop** (decided 2026-06-24 — not migrated; no roadmap in v2 IA) | drop |
 | `/docs/resources/service-status` | `https://status.adgem.com` | external |
 | `/docs/legal/privacy-policy` | `https://adgem.com/privacy-policy/` | external |
 | `/docs/legal/terms-and-conditions` | `https://adgem.com/terms-and-conditions/` | external |
@@ -40,6 +42,6 @@ Cleanliness: **clean** = 1:1 · **split** = one old page → multiple new (pick 
 ## How clean is it?
 - **Most surface moves are clean 1:1** (getting-started, configuration, integrations SDKs/APIs, api-reference, resources).
 - **A handful are "split"** — one old page fans out to two v2 homes (webhooks → Integrate + Configure; offers → core-concepts; web-offerwall customization). For redirects, pick the **primary** target per old URL.
-- **The genuinely messy / unresolved are the gaps:** `monetization/*` (no payments home), the Resources extras (developer-support/product-roadmap/support-urls), and `legal/sdk-license-agreement` — these can't be mapped cleanly until the content gaps (see content-status doc) are decided.
+- **The former gaps are now resolved** (decided 2026-06-24): `monetization/*` → `get-started/quickstart#payments-and-monetization` (split); `developer-support` and `support-urls` → Resources pages (clean); `product-roadmap` → dropped. The only remaining no-target is `legal/sdk-license-agreement` (no external URL found).
 
 **Verdict:** ~80% maps cleanly; the rest is blocked on the same gap decisions as content. So the redirect map is mostly mechanical *once the gaps are resolved*. Mechanism (Docusaurus client redirects vs. Amplify 301s) is a WS8/hosting decision — see the platform handoff.
