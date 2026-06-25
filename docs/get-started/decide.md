@@ -10,12 +10,26 @@ Every AdGem integration comes down to one question: **how much do you want to bu
 
 Offer delivery sits on a spectrum. At one end, AdGem gives you a ready-made offerwall to embed. At the other, we hand you the raw offer catalog and you build the experience and the logic. Prism sits in the middle: our personalized offers, your UI.
 
-```text
-   Consume more  ◄──────────────────────────────────►  Build more
-   Web Offerwall / SDKs        Prism            Offer API
-   we build the UI          our offers,        raw catalog,
-                            your UI            your UI + logic
-```
+<div className="delivery-spectrum">
+<div className="delivery-spectrum__track">
+<span>Consume more</span>
+<span>Build more</span>
+</div>
+<div className="delivery-spectrum__tiers">
+<div className="delivery-spectrum__tier">
+<strong>Web Offerwall / SDKs</strong>
+<span>We build the UI. You embed it and pass a player ID.</span>
+</div>
+<div className="delivery-spectrum__tier">
+<strong>Prism</strong>
+<span>Our personalized offers, your UI.</span>
+</div>
+<div className="delivery-spectrum__tier">
+<strong>Offer API</strong>
+<span>The raw catalog. Your UI and logic.</span>
+</div>
+</div>
+</div>
 
 ## Two questions
 
