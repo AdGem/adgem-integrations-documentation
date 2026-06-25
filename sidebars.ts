@@ -71,7 +71,7 @@ const sidebars: SidebarsConfig = {
     "configure/index",
     "configure/webhooks",
     "configure/security",
-    "configure/sandbox",
+    "configure/test-mode",
     "configure/customization",
     "configure/promotions",
   ],
