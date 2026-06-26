@@ -1,12 +1,15 @@
 ---
 title: Playground
 sidebar_label: Playground
+description: Explore the Prism GraphQL API interactively from your browser.
 ---
+
+import GraphQLPlayGround from '@site/src/components/graphql-playground';
 
 # Playground
 
-:::note Prototype placeholder
-Structure-only page for IA validation — see [PUB-191](https://linear.app/adaction/issue/PUB-191). Real content is a follow-on.
-:::
+Explore the Prism GraphQL API directly from your browser. Build queries with the schema explorer, run them against the live endpoint, and inspect the responses.
 
-Embedded GraphQL playground.
+To run a query you need a Prism access token — paste it into the **Headers** tab as shown below. See the [Authentication guide](/docs/reference/prism/authentication) to obtain one, and the [Recipes](/docs/reference/prism/recipes) for example queries to start from.
+
+<GraphQLPlayGround />

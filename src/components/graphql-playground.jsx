@@ -37,11 +37,13 @@ export default function GraphQLPlayGround() {
                 Refer to the <Link to="/docs/reference/prism/authentication">authentication guide</Link> to learn how to get an access token.
               </p>
             </div>
-            <GraphiQL
-              fetcher={fetcher}
-              plugins={[explorer]}
-              shouldPersistHeaders={true}
-            />
+            <div className="prism-playground">
+              <GraphiQL
+                fetcher={fetcher}
+                plugins={[explorer]}
+                shouldPersistHeaders={true}
+              />
+            </div>
           </div>
         );
       }}
