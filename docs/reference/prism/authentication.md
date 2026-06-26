@@ -14,6 +14,10 @@ The authentication process involves two phases:
 1. **Account Setup (performed by AdGem Team):** The AdGem Team registers and confirms your user account, then provides you with a `refresh_token` (a long-lived token).
 2. **Token Acquisition (performed by you):** You exchange the `refresh_token` for a short-lived JWT `access_token`, which you include in the `Authorization` header of all API requests.
 
+:::note Client-side integrations
+Run the token exchange on your **server** and pass the resulting **short-lived `access_token`** to your client to make offer requests. Keep the `refresh_token` server-side — never ship it in client code. See [Security](/docs/configure/security) for the full credential-handling guidance.
+:::
+
 ### Prerequisites
 
 Before you can authenticate, the AdGem Team must complete the following internal steps for your account:
