@@ -89,8 +89,8 @@ Returned when the token is valid but lacks the required scopes.
 
 ## Available Queries
 
-- [**offers**](/docs/reference/prism/schema/queries) -- Retrieve all targeted offers for a player
-- [**links**](/docs/reference/prism/schema/queries) -- Retrieve tracking links for a player
+- [**offers**](/docs/reference/prism/operations/queries/offers) -- Retrieve all targeted offers for a player
+- [**links**](/docs/reference/prism/operations/queries/links) -- Retrieve tracking links for a player
 
 ## See Also
 
