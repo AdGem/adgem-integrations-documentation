@@ -563,3 +563,54 @@ button,
   height: 70vh;
   min-height: 500px;
 }
+
+/* ============================================
+   Resources index — link cards
+   Whole-card links in a responsive grid (flex-wrap,
+   no media queries). Selectors include `.markdown a`
+   so they win over the global content-link styling.
+   ============================================ */
+
+.resource-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 1rem 0 2rem;
+}
+
+.markdown a.resource-card,
+.resource-card {
+  flex: 1 1 260px;
+  display: flex;
+  flex-direction: column;
+  padding: 1.1rem 1.25rem;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-top: 3px solid var(--adgem-secondary-purple);
+  border-radius: 8px;
+  background: var(--ifm-background-surface-color);
+  font-family: var(--ifm-font-family-base);
+  font-weight: 400;
+  text-decoration: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.markdown a.resource-card:hover {
+  border-color: var(--adgem-secondary-purple);
+  box-shadow: 0 4px 14px rgba(21, 1, 88, 0.12);
+  transform: translateY(-2px);
+  text-decoration: none;
+}
+
+.resource-card__title {
+  margin-bottom: 0.3rem;
+  font-family: var(--ifm-heading-font-family);
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--ifm-heading-color);
+}
+
+.resource-card__desc {
+  font-size: 0.9rem;
+  line-height: 1.45;
+  color: var(--ifm-color-emphasis-700);
+}

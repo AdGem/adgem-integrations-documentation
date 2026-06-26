@@ -124,4 +124,4 @@ curl -X POST https://targeted-api.adgem.com/v1/offers \
 ## See Also
 
 - [Authentication Guide](/docs/reference/prism/authentication) - Complete overview of the authentication flow
-- [Offers Query](/docs/reference/prism/schema/queries) - Query targeted offers using your token
+- [Offers Query](/docs/reference/prism/operations/queries/offers) - Query targeted offers using your token
