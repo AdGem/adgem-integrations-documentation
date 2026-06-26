@@ -4,6 +4,35 @@ import BrowserOnly from '@docusaurus/BrowserOnly';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Link from '@docusaurus/Link';
 
+// Shown only when the user has no saved query (GraphiQL persists their last one).
+// A focused starter — swap the player ID and run; explore more fields via "Docs".
+const DEFAULT_QUERY = `# Fetch offers for a player. Request only the fields you need —
+# open "Docs" (top-left) to explore everything the schema offers.
+query GetOffers {
+  offers(player_id: "YOUR_PLAYER_ID") {
+    id
+    name
+    tracking_type
+    total_payout_usd
+    is_multi_reward
+    creatives {
+      description
+      icon_url
+    }
+    goals {
+      id
+      amount
+      description
+      name
+      order
+    }
+    links {
+      click_url
+    }
+  }
+}
+`;
+
 export default function GraphQLPlayGround() {
   const { siteConfig } = useDocusaurusContext();
 
@@ -41,6 +70,7 @@ export default function GraphQLPlayGround() {
               <GraphiQL
                 fetcher={fetcher}
                 plugins={[explorer]}
+                defaultQuery={DEFAULT_QUERY}
                 shouldPersistHeaders={true}
               />
             </div>
