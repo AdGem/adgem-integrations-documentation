@@ -114,11 +114,18 @@ const config: Config = {
             ],
           },
           {
+            title: "Legal",
+            items: [
+              { label: "Privacy Policy", href: "https://adgem.com/privacy-policy/" },
+              { label: "Terms & Conditions", href: "https://adgem.com/terms-and-conditions/" },
+              { label: "Player Agreement", href: "https://adgem.com/player-agreement/" },
+            ],
+          },
+          {
             title: "More",
             items: [
               { label: "Service Status", href: "https://status.adgem.com" },
-              { label: "Legal", href: "https://adgem.com/legal" },
-              { label: "Support", href: "https://adgem.com/support" },
+              { label: "Support", href: "https://adgem.com/player-support-faq/" },
             ],
           },
         ],
