@@ -545,6 +545,26 @@ button,
 }
 
 /* ============================================
+   Prism playground (GraphiQL embed)
+   GraphiQL positions its editor toolbars absolutely; without a
+   positioned, clipped, fixed-height host they escape and overlap
+   the page pagination below. Contain them here.
+   ============================================ */
+
+.prism-playground {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+/* Put the fixed height on GraphiQL's own container so it manages its panes
+   (editor, response, the Inputs/Headers drawer) with internal scrolling and
+   pinned toolbars — rather than clipping them with overflow on a wrapper. */
+.prism-playground .graphiql-container {
+  height: 70vh;
+  min-height: 500px;
+}
+
+/* ============================================
    Resources index — link cards
    Whole-card links in a responsive grid (flex-wrap,
    no media queries). Selectors include `.markdown a`
