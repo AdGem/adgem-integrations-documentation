@@ -5,7 +5,7 @@ sidebar_label: Overview
 
 # Overview
 
-The `/v1/offers` endpoint is the GraphQL entry point for retrieving targeted offers with Prism. All GraphQL queries are sent as POST requests to this single endpoint.
+Prism is AdGem's **Offer Personalization API**. The `/v1/offers` endpoint is its **GraphQL** entry point for retrieving targeted offers — all GraphQL queries are sent as POST requests to this single endpoint.
 
 ## Endpoint
 

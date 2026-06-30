@@ -40,7 +40,7 @@ Offer delivery sits on a spectrum. At one end, AdGem gives you a ready-made offe
 
 **2. (Building your own UI) Do you want AdGem's personalization, or full control of the logic?**
 
-- **Keep your UI and gain our personalization** → **[Prism](/docs/integrate/offer-delivery/partner-built/prism)** (recommended). Prism returns a sorted, suppressed, geo- and device-filtered list of offers. You still own the UI, so you keep final control over how offers are presented — the personalization is an input, not a takeover.
+- **Keep your UI and gain our personalization** → **[Prism](/docs/integrate/offer-delivery/partner-built/prism)** (recommended), AdGem's Offer Personalization API (GraphQL). It returns a sorted, suppressed, geo- and device-filtered list of offers. You still own the UI, so you keep final control over how offers are presented — the personalization is an input, not a takeover.
 - **Build your own ranking and logic** → **[Offer API](/docs/integrate/offer-delivery/partner-built/offer-api)**. You get the raw offer catalog and build everything on top of it. Best when you need total control, have your own ranking system, or have a hard requirement for raw data access.
 
 ## Compare the options
